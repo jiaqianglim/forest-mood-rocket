@@ -1,9 +1,9 @@
-package cafefashionsociety.structureliteraturemeadow.config;
+package cafefashionsociety.structureliteraturemeadow.serviceutilities;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class UserConfig {
+public class EncryptUserPassword {
 
     public static String encryptPassword(String inputpassword) throws NoSuchAlgorithmException {
         String encryptedPassword = "";

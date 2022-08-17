@@ -5,7 +5,7 @@ import java.security.NoSuchAlgorithmException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.RequestScope;
 
-import cafefashionsociety.structureliteraturemeadow.config.UserConfig;
+import cafefashionsociety.structureliteraturemeadow.serviceutilities.EncryptUserPassword;
 
 @Service
 @RequestScope
@@ -25,7 +25,7 @@ public class LoginService {
         inputPassword = this.inputPassword;
         boolean loginResult = false;
         try {
-            String encryptedInputPassword = UserConfig.encryptPassword(inputPassword);
+            String encryptedInputPassword = EncryptUserPassword.encryptPassword(inputPassword);
             String dbPassword = findPasswordById(inputUsername);
             if (encryptedInputPassword.equals(dbPassword)) {
                 loginResult = true;

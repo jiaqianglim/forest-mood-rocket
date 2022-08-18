@@ -1,19 +1,18 @@
 package cafefashionsociety.structureliteraturemeadow.service;
 
-import java.util.HashMap;
-
 import org.springframework.stereotype.Service;
 
-import cafefashionsociety.structureliteraturemeadow.serviceutilities.IGet1MQuote;
+import cafefashionsociety.structureliteraturemeadow.model.Quote;
 
 @Service
-public class QuoteService {
-    
-    private IGet1MQuote get1mQuote;
+public class QuoteService implements IQuoteService{
 
-    public String[] returnquote(){
-        
-        return get1mQuote.getquote();
+    public Quote getquote(){
+
+        Quote quote = new Quote();
+        Quote backupQuote = new Quote("God is dead and we killed him", "Nietzche");
+        // TODO
+        return (quote.getQuotetext() != null) ? quote : backupQuote;
 
     }
 }

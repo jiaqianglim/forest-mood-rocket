@@ -1,4 +1,4 @@
-package cafefashionsociety.structureliteraturemeadow.config;
+package cafefashionsociety.structureliteraturemeadow.runner;
 
 import org.springframework.boot.CommandLineRunner;
 

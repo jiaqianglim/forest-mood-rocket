@@ -2,13 +2,15 @@ package cafefashionsociety.structureliteraturemeadow.service;
 
 import java.security.NoSuchAlgorithmException;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.RequestScope;
 
-import cafefashionsociety.structureliteraturemeadow.serviceutilities.EncryptUserPassword;
+import cafefashionsociety.structureliteraturemeadow.utilities.EncryptUserPassword;
 
 @Service
 @RequestScope
+@Profile("prod")
 public class LoginService {
 
     private final UserDashboardService userDashboardService;

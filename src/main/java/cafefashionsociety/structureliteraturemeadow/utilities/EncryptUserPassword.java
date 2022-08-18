@@ -1,4 +1,4 @@
-package cafefashionsociety.structureliteraturemeadow.serviceutilities;
+package cafefashionsociety.structureliteraturemeadow.utilities;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

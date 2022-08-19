@@ -9,4 +9,6 @@ public class GetQuotesAPIRunner implements CommandLineRunner {
         // TODO Auto-generated method stub
         
     }
+
+    
 }

@@ -1,4 +1,4 @@
-package cafefashionsociety.structureliteraturemeadow.development;
+package cafefashionsociety.structureliteraturemeadow.config;
 
 import java.util.Optional;
 
@@ -17,13 +17,11 @@ import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
-import cafefashionsociety.structureliteraturemeadow.repository.IRedisRepo;
-
 @Configuration
-@Profile("dev")
-public class RedisRepoDev implements IRedisRepo {
+@Profile("prod")
+public class RedisConfig implements IRedisConfig {
 
-    private static final Logger logger = LoggerFactory.getLogger(RedisRepoDev.class);
+    private static final Logger logger = LoggerFactory.getLogger(RedisConfig.class);
 
     @Value("${spring.redis.host}")
     private String redisHost;
@@ -46,13 +44,12 @@ public class RedisRepoDev implements IRedisRepo {
         final JedisConnectionFactory jedisFac = new JedisConnectionFactory(config, jedisClient);
         jedisFac.afterPropertiesSet();
         logger.info("redis host port > {redisHost} {redisPort}", redisHost, redisPort);
+
         RedisTemplate<String, Object> template = new RedisTemplate<String, Object>();
+        RedisSerializer<Object> serializer = new JdkSerializationRedisSerializer(getClass().getClassLoader());
         template.setConnectionFactory(jedisFac);
         template.setKeySerializer(new StringRedisSerializer());
-
-        RedisSerializer<Object> serializer = new JdkSerializationRedisSerializer(getClass().getClassLoader());
-        template.setValueSerializer(
-                serializer);
+        template.setValueSerializer(serializer);
         return template;
     }
 }

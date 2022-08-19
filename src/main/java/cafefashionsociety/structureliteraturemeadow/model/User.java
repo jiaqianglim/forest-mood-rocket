@@ -7,9 +7,10 @@ public class User {
 
     private String username;
     private String displayname;
-    private String professionalname;
+    private String id;
 
     List<Profile> profiles = new LinkedList<>();
+    List<Report> reports = new LinkedList<>();
 
     public String getUsername() {
         return username;
@@ -25,14 +26,6 @@ public class User {
 
     public void setDisplayname(String displayname) {
         this.displayname = displayname;
-    }
-
-    public String getProfessionalname() {
-        return professionalname;
-    }
-
-    public void setProfessionalname(String professionalname) {
-        this.professionalname = professionalname;
     }
 
     public List<Profile> getProfiles() {

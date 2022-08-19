@@ -1,5 +1,7 @@
 package cafefashionsociety.structureliteraturemeadow.service;
 
+import java.util.List;
+
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
@@ -22,5 +24,9 @@ public class QuoteService implements IQuoteService {
         Quote quote = new Quote();
         // TODO
         return quote;
+    }
+
+    public void saveQuotes(List<Quote> quotes){
+        
     }
 }

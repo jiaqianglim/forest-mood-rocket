@@ -1,4 +1,4 @@
-package cafefashionsociety.structureliteraturemeadow.repository;
+package cafefashionsociety.structureliteraturemeadow.development;
 
 import java.util.Optional;
 
@@ -17,11 +17,13 @@ import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
-@Configuration
-@Profile("prod")
-public class RedisRepo implements IRedisRepo {
+import cafefashionsociety.structureliteraturemeadow.config.IRedisConfig;
 
-    private static final Logger logger = LoggerFactory.getLogger(RedisRepo.class);
+@Configuration
+@Profile("dev")
+public class RedisConfigDev implements IRedisConfig {
+
+    private static final Logger logger = LoggerFactory.getLogger(RedisConfigDev.class);
 
     @Value("${spring.redis.host}")
     private String redisHost;

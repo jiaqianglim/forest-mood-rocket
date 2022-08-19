@@ -1,0 +1,5 @@
+{"properties": [{
+  "name": "spring.getquotes.url",
+  "type": "java.lang.String",
+  "description": "MOTIVATIONAL API QUOTE LINK'"
+}]}

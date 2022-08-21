@@ -7,11 +7,14 @@
     <title>Login</title>
   </head>
   <body>
-    <form action="#" method="post">
+    <form method="POST" th:action="@{/login}" id="loginForm">
       Username: <input type="text" name="username" /><br />
       Password: <input type="password" name="password" /><br />
       <input type="submit" value="Log in" />
     </form>
-    <p th:text="${message}"></p>
+    <div th:if="${error}">
+      Unable to login. Check your username and password.
+    </div>
+    <p>Click <a th:href="@{/register}">here</a> to register.</p>
   </body>
 </html>

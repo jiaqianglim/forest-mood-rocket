@@ -3,10 +3,12 @@ package cafefashionsociety.structureliteraturemeadow.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
 
 import cafefashionsociety.structureliteraturemeadow.model.User;
 import cafefashionsociety.structureliteraturemeadow.repository.IUserRepository;
@@ -32,18 +34,21 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    // @Bean
-    // public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder)
-    // {
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        return http
+                .authorizeRequests()
+                .antMatchers("/u", "/p").hasRole("USER")
+                .antMatchers("/", "/**").permitAll()
+                .and()
+                .formLogin()
+                .loginPage("/login")
+                .defaultSuccessUrl("/dashboard")
+                .and()
+                .logout()
+                .logoutSuccessUrl("/")
+                .and()
+                .build();
+    }
 
-    // List<UserDetails> usersList = new ArrayList<>();
-
-    // usersList.add(new User("buzz", passwordEncoder.encode("password"),
-    // Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"))));
-    // usersList.add(new User("woody", passwordEncoder.encode("password"),
-    // Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"))));
-    // InMemoryUserDetailsManager userDetailsService = new
-    // InMemoryUserDetailsManager(usersList);
-    // return userDetailsService;
-    // }
 }

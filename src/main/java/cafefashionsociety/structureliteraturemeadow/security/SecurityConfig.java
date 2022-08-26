@@ -1,4 +1,4 @@
-package cafefashionsociety.structureliteraturemeadow.config;
+package cafefashionsociety.structureliteraturemeadow.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -43,7 +43,8 @@ public class SecurityConfig {
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/dashboard")
+                .defaultSuccessUrl("/user")
+                .failureForwardUrl("/landing")
                 .and()
                 .logout()
                 .logoutSuccessUrl("/")

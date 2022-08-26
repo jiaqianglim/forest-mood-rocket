@@ -19,7 +19,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 @Configuration
 @Profile("prod")
-public class RedisConfig implements IRedisConfig {
+public class RedisConfig {
 
     private static final Logger logger = LoggerFactory.getLogger(RedisConfig.class);
 
@@ -41,9 +41,11 @@ public class RedisConfig implements IRedisConfig {
         config.setPassword(redisPassword);
 
         final JedisClientConfiguration jedisClient = JedisClientConfiguration.builder().build();
-        final JedisConnectionFactory jedisFac = new JedisConnectionFactory(config, jedisClient);
+        final JedisConnectionFactory jedisFac = new JedisConnectionFactory(config,
+                jedisClient);
         jedisFac.afterPropertiesSet();
-        logger.info("redis host port > {redisHost} {redisPort}", redisHost, redisPort);
+        logger.info("redis host port > {redisHost} {redisPort}", redisHost,
+                redisPort);
 
         RedisTemplate<String, Object> template = new RedisTemplate<String, Object>();
         RedisSerializer<Object> serializer = new JdkSerializationRedisSerializer(getClass().getClassLoader());

@@ -8,7 +8,7 @@
   </head>
   <body>
     <form method="POST" th:action="@{/login}" id="loginForm">
-      Username: <input type="text" name="username" /><br />
+      Username: <input type="text" name="username" autocomplete="on"/><br />
       Password: <input type="password" name="password" /><br />
       <input type="submit" value="Log in" />
     </form>

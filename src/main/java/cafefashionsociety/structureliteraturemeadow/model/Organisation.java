@@ -6,18 +6,17 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 
 @RedisHash
-public class Profile {
-
+public class Organisation {
+    
     @Id
     private String id;
     private String displayName;
     private String organisationEmail;
     private String organisationName;
-    private String organisationRole;
     private String pictureURL;
-    private String userAccId;
-    private List<Report> createdReports;
-    private List<Report> sharedReports;
+    private List<Profile> userProfiles;
+    private List<Profile> adminProfiles;
+    private List<Report> flaggedReports;
     
     public String getId() {
         return id;
@@ -43,37 +42,30 @@ public class Profile {
     public void setOrganisationName(String organisationName) {
         this.organisationName = organisationName;
     }
-    public String getOrganisationRole() {
-        return organisationRole;
-    }
-    public void setOrganisationRole(String organisationRole) {
-        this.organisationRole = organisationRole;
-    }
     public String getPictureURL() {
         return pictureURL;
     }
     public void setPictureURL(String pictureURL) {
         this.pictureURL = pictureURL;
     }
-    public String getUserAccId() {
-        return userAccId;
+    public List<Profile> getUserProfiles() {
+        return userProfiles;
     }
-    public void setUserAccId(String userAccId) {
-        this.userAccId = userAccId;
+    public void setUserProfiles(List<Profile> userProfiles) {
+        this.userProfiles = userProfiles;
     }
-    public List<Report> getCreatedReports() {
-        return createdReports;
+    public List<Profile> getAdminProfiles() {
+        return adminProfiles;
     }
-    public void setCreatedReports(List<Report> createdReports) {
-        this.createdReports = createdReports;
+    public void setAdminProfiles(List<Profile> adminProfiles) {
+        this.adminProfiles = adminProfiles;
     }
-    public List<Report> getSharedReports() {
-        return sharedReports;
+    public List<Report> getFlaggedReports() {
+        return flaggedReports;
     }
-    public void setSharedReports(List<Report> sharedReports) {
-        this.sharedReports = sharedReports;
+    public void setFlaggedReports(List<Report> flaggedReports) {
+        this.flaggedReports = flaggedReports;
     }
 
-    
     
 }

@@ -1,6 +1,13 @@
 package cafefashionsociety.structureliteraturemeadow.model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.redis.core.RedisHash;
+
+@RedisHash
 public class Quote {
+
+    @Id
+    private String quoteid;
     private String quotetext;
     private String quoteauthor;
 
@@ -10,6 +17,14 @@ public class Quote {
     public Quote(String quotetext, String quoteauthor) {
         this.quotetext = quotetext;
         this.quoteauthor = quoteauthor;
+    }
+
+    public String getQuoteid() {
+        return quoteid;
+    }
+
+    public void setQuoteid(String quoteid) {
+        this.quoteid = quoteid;
     }
 
     public String getQuotetext() {

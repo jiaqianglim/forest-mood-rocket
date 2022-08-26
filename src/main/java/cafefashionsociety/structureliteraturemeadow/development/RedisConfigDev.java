@@ -5,7 +5,6 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.Scope;
@@ -17,11 +16,9 @@ import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
-import cafefashionsociety.structureliteraturemeadow.config.IRedisConfig;
-
 @Configuration
 @Profile("dev")
-public class RedisConfigDev implements IRedisConfig {
+public class RedisConfigDev {
 
     private static final Logger logger = LoggerFactory.getLogger(RedisConfigDev.class);
 
@@ -34,7 +31,6 @@ public class RedisConfigDev implements IRedisConfig {
     @Value("${spring.redis.password}")
     private String redisPassword;
 
-    @Bean
     @Scope("singleton")
     public RedisTemplate<String, Object> redisTemplate() {
         final RedisStandaloneConfiguration config = new RedisStandaloneConfiguration();

@@ -7,39 +7,44 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.redis.core.RedisHash;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.redis.om.spring.annotations.Indexed;
-
+@RedisHash
 public class User implements UserDetails {
 
     @Id
-    @Indexed
     private final String id;
     private final String username;
     private final String password;
     private final String fullname;
     private final String userEmail;
 
-    List<Profile> profiles = new LinkedList<>();
-    List<Report> reports = new LinkedList<>();
+    private List<Profile> profiles;
+    private List<Report> reports;
 
+    // Constructor for registration
     public User(String username, String password, String fullname, String userEmail) {
-        this.id = UUID.randomUUID().toString();
+        this.id = "u" + UUID.randomUUID().toString();
         this.username = username;
         this.password = password;
         this.fullname = fullname;
         this.userEmail = userEmail;
+        this.profiles = new LinkedList<Profile>();
+        this.reports = new LinkedList<Report>();
     }
 
-    public User(String id, String username, String password, String fullname, String userEmail) {
+    public User(String id, String username, String password, String fullname, String userEmail,
+            LinkedList<Profile> profiles, LinkedList<Report> reports) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.fullname = fullname;
         this.userEmail = userEmail;
+        this.profiles = profiles;
+        this.reports = reports;
     }
 
     public String getId() {

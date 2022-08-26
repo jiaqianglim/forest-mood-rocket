@@ -31,7 +31,7 @@ public class profileController {
     }
 
     @PostMapping(value = "/addprofiles", consumes = "application/json")
-    public ResponseEntity<String> postProfiles(@RequestBody String payload) {
+    public ResponseEntity<String> addProfiles(@RequestBody String payload) {
         try {
             // TODO: process POST request
             String resp = "";

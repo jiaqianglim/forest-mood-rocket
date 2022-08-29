@@ -4,9 +4,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 import org.springframework.data.redis.core.index.Indexed;
+
+import cafefashionsociety.structureliteraturemeadow.service.ProfileService;
 
 @RedisHash
 public class Profile {
@@ -25,8 +28,8 @@ public class Profile {
     @Indexed
     private String userAccId;
     private Boolean currentlyActive;
-    private List<Report> createdReports;
-    private List<Report> sharedReports;
+    private List<String> createdReportsIds;
+    private List<String> sharedReportsIds;
 
     public Profile() {
     }
@@ -43,8 +46,9 @@ public class Profile {
         this.pictureURL = "";
         this.userAccId = userAccId;
         this.currentlyActive = true;
-        this.createdReports = new LinkedList<>();
-        this.sharedReports = new LinkedList<>();
+        this.createdReportsIds = new LinkedList<>();
+        this.sharedReportsIds = new LinkedList<>();
+        createdReportsIds.add("r00000000-00000000-00000000-00000000");
     }
 
     // Add new Profile, take userAccId from user
@@ -61,15 +65,15 @@ public class Profile {
         this.pictureURL = pictureURL;
         this.userAccId = userAccId;
         this.currentlyActive = currentlyActive;
-        this.createdReports = new LinkedList<>();
-        this.sharedReports = new LinkedList<>();
+        this.createdReportsIds = new LinkedList<>();
+        this.sharedReportsIds = new LinkedList<>();
     }
 
     // From repo
     public Profile(String id, String displayName, String organisationEmail, String organisationName,
             String organisationRole,
             String organisationId, Boolean organisationSearchable, String pictureURL, String userAccId,
-            Boolean currentlyActive, List<Report> createdReports, List<Report> sharedReports) {
+            Boolean currentlyActive, List<String> createdReportsIds, List<String> sharedReportsIds) {
         this.id = id;
         this.displayName = displayName;
         this.organisationEmail = organisationEmail;
@@ -80,8 +84,8 @@ public class Profile {
         this.pictureURL = pictureURL;
         this.userAccId = userAccId;
         this.currentlyActive = currentlyActive;
-        this.createdReports = createdReports;
-        this.sharedReports = sharedReports;
+        this.createdReportsIds = createdReportsIds;
+        this.sharedReportsIds = sharedReportsIds;
     }
 
     public String getId() {
@@ -156,28 +160,28 @@ public class Profile {
         this.userAccId = userAccId;
     }
 
-    public List<Report> getCreatedReports() {
-        return createdReports;
-    }
-
-    public void setCreatedReports(List<Report> createdReports) {
-        this.createdReports = createdReports;
-    }
-
-    public List<Report> getSharedReports() {
-        return sharedReports;
-    }
-
-    public void setSharedReports(List<Report> sharedReports) {
-        this.sharedReports = sharedReports;
-    }
-
     public Boolean getCurrentlyActive() {
         return currentlyActive;
     }
 
     public void setCurrentlyActive(Boolean currentlyActive) {
         this.currentlyActive = currentlyActive;
+    }
+
+    public List<String> getCreatedReportsIds() {
+        return createdReportsIds;
+    }
+
+    public void setCreatedReportsIds(List<String> createdReportsIds) {
+        this.createdReportsIds = createdReportsIds;
+    }
+
+    public List<String> getSharedReportsIds() {
+        return sharedReportsIds;
+    }
+
+    public void setSharedReportsIds(List<String> sharedReportsIds) {
+        this.sharedReportsIds = sharedReportsIds;
     }
 
 }

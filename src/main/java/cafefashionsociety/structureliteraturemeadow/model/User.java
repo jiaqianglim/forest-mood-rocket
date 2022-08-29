@@ -1,6 +1,5 @@
 package cafefashionsociety.structureliteraturemeadow.model;
 
-import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -14,12 +13,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import cafefashionsociety.structureliteraturemeadow.repository.IUserRepository;
-
 @RedisHash
 public class User implements UserDetails {
-
-    IUserRepository iUserRepository;
 
     @Id
     private final String id;
@@ -29,36 +24,31 @@ public class User implements UserDetails {
     private final String fullname;
     private final String userEmail;
 
-    private List<Profile> profiles;
-    private List<String> profileNames;
-    private List<Report> reports;
-    private List<String> reportsNames;
+    private List<String> profileIds;
+    private List<String> reportIds;
 
-    // Constructor for registration
+    // Constructor for RegistrationForm
     public User(String username, String password, String fullname, String userEmail) {
         this.id = "u" + UUID.randomUUID().toString();
         this.username = username;
         this.password = password;
         this.fullname = fullname;
         this.userEmail = userEmail;
-        this.profiles = new LinkedList<Profile>();
-        this.reports = new LinkedList<Report>();
-
-        Profile newProfile = new Profile(this.username, this.id);
-        profiles.add(newProfile);
-        reports.add(new Report(this.id, newProfile.getId(), LocalDate.now(), "My first sample report",
-                "I created a new sample report!", "I made my first step in learning!", "Excited"));
+        this.profileIds = new LinkedList<String>();
+        this.reportIds = new LinkedList<String>();
+        reportIds.add("r00000000-00000000-00000000-00000000");
     }
 
+    // Constructor for Repository Object
     public User(String id, String username, String password, String fullname, String userEmail,
-            List<Profile> profiles, List<Report> reports) {
+            List<String> profileIds, List<String> reportIds) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.fullname = fullname;
         this.userEmail = userEmail;
-        this.profiles = profiles;
-        this.reports = reports;
+        this.profileIds = profileIds;
+        this.reportIds = reportIds;
     }
 
     public String getId() {
@@ -83,36 +73,20 @@ public class User implements UserDetails {
         return userEmail;
     }
 
-    public List<Profile> getProfiles() {
-        return profiles;
+    public List<String> getprofileIds() {
+        return profileIds;
     }
 
-    public void setProfiles(List<Profile> profiles) {
-        this.profiles = profiles;
+    public void setprofileIds(List<String> profileIds) {
+        this.profileIds = profileIds;
     }
 
-    public List<String> getProfileNames() {
-        return profileNames;
+    public List<String> getreportIds() {
+        return reportIds;
     }
 
-    public void setProfileNames(List<String> profileNames) {
-        this.profileNames = profileNames;
-    }
-
-    public List<Report> getReports() {
-        return reports;
-    }
-
-    public void setReports(List<Report> reports) {
-        this.reports = reports;
-    }
-
-    public List<String> getReportsNames() {
-        return reportsNames;
-    }
-
-    public void setReportsNames(List<String> reportsNames) {
-        this.reportsNames = reportsNames;
+    public void setreportIds(List<String> reportIds) {
+        this.reportIds = reportIds;
     }
 
     @Override

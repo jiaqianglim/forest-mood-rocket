@@ -1,14 +1,22 @@
 package cafefashionsociety.structureliteraturemeadow.model.forms;
 
+import cafefashionsociety.structureliteraturemeadow.model.Profile;
+
 public class ProfileForm {
     private String displayName;
     private String organisationEmail;
     private String organisationName;
     private String organisationRole;
-    private Boolean organisationSearchable=false;
+    private Boolean organisationSearchable = false;
     private String organisationId;
     private String pictureURL;
-    private Boolean currentlyActive=false;
+    private String userAccId;
+    private Boolean currentlyActive = false;
+
+    public Profile toProfile() {
+        return new Profile(displayName, organisationEmail, organisationName, organisationRole, organisationId,
+                organisationSearchable, pictureURL, userAccId, currentlyActive);
+    }
 
     public String getDisplayName() {
         return displayName;

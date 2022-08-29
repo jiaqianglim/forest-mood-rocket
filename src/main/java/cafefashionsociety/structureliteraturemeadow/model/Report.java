@@ -27,6 +27,19 @@ public class Report {
     public Report() {
     }
 
+    // Commandline runner
+    public Report(String title, String what, String soWhat, String tags) {
+        this.id = "r00000000-00000000-00000000-00000000";
+        this.userId = "u" + UUID.randomUUID().toString();
+        this.profileId = "p" + UUID.randomUUID().toString();
+        this.reportCreationDate = LocalDate.now();
+        this.incidentDate = LocalDate.now();
+        this.title = title;
+        this.what = what;
+        this.soWhat = soWhat;
+        this.tags = tags;
+    }
+
     // Create new report from POST
     public Report(String userId, String profileId, LocalDate incidentDate, String title, String what, String soWhat,
             String tags) {

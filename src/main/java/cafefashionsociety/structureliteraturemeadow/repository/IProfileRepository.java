@@ -7,5 +7,5 @@ import cafefashionsociety.structureliteraturemeadow.model.Profile;
 
 @Repository
 public interface IProfileRepository extends CrudRepository<Profile, String> {
-
+    public <S extends Profile> S save(S entity);
 }

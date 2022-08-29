@@ -98,6 +98,7 @@
               th:field="*{pictureURL}"
               placeholder="Optional for private use profiles"
             />
+            <input type="text" th:value="${user.id}" th:field="*{userAccId}" hidden>
           </br>
             <div class="form-check">
               <label for="currentlyActive" class="form-label"

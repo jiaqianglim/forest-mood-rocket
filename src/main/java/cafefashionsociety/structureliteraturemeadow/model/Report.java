@@ -30,7 +30,7 @@ public class Report {
     // Create new report from POST
     public Report(String userId, String profileId, LocalDate incidentDate, String title, String what, String soWhat,
             String tags) {
-        this.id = UUID.randomUUID().toString();
+        this.id = "r" + UUID.randomUUID().toString();
         this.userId = userId;
         this.profileId = profileId;
         this.reportCreationDate = LocalDate.now();
@@ -41,6 +41,7 @@ public class Report {
         this.tags = tags;
     }
 
+    // Create report from repo
     public Report(String id, String userId, String profileId, LocalDate reportCreationDate, LocalDate incidentDate,
             String title, String what, String soWhat, String tags) {
         this.id = id;

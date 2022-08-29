@@ -31,33 +31,51 @@
     </head>
     <body>
       <main th:fragment="content">
-        <form class="col-lg-8 mx-auto p-3 py-md-5">
+        <form class="col-lg-8 mx-auto p-3 py-md-5" th:object="${reportForm}">
+          <div class="mb-0">
+            <div class="row mb-0">
+              <div class="col-6">
+                <label for="profile" class="form-label">Save in Profile</label>
+                <select class="form-select" th:field="*{profileId}" required>
+                  <option selected value="Personal">Select profile to save</option>
+                  <option th:each="profile : ${user.profiles}"
+                          th:value="${profile.id}"
+                          th:text="${profile.displayName}"></option>
+                  </select>
+              </div>
+              <div class="col-6">
+                <label for="incidentDate" class="form-label">Date of Incident: </label><br>  
+                <input type="date" class="form-control" th:field="*{incidentDate}" required><br>
+              </div>                
+            </div>
+          </div>
           <div class="mb-3">
-            <label for="reporttitle" class="form-label">Report Title</label>
+            <label for="reporttitle" class="form-label">Title</label>
             <input
               type="text"
               class="form-control"
               id="reporttitle"
-              placeholder=""
+              placeholder="Use a short title"
+              th:field="*{title}"
+              required
             />
-          </div>
-          <div class="mb-3">
-            <label for="what" class="form-label">What happened?</label>
+            <label for="what" class="form-label">Describe what happened during this incident:</label>
             <textarea
               class="form-control"
               id="what"
               rows="3"
               placeholder="This happened..."
+              required
             ></textarea>
-          </div>
-          <div class="mb-3">
-            <label for="what" class="form-label">Significance?</label>
+            <label for="what" class="form-label">How is this significant to you/others?</label>
             <textarea
               class="form-control"
               id="what"
               rows="3"
               placeholder="This is important because..."
             ></textarea>
+            <label for="tags" class="form-label">Tags</label></br>
+            <input type="text" id="tags" class="form-control" placeholder="Add any tags here">
           </div>
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>

@@ -4,22 +4,13 @@ import java.time.LocalDate;
 
 public class ReportForm {
 
-    private String userId;
     private String profileId;
     private LocalDate incidentDate;
     private String title;
     private String what;
     private String soWhat;
     private String tags;
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
+    
     public String getProfileId() {
         return profileId;
     }

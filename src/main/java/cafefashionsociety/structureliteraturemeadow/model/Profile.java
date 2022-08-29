@@ -1,6 +1,8 @@
 package cafefashionsociety.structureliteraturemeadow.model;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
@@ -22,6 +24,23 @@ public class Profile {
     private Boolean currentlyActive;
     private List<Report> createdReports;
     private List<Report> sharedReports;
+
+    public Profile() {
+    }
+
+    // Registered at User creation
+    public Profile(String displayName, String userAccId) {
+        this.id = "p" + UUID.randomUUID().toString();
+        this.displayName = displayName + "\'s personal account";
+        this.organisationEmail = "";
+        this.organisationName = "Personal";
+        this.organisationRole = "";
+        this.pictureURL = "";
+        this.userAccId = userAccId;
+        this.currentlyActive = true;
+        this.createdReports = new LinkedList<>();
+        this.sharedReports = new LinkedList<>();
+    }
 
     public String getId() {
         return id;

@@ -1,5 +1,6 @@
 package cafefashionsociety.structureliteraturemeadow.model;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -13,8 +14,12 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import cafefashionsociety.structureliteraturemeadow.repository.IUserRepository;
+
 @RedisHash
 public class User implements UserDetails {
+
+    IUserRepository iUserRepository;
 
     @Id
     private final String id;
@@ -25,7 +30,9 @@ public class User implements UserDetails {
     private final String userEmail;
 
     private List<Profile> profiles;
+    private List<String> profileNames;
     private List<Report> reports;
+    private List<String> reportsNames;
 
     // Constructor for registration
     public User(String username, String password, String fullname, String userEmail) {
@@ -36,6 +43,13 @@ public class User implements UserDetails {
         this.userEmail = userEmail;
         this.profiles = new LinkedList<Profile>();
         this.reports = new LinkedList<Report>();
+
+        Profile newProfile = new Profile(this.username, this.id);
+        profiles.add(newProfile);
+        reports.add(new Report(this.id, newProfile.getId(), LocalDate.now(), "My first sample report",
+                "I created a new sample report!", "I made my first step in learning!", "Excited"));
+        iUserRepository.save(this);
+
     }
 
     public User(String id, String username, String password, String fullname, String userEmail,
@@ -79,12 +93,28 @@ public class User implements UserDetails {
         this.profiles = profiles;
     }
 
+    public List<String> getProfileNames() {
+        return profileNames;
+    }
+
+    public void setProfileNames(List<String> profileNames) {
+        this.profileNames = profileNames;
+    }
+
     public List<Report> getReports() {
         return reports;
     }
 
     public void setReports(List<Report> reports) {
         this.reports = reports;
+    }
+
+    public List<String> getReportsNames() {
+        return reportsNames;
+    }
+
+    public void setReportsNames(List<String> reportsNames) {
+        this.reportsNames = reportsNames;
     }
 
     @Override

@@ -20,7 +20,7 @@ import cafefashionsociety.structureliteraturemeadow.service.ProfileService;
 public class ProfileController {
 
     @Autowired
-    public ProfileService profileService;
+    ProfileService profileService;
 
     @GetMapping
     public String allProfilesPage(@AuthenticationPrincipal User user, Model model) {
@@ -29,7 +29,8 @@ public class ProfileController {
     }
 
     @GetMapping(path = "/{pathid}")
-    public String profilesPage(@PathVariable String pathid, @AuthenticationPrincipal User user, Model model) {
+    public String profileInfoPage(@PathVariable(required = true) String pathid, @AuthenticationPrincipal User user,
+            Model model) {
 
         Profile profile = new Profile();
         model.addAttribute("profile", profile);
@@ -38,7 +39,7 @@ public class ProfileController {
 
     @GetMapping(path = "/createnew")
     public String createProfilePage(@AuthenticationPrincipal User user, Model model) {
-        return "createprofiles";
+        return "createprofile";
     }
 
     @PostMapping(path = "/createnew", consumes = "application/x-www-form-urlencoded", produces = "text/html")

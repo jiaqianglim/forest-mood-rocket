@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
+import org.springframework.data.redis.core.index.Indexed;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,6 +18,7 @@ public class User implements UserDetails {
 
     @Id
     private final String id;
+    @Indexed
     private final String username;
     private final String password;
     private final String fullname;

@@ -1,4 +1,4 @@
-package cafefashionsociety.structureliteraturemeadow.security;
+package cafefashionsociety.structureliteraturemeadow.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -7,14 +7,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import cafefashionsociety.structureliteraturemeadow.repository.IUserRepository;
+import cafefashionsociety.structureliteraturemeadow.model.forms.RegistrationForm;
+import cafefashionsociety.structureliteraturemeadow.service.UserService;
 
 @Controller
 @RequestMapping(path = "/register")
 public class RegisterController {
 
     @Autowired
-    IUserRepository iUserRepository;
+    UserService userService;
 
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -26,7 +27,7 @@ public class RegisterController {
 
     @PostMapping
     public String processRegistration(RegistrationForm form) {
-        iUserRepository.save(form.toUser(passwordEncoder));
+        userService.save(form.toUser(passwordEncoder));
         return "redirect:/login";
     }
 }

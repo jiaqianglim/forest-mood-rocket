@@ -14,7 +14,7 @@
       <meta charset="UTF-8" />
       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Create</title>
+      <title>Create Report</title>
       <!-- CSS only -->
       <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css"
@@ -31,7 +31,8 @@
     </head>
     <body>
       <main th:fragment="content">
-        <form class="col-lg-8 mx-auto p-3 py-md-5" th:object="${reportForm}">
+        <h1>Create a new report</h1>
+        <form th:action="#" method="post"  class="col-lg-8 mx-auto p-3 py-md-5" th:object="${reportForm}">
           <div class="mb-0">
             <div class="row mb-0">
               <div class="col-6">

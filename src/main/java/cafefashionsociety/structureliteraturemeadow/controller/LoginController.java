@@ -1,4 +1,4 @@
-package cafefashionsociety.structureliteraturemeadow.security;
+package cafefashionsociety.structureliteraturemeadow.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

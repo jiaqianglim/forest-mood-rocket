@@ -1,4 +1,4 @@
-package cafefashionsociety.structureliteraturemeadow.security;
+package cafefashionsociety.structureliteraturemeadow.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -11,18 +11,18 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 import cafefashionsociety.structureliteraturemeadow.model.User;
-import cafefashionsociety.structureliteraturemeadow.repository.IUserRepository;
+import cafefashionsociety.structureliteraturemeadow.service.UserService;
 
 @Configuration
 public class SecurityConfig {
 
     @Autowired
-    IUserRepository iUserRepository;
+    UserService userService;
 
     @Bean
     public UserDetailsService userDetailsService() {
         return username -> {
-            User user = iUserRepository.findByUsername(username);
+            User user = userService.findByUsername(username);
             if (user != null)
                 return user;
             throw new UsernameNotFoundException("User not found");
@@ -39,6 +39,8 @@ public class SecurityConfig {
         return http
                 .authorizeRequests()
                 .antMatchers("/u", "/p").hasRole("USER")
+                .antMatchers("/o").hasRole("ADMIN")
+                .antMatchers("/api", "/api/**").permitAll()
                 .antMatchers("/", "/**").permitAll()
                 .and()
                 .formLogin()

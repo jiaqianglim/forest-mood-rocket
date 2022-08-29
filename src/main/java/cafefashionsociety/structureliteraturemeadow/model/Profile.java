@@ -18,6 +18,9 @@ public class Profile {
     @Indexed
     private String organisationName;
     private String organisationRole;
+    @Indexed
+    private String organisationId;
+    private Boolean organisationSearchable = false;
     private String pictureURL;
     @Indexed
     private String userAccId;
@@ -35,11 +38,50 @@ public class Profile {
         this.organisationEmail = "";
         this.organisationName = "Personal";
         this.organisationRole = "";
+        this.organisationId = "";
+        this.organisationSearchable = false;
         this.pictureURL = "";
         this.userAccId = userAccId;
         this.currentlyActive = true;
         this.createdReports = new LinkedList<>();
         this.sharedReports = new LinkedList<>();
+    }
+
+    // Add new Profile, take userAccId from user
+    public Profile(String displayName, String organisationEmail, String organisationName, String organisationRole,
+            String organisationId, Boolean organisationSearchable, String pictureURL, String userAccId,
+            Boolean currentlyActive) {
+        this.id = "p" + UUID.randomUUID().toString();
+        this.displayName = displayName;
+        this.organisationEmail = organisationEmail;
+        this.organisationName = organisationName;
+        this.organisationRole = organisationRole;
+        this.organisationId = organisationId;
+        this.organisationSearchable = organisationSearchable;
+        this.pictureURL = pictureURL;
+        this.userAccId = userAccId;
+        this.currentlyActive = currentlyActive;
+        this.createdReports = new LinkedList<>();
+        this.sharedReports = new LinkedList<>();
+    }
+
+    // From repo
+    public Profile(String id, String displayName, String organisationEmail, String organisationName,
+            String organisationRole,
+            String organisationId, Boolean organisationSearchable, String pictureURL, String userAccId,
+            Boolean currentlyActive, List<Report> createdReports, List<Report> sharedReports) {
+        this.id = id;
+        this.displayName = displayName;
+        this.organisationEmail = organisationEmail;
+        this.organisationName = organisationName;
+        this.organisationRole = organisationRole;
+        this.organisationId = organisationId;
+        this.organisationSearchable = organisationSearchable;
+        this.pictureURL = pictureURL;
+        this.userAccId = userAccId;
+        this.currentlyActive = currentlyActive;
+        this.createdReports = createdReports;
+        this.sharedReports = sharedReports;
     }
 
     public String getId() {
@@ -80,6 +122,22 @@ public class Profile {
 
     public void setOrganisationRole(String organisationRole) {
         this.organisationRole = organisationRole;
+    }
+
+    public Boolean getOrganisationSearchable() {
+        return organisationSearchable;
+    }
+
+    public void setOrganisationSearchable(Boolean organisationSearchable) {
+        this.organisationSearchable = organisationSearchable;
+    }
+
+    public String getOrganisationId() {
+        return organisationId;
+    }
+
+    public void setOrganisationId(String organisationId) {
+        this.organisationId = organisationId;
     }
 
     public String getPictureURL() {

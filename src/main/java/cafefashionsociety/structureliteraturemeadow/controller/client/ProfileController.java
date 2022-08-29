@@ -16,7 +16,7 @@ import cafefashionsociety.structureliteraturemeadow.model.forms.ProfileForm;
 import cafefashionsociety.structureliteraturemeadow.service.ProfileService;
 
 @Controller
-@RequestMapping(path = "/profiles")
+@RequestMapping(path = "/p")
 public class ProfileController {
 
     @Autowired

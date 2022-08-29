@@ -48,12 +48,10 @@ public class User implements UserDetails {
         profiles.add(newProfile);
         reports.add(new Report(this.id, newProfile.getId(), LocalDate.now(), "My first sample report",
                 "I created a new sample report!", "I made my first step in learning!", "Excited"));
-        iUserRepository.save(this);
-
     }
 
     public User(String id, String username, String password, String fullname, String userEmail,
-            LinkedList<Profile> profiles, LinkedList<Report> reports) {
+            List<Profile> profiles, List<Report> reports) {
         this.id = id;
         this.username = username;
         this.password = password;

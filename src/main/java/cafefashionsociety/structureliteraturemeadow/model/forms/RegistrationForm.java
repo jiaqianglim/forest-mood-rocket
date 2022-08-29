@@ -1,4 +1,4 @@
-package cafefashionsociety.structureliteraturemeadow.security;
+package cafefashionsociety.structureliteraturemeadow.model.forms;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 

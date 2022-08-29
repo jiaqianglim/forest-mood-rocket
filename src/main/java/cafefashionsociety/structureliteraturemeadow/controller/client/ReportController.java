@@ -15,7 +15,7 @@ import cafefashionsociety.structureliteraturemeadow.model.forms.ReportForm;
 import cafefashionsociety.structureliteraturemeadow.service.ReportService;
 
 @Controller
-@RequestMapping(path = "/reports")
+@RequestMapping(path = "/r")
 public class ReportController {
 
     @Autowired
@@ -23,6 +23,7 @@ public class ReportController {
 
     @GetMapping
     public String allReportsPage(@AuthenticationPrincipal User user, Model model) {
+        
         model.addAttribute("user", user);
         return "allreports";
     }

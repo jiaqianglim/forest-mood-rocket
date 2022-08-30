@@ -14,7 +14,7 @@ import jakarta.json.JsonObject;
 
 @RestController
 @RequestMapping(path = "/api/o", produces = "application/json")
-public class organisationController {
+public class OrganisationRestController {
 
     @GetMapping(path = "/{org}/getallprofiles")
     public ResponseEntity<String> getAllProfiles(@PathVariable(name = "org") String org, @RequestParam String apikey) {

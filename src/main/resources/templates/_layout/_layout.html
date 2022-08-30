@@ -4,7 +4,7 @@
   xmlns="http://www.w3.org/1999/xhtml"
   xmlns:th="http://www.thymeleaf.org"
 >
-  <head th:fragment="headhtml(title)"> </head>
+  <head th:insert="_layout/_fragments.html::head" />
   <body>
     <div th:replace="_layout/_fragments.html::header"></div>
     <main>

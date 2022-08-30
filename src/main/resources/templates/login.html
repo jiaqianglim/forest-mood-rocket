@@ -7,14 +7,16 @@
     <title>Login</title>
   </head>
   <body>
-    <form method="POST" th:action="@{/login}" id="loginForm">
-      Username: <input type="text" name="username" autocomplete="on"/><br />
-      Password: <input type="password" name="password" /><br />
-      <input type="submit" value="Log in" />
-    </form>
-    <div th:if="${error}">
-      Unable to login. Check your username and password.
-    </div>
-    <p>Click <a th:href="@{/register}">here</a> to register.</p>
+    <main th:fragment="content">
+      <form method="POST" th:action="@{/login}" id="loginForm">
+        Username: <input type="text" name="username" autocomplete="on" /><br />
+        Password: <input type="password" name="password" /><br />
+        <input type="submit" value="Log in" />
+      </form>
+      <div th:if="${error}">
+        Unable to login. Check your username and password.
+      </div>
+      <p>Click <a th:href="@{/register}">here</a> to register.</p>
+    </main>
   </body>
 </html>

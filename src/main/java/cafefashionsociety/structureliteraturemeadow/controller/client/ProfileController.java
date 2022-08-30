@@ -22,7 +22,7 @@ public class ProfileController {
     @Autowired
     ProfileService profileService;
 
-    @GetMapping
+    @GetMapping(path = "/all")
     public String allProfilesPage(@AuthenticationPrincipal User user, Model model) {
         model.addAttribute("user", user);
         return "allprofiles";
@@ -37,12 +37,12 @@ public class ProfileController {
         return "profile";
     }
 
-    @GetMapping(path = "/createnew")
+    @GetMapping(path = "/new")
     public String createProfilePage(@AuthenticationPrincipal User user, Model model) {
         return "createprofile";
     }
 
-    @PostMapping(path = "/createnew", consumes = "application/x-www-form-urlencoded", produces = "text/html")
+    @PostMapping(path = "/new", consumes = "application/x-www-form-urlencoded", produces = "text/html")
     public String postNewProfile(@ModelAttribute ProfileForm profileForm, @AuthenticationPrincipal User user,
             Model model) {
 

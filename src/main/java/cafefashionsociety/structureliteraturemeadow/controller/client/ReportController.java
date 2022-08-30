@@ -21,9 +21,9 @@ public class ReportController {
     @Autowired
     ReportService reportService;
 
-    @GetMapping
+    @GetMapping("/all")
     public String allReportsPage(@AuthenticationPrincipal User user, Model model) {
-        
+
         model.addAttribute("user", user);
         return "allreports";
     }
@@ -34,12 +34,12 @@ public class ReportController {
         return "report";
     }
 
-    @GetMapping
+    @GetMapping("/new")
     public String createReportPage(Model model, @AuthenticationPrincipal User user) {
         return "createreport";
     }
 
-    @PostMapping(consumes = "application/x-www-form-urlencoded", produces = "text/html")
+    @PostMapping(path = "/new", consumes = "application/x-www-form-urlencoded", produces = "text/html")
     public String postNewReport(@ModelAttribute ReportForm reportForm, @AuthenticationPrincipal User user,
             Model model) {
 

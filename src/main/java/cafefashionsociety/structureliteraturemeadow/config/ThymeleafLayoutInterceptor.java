@@ -3,11 +3,13 @@ package cafefashionsociety.structureliteraturemeadow.config;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.context.annotation.Configuration;
 import org.springframework.lang.Nullable;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+@Configuration
 public class ThymeleafLayoutInterceptor implements HandlerInterceptor {
 
     private static final String DEFAULT_LAYOUT = "_layout/_layout";

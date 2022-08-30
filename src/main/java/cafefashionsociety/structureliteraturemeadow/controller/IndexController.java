@@ -9,10 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Layout
 @Controller
-@RequestMapping
 public class IndexController {
 
-    @GetMapping("/")
+    @GetMapping(path = "/")
     public String indexPage() {
         return "index";
     }
@@ -22,13 +21,13 @@ public class IndexController {
         return "main/about";
     }
 
-    @GetMapping(path="/docs")
-    public String docsPage(){
+    @GetMapping(path = "/docs")
+    public String docsPage() {
         return "main/docs";
     }
 
-    @GetMapping(path="/design")
-    public String designPage(){
+    @GetMapping(path = "/design")
+    public String designPage() {
         return "main/design";
     }
 

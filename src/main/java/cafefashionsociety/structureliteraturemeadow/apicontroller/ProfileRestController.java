@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping(path = "/api/p", produces = "application/json")
-public class profileController {
+public class ProfileRestController {
 
     @GetMapping(path = "{profileid}")
     public ResponseEntity<String> getProfile(@PathVariable String profileid, @RequestParam String apikey) {

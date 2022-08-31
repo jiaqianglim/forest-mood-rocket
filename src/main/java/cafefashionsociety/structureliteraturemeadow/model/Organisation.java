@@ -23,7 +23,7 @@ public class Organisation {
 
     public Organisation(String id, String displayName, String orgEmail, String orgName,
             String pictureURL) {
-        this.id = id;
+        this.id = "o" + id;
         this.displayName = displayName;
         this.orgEmail = orgEmail;
         this.orgName = orgName;

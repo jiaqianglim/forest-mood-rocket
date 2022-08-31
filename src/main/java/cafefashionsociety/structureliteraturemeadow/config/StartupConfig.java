@@ -51,22 +51,23 @@ public class StartupConfig implements CommandLineRunner {
                 Optional<User> optuser1 = iUserRepository.findById("u00000000-00000000-00000000-00000000");
                 if (optuser1.isEmpty()) {
                         //
-                        User newTestUser = new User("u00000000-00000000-00000000-00000000", "user1",
+                        String idkey = "00000000-00000000-00000000-00000000";
+                        User newTestUser = new User(idkey, "user1",
                                         passwordEncoder.encode("pass1"),
                                         "user1FirstName", "user1LastName", "testuser1@email.com");
-                        Profile newTestProfile = new Profile("p00000000-00000000-00000000-00000000",
+                        Profile newTestProfile = new Profile(idkey,
                                         "My Personal Profile",
                                         "testProfile@email.com", "Personal",
-                                        "Analyst",
-                                        "o00000000-00000000-00000000-00000000", true, "",
-                                        "u00000000-00000000-00000000-00000000",
+                                        "",
+                                        "", true, "",
+                                        newTestUser.getId(),
                                         true);
-                        Report newTestReport = new Report("r00000000-00000000-00000000-00000000",
-                                        "u00000000-00000000-00000000-00000000", "p00000000-00000000-00000000-00000000",
+                        Report newTestReport = new Report(idkey,
+                                        newTestUser.getId(), newTestProfile.getId(),
                                         LocalDate.now(), "My first sample report",
                                         "I created a new sample report!", "I made my first step in learning!",
                                         "Excited");
-                        Organisation newTestOrg = new Organisation("o00000000-00000000-00000000-00000000", "OrgTEST",
+                        Organisation newTestOrg = new Organisation(idkey, "OrgTEST",
                                         "testOrg@Email.com", "OrgTESTName", "");
 
                         newTestProfile = profileService.addReportToProfile(newTestProfile, newTestReport);

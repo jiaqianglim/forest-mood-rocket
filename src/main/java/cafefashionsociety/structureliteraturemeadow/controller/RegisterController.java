@@ -1,12 +1,12 @@
 package cafefashionsociety.structureliteraturemeadow.controller;
 
 import java.time.LocalDate;
-import java.util.LinkedHashMap;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +25,8 @@ import cafefashionsociety.structureliteraturemeadow.service.UserService;
 @Controller
 @RequestMapping(path = "/register")
 public class RegisterController {
+
+    Logger logger = LoggerFactory.getLogger(RegisterController.class);
 
     @Autowired
     ProjectConfig projectConfig;
@@ -50,22 +52,22 @@ public class RegisterController {
     public String processNewUserRegistration(RegistrationForm registrationForm) {
 
         User newUser = registrationForm.toUser(passwordEncoder);
-        Profile newUserPersonalProfile = new Profile(projectConfig.createUUIDString(), newUser.getUsername(),
+        Profile newPersonalProfile = new Profile(projectConfig.createUUIDString(), newUser.getUsername(),
                 newUser.getUserEmail(),
                 "My Personal Profile",
                 "Active Learner",
                 "", false, "", newUser.getId(),
                 true);
-        Report newUserSampleReport = new Report(projectConfig.createUUIDString(), newUser.getId(),
-                newUserPersonalProfile.getId(), LocalDate.now(), "My first sample report",
+        Report newSampleReport = new Report(projectConfig.createUUIDString(), newUser.getId(),
+                newPersonalProfile.getId(), LocalDate.now(), "My first sample report",
                 "I created a new sample report!", "I made my first step in learning!", "Excited");
-        newUserPersonalProfile = profileService.addReportToProfile(newUserPersonalProfile, newUserSampleReport);
-        newUser = userService.addProfileToUser(newUser, newUserPersonalProfile);
-        newUser = userService.addReportToUser(newUser, newUserSampleReport);
-        reportService.save(newUserSampleReport);
-        profileService.save(newUserPersonalProfile);
-        userService.save(newUser);
 
+        newPersonalProfile = profileService.addReportToProfile(newSampleReport, newPersonalProfile);
+        newUser = userService.addReportToProfileToUser(newSampleReport, newPersonalProfile, newUser);
+        reportService.save(newSampleReport);
+        profileService.save(newPersonalProfile);
+        userService.save(newUser);
+        logger.info("new user {user} saved", newUser.getUsername());
         return "redirect:/login";
     }
 

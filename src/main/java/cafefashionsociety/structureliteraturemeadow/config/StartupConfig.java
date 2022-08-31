@@ -52,31 +52,30 @@ public class StartupConfig implements CommandLineRunner {
                 if (optuser1.isEmpty()) {
                         //
                         String idkey = "00000000-00000000-00000000-00000000";
-                        User newTestUser = new User(idkey, "user1",
+                        User testUser = new User(idkey, "user1",
                                         passwordEncoder.encode("pass1"),
                                         "user1FirstName", "user1LastName", "testuser1@email.com");
-                        Profile newTestProfile = new Profile(idkey,
+                        Profile testProfile = new Profile(idkey,
                                         "My Personal Profile",
                                         "testProfile@email.com", "Personal",
                                         "",
                                         "", true, "",
-                                        newTestUser.getId(),
+                                        testUser.getId(),
                                         true);
-                        Report newTestReport = new Report(idkey,
-                                        newTestUser.getId(), newTestProfile.getId(),
+                        Report testReport = new Report(idkey,
+                                        testUser.getId(), testProfile.getId(),
                                         LocalDate.now(), "My first sample report",
                                         "I created a new sample report!", "I made my first step in learning!",
                                         "Excited");
-                        Organisation newTestOrg = new Organisation(idkey, "OrgTEST",
+                        Organisation testOrg = new Organisation(idkey, "OrgTEST",
                                         "testOrg@Email.com", "OrgTESTName", "");
 
-                        newTestProfile = profileService.addReportToProfile(newTestProfile, newTestReport);
-                        newTestUser = userService.addProfileToUser(newTestUser, newTestProfile);
-                        newTestUser = userService.addReportToUser(newTestUser, newTestReport);
-                        organisationService.save(newTestOrg);
-                        reportService.save(newTestReport);
-                        profileService.save(newTestProfile);
-                        userService.save(newTestUser);
+                        testProfile = profileService.addReportToProfile(testReport, testProfile);
+                        testUser = userService.addReportToProfileToUser(testReport, testProfile, testUser);
+                        organisationService.save(testOrg);
+                        reportService.save(testReport);
+                        profileService.save(testProfile);
+                        userService.save(testUser);
                 }
 
         }

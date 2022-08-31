@@ -1,6 +1,5 @@
 package cafefashionsociety.structureliteraturemeadow.service;
 
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +19,7 @@ public class ProfileService {
         iProfileRepository.save(profile);
     }
 
-    public Profile addReportToProfile(Profile profile, Report report) {
+    public Profile addReportToProfile(Report report, Profile profile) {
         Map<String, String> profileCreatedReports = profile.getCreatedReports();
         profileCreatedReports.put(report.getId(), report.getTitle());
         profile.setCreatedReports(profileCreatedReports);

@@ -43,14 +43,20 @@ public class UserService {
         logger.info("User " + user.getUsername() + " saved");
     }
 
-    public User addProfileToUser(User user, Profile profile) {
+    public User addReportToProfileToUser(Report report, Profile profile, User user) {
+        user = addProfileToUser(profile, user);
+        user = addReportToUser(report, user);
+        return user;
+    }
+
+    private User addProfileToUser(Profile profile, User user) {
         Map<String, String> profileIdsAndName = user.getProfileIdsAndName();
         profileIdsAndName.put(profile.getId(), profile.getDisplayName());
         user.setProfileIdsAndName(profileIdsAndName);
         return user;
     }
 
-    public User addReportToUser(User user, Report report) {
+    private User addReportToUser(Report report, User user) {
         Map<String, String> reportIdsAndTitle = user.getReportIdsAndTitle();
         reportIdsAndTitle.put(report.getId(), report.getTitle());
         user.setProfileIdsAndName(reportIdsAndTitle);

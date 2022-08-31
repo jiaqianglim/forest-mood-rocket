@@ -1,6 +1,7 @@
 package cafefashionsociety.structureliteraturemeadow.service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,10 +25,10 @@ public class UserService {
         return opt.get();
     }
 
-    public User addProfileIdToUser(String profileId, User user) {
-        List<String> userProfileIds = user.getprofileIds();
-        userProfileIds.add(profileId);
-        user.setprofileIds(userProfileIds);
+    public User addNewUserPersonalProfileToUser(String profileId, User user) {
+        Map<String, String> profileIdsAndName = user.getProfileIdsAndName();
+        profileIdsAndName.put(profileId, "Your personal account");
+        user.setProfileIdsAndName(profileIdsAndName);
         return user;
     }
 }

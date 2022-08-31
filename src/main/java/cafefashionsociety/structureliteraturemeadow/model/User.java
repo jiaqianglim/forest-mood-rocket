@@ -2,8 +2,8 @@ package cafefashionsociety.structureliteraturemeadow.model;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.data.annotation.Id;
@@ -17,15 +17,22 @@ import org.springframework.security.core.userdetails.UserDetails;
 public class User implements UserDetails {
 
     @Id
-    private final String id;
+    private String id;
     @Indexed
-    private final String username;
-    private final String password;
-    private final String fullname;
-    private final String userEmail;
+    private String username;
+    private String password;
+    private String fullname;
+    private String userEmail;
+    private Collection<? extends GrantedAuthority> authorities;
+    private boolean isAccountNonExpired;
+    private boolean isAccountNonLocked;
+    private boolean isCredentialsNonExpired;
+    private boolean isEnabled;
+    private Map<String, String> profileIdsAndName;
+    private Map<String, String> reportIdsAndTitle;
 
-    private List<String> profileIds;
-    private List<String> reportIds;
+    public User() {
+    }
 
     // Constructor for RegistrationForm
     public User(String username, String password, String fullname, String userEmail) {
@@ -34,21 +41,14 @@ public class User implements UserDetails {
         this.password = password;
         this.fullname = fullname;
         this.userEmail = userEmail;
-        this.profileIds = new LinkedList<String>();
-        this.reportIds = new LinkedList<String>();
-        reportIds.add("r00000000-00000000-00000000-00000000");
-    }
-
-    // Constructor for Repository Object
-    public User(String id, String username, String password, String fullname, String userEmail,
-            List<String> profileIds, List<String> reportIds) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.fullname = fullname;
-        this.userEmail = userEmail;
-        this.profileIds = profileIds;
-        this.reportIds = reportIds;
+        this.authorities = Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
+        this.isAccountNonExpired = true;
+        this.isAccountNonLocked = true;
+        this.isCredentialsNonExpired = true;
+        this.isEnabled = true;
+        this.profileIdsAndName = new HashMap<String, String>();
+        this.reportIdsAndTitle = new HashMap<String, String>();
+        reportIdsAndTitle.put("r00000000-00000000-00000000-00000000", "My first sample report");
     }
 
     public String getId() {
@@ -73,45 +73,85 @@ public class User implements UserDetails {
         return userEmail;
     }
 
-    public List<String> getprofileIds() {
-        return profileIds;
-    }
-
-    public void setprofileIds(List<String> profileIds) {
-        this.profileIds = profileIds;
-    }
-
-    public List<String> getreportIds() {
-        return reportIds;
-    }
-
-    public void setreportIds(List<String> reportIds) {
-        this.reportIds = reportIds;
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
+        return authorities;
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return true;
+        return isAccountNonExpired;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return isAccountNonLocked;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return true;
+        return isCredentialsNonExpired;
     }
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return isEnabled;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
+
+    public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
+        this.authorities = authorities;
+    }
+
+    public void setAccountNonExpired(boolean isAccountNonExpired) {
+        this.isAccountNonExpired = isAccountNonExpired;
+    }
+
+    public void setAccountNonLocked(boolean isAccountNonLocked) {
+        this.isAccountNonLocked = isAccountNonLocked;
+    }
+
+    public void setCredentialsNonExpired(boolean isCredentialsNonExpired) {
+        this.isCredentialsNonExpired = isCredentialsNonExpired;
+    }
+
+    public void setEnabled(boolean isEnabled) {
+        this.isEnabled = isEnabled;
+    }
+
+    public Map<String, String> getProfileIdsAndName() {
+        return profileIdsAndName;
+    }
+
+    public void setProfileIdsAndName(Map<String, String> profileIdsAndName) {
+        this.profileIdsAndName = profileIdsAndName;
+    }
+
+    public Map<String, String> getReportIdsAndTitle() {
+        return reportIdsAndTitle;
+    }
+
+    public void setReportIdsAndTitle(Map<String, String> reportIdsAndTitle) {
+        this.reportIdsAndTitle = reportIdsAndTitle;
     }
 
 }

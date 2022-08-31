@@ -7,7 +7,7 @@ import org.springframework.data.redis.repository.configuration.EnableRedisReposi
 
 @SpringBootApplication
 @EnableRedisRepositories
-@ComponentScan(basePackages="cafefashionsociety.structureliteraturemeadow")
+@ComponentScan(basePackages = "cafefashionsociety.structureliteraturemeadow")
 public class StructureliteraturemeadowApplication {
 
 	public static void main(String[] args) {

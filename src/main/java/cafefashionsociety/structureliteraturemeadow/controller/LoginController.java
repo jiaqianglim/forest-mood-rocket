@@ -5,12 +5,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import cafefashionsociety.structureliteraturemeadow.config.Layout;
+
+@Layout
 @Controller
-@RequestMapping("/login")
 public class LoginController {
-    @GetMapping
+    @GetMapping(path = "/login")
     public String loginGet(Model model) {
         model.addAttribute("title", "Login");
         return "login";
     }
+
 }

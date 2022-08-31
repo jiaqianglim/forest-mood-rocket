@@ -27,35 +27,65 @@
     <header class="p-1 text-bg-dark">
       <div class="container">
         <div
-          class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start"
+          class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-between"
         >
           <ul
-            class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"
+            class="nav col-12 col-lg-auto me-lg-auto mb-0 justify-content-center mb-md-0"
           >
-            <li><a href="#" class="nav-link px-2 text-white">Home</a></li>
             <li>
-              <a href="../main/about.html" class="nav-link px-2 text-white"
-                >About</a
+              <a th:href="@{/}" class="nav-link px-2 text-white">Home</a>
+            </li>
+            <li>
+              <a th:href="@{/about}" class="nav-link px-2 text-white">About</a>
+            </li>
+            <li>
+              <a th:href="@{/docs}" class="nav-link px-2 text-white">Docs</a>
+            </li>
+            <li>
+              <a th:href="@{/design}" class="nav-link px-2 text-white"
+                >Design</a
               >
             </li>
-            <li><a href="#" class="nav-link px-2 text-white">Docs</a></li>
-            <li><a href="#" class="nav-link px-2 text-white">Design</a></li>
           </ul>
 
           <div class="text-end">
-            <button type="button" class="btn btn-outline-light me-2 btn-sm">
-              Login
-            </button>
-            <button type="button" class="btn btn-outline-light me-2 btn-sm">
-              Sign-up
-            </button>
+            <div sec:authorize="isAnonymous()">
+              <a
+                type="button"
+                class="btn btn-outline-light me-2 btn-sm"
+                th:href="@{/login}"
+              >
+                Login
+              </a>
+              <a
+                th:href="@{/register}"
+                type="button"
+                class="btn btn-outline-light me-2 btn-sm"
+              >
+                Sign-up
+              </a>
+            </div>
+            <div sec:authorize="isAuthenticated()">
+              <ul
+                class="nav col-12 col-lg-auto me-lg-auto mb-0 justify-content-center mb-md-0"
+              >
+                <li class="nav-link px-2 text-success">
+                  Hey its good to see you
+                  <span sec:authentication="name"></span>!
+                </li>
+                <li>
+                  <a th:href="@{/logout}" class="nav-link px-2 text-white"
+                    >Logout</a
+                  >
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
     </header>
-    <!--main-->
+    <!--main th:fragment="content" -->
 
-    <!--Footer-->
     <footer class="container">
       <div
         class="d-flex flex-wrap justify-content-between align-items-center py-0 my-0 border-top mt-auto"

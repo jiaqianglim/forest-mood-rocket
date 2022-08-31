@@ -10,11 +10,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import cafefashionsociety.structureliteraturemeadow.config.Layout;
 import cafefashionsociety.structureliteraturemeadow.model.Profile;
 import cafefashionsociety.structureliteraturemeadow.model.User;
 import cafefashionsociety.structureliteraturemeadow.model.forms.ProfileForm;
 import cafefashionsociety.structureliteraturemeadow.service.ProfileService;
 
+@Layout
 @Controller
 @RequestMapping(path = "/p")
 public class ProfileController {
@@ -23,13 +25,12 @@ public class ProfileController {
     ProfileService profileService;
 
     @GetMapping(path = "/all")
-    public String allProfilesPage(@AuthenticationPrincipal User user, Model model) {
-        model.addAttribute("user", user);
+    public String allProfilesPage(Model model) {
         return "allprofiles";
     }
 
     @GetMapping(path = "/{pathid}")
-    public String profileInfoPage(@PathVariable(required = true) String pathid, @AuthenticationPrincipal User user,
+    public String profileInfoPage(@PathVariable(required = true) String pathid,
             Model model) {
 
         Profile profile = new Profile();
@@ -38,12 +39,12 @@ public class ProfileController {
     }
 
     @GetMapping(path = "/new")
-    public String createProfilePage(@AuthenticationPrincipal User user, Model model) {
+    public String createProfilePage(Model model) {
         return "createprofile";
     }
 
     @PostMapping(path = "/new", consumes = "application/x-www-form-urlencoded", produces = "text/html")
-    public String postNewProfile(@ModelAttribute ProfileForm profileForm, @AuthenticationPrincipal User user,
+    public String postNewProfile(@ModelAttribute ProfileForm profileForm,
             Model model) {
 
         return "profiles";

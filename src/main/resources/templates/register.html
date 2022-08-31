@@ -7,17 +7,37 @@
     <title>Sign Up</title>
   </head>
   <body>
-    <h1>Register new account</h1>
-    <form th:action="@{/register}" id="registerForm" method="post">
-      <label for="username">Username: </label>
-      <input type="text" name="username" /><br />
-      <label for="password">Password: </label>
-      <input type="password" name="password" /><br />
-      <label for="fullname">Full name: </label>
-      <input type="text" name="fullname" /><br />
-      <label for="userEmail">Email: </label>
-      <input type="email" name="userEmail" /><br />
-      <input type="submit" value="Sign up!" />
-    </form>
+    <main th:fragment="content">
+      <div class="container">
+        <div class="row mx-auto p-3 py-md-5">
+          <div class="col-8"></div>
+          <div class="col-4">
+            <br />
+            <h1 class="bd-title mt-0">Hello there new friend!</h1>
+            <form th:action="@{/register}" id="registerForm" method="post">
+              <label for="username" class="form-label">Username: </label>
+              <input
+                type="text"
+                name="username"
+                autocomplete="on"
+                class="form-control"
+              /><br />
+              <label for="password" class="form-label">Password: </label>
+              <input
+                type="password"
+                name="password"
+                class="form-control"
+              /><br />
+              <label for="fullname" class="form-label">Full name: </label>
+              <input type="text" name="fullname" class="form-control" /><br />
+              <label for="userEmail" class="form-label">Email: </label>
+              <input type="email" name="userEmail" class="form-control" /><br />
+              <input type="submit" value="Sign up!" class="btn btn-primary" />
+            </form>
+            <br />
+          </div>
+        </div>
+      </div>
+    </main>
   </body>
 </html>

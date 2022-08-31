@@ -4,12 +4,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.UUID;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 import org.springframework.data.redis.core.index.Indexed;
-
-import cafefashionsociety.structureliteraturemeadow.service.ProfileService;
 
 @RedisHash
 public class Profile {
@@ -37,9 +34,9 @@ public class Profile {
     // Registered at User creation
     public Profile(String displayName, String userAccId) {
         this.id = "p" + UUID.randomUUID().toString();
-        this.displayName = displayName + "\'s personal account";
+        this.displayName = "Your personal account";
         this.organisationEmail = "";
-        this.organisationName = "Personal";
+        this.organisationName = "Personal and Private";
         this.organisationRole = "";
         this.organisationId = "";
         this.organisationSearchable = false;

@@ -13,6 +13,7 @@
     <main th:fragment="content">
       <form th:action="@{/r/new}" method="post" class="col-lg-8 mx-auto p-3 py-md-5" th:object="${reportForm}">
         <h1>Hey <span th:text="${user.username}" ></span>, create a new note!</h1>
+        <input type="text" th:value="${user.id}" th:field="*{userAccId}" hidden>
         <div class="mb-0">
           <div class="row mb-0">
             <div class="col-6">

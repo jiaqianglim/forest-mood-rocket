@@ -1,9 +1,12 @@
 package cafefashionsociety.structureliteraturemeadow.model.forms;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import cafefashionsociety.structureliteraturemeadow.config.ProjectConfig;
 import cafefashionsociety.structureliteraturemeadow.model.Profile;
 
 public class ProfileForm {
-    private String id;
+
     private String displayName;
     private String organisationEmail;
     private String organisationName;
@@ -13,9 +16,12 @@ public class ProfileForm {
     private String pictureURL;
     private String userAccId;
     private Boolean currentlyActive = false;
+    @Autowired
+    ProjectConfig projectConfig;
 
     public Profile toProfile() {
-        return new Profile(id, displayName, organisationEmail, organisationName, organisationRole, organisationId,
+        return new Profile(projectConfig.createUUIDString(), displayName, organisationEmail, organisationName,
+                organisationRole, organisationId,
                 organisationSearchable, pictureURL, userAccId, currentlyActive);
     }
 

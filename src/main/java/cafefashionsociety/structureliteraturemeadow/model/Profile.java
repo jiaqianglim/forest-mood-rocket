@@ -21,6 +21,7 @@ public class Profile {
     private String userAccId;
     private Boolean currentlyActive;
     private Map<String, String> createdReports;
+    private Map<String, String> linkedProfiles;
     private Map<String, String> sharedReports;
 
     public Profile() {
@@ -31,7 +32,7 @@ public class Profile {
             String organisationRole,
             String organisationId, Boolean organisationSearchable, String pictureURL, String userAccId,
             Boolean currentlyActive) {
-        this.id = "p"+id;
+        this.id = "p" + id;
         this.displayName = displayName;
         this.organisationEmail = organisationEmail;
         this.organisationName = organisationName;
@@ -42,6 +43,7 @@ public class Profile {
         this.userAccId = userAccId;
         this.currentlyActive = currentlyActive;
         this.createdReports = new LinkedHashMap<String, String>();
+        this.linkedProfiles = new LinkedHashMap<String, String>();
         this.sharedReports = new LinkedHashMap<String, String>();
     }
 
@@ -49,7 +51,8 @@ public class Profile {
     public Profile(String id, String displayName, String organisationEmail, String organisationName,
             String organisationRole,
             String organisationId, Boolean organisationSearchable, String pictureURL, String userAccId,
-            Boolean currentlyActive, Map<String, String> createdReports, Map<String, String> sharedReports) {
+            Boolean currentlyActive, Map<String, String> createdReports, Map<String, String> linkedProfiles,
+            Map<String, String> sharedReports) {
         this.id = id;
         this.displayName = displayName;
         this.organisationEmail = organisationEmail;
@@ -61,6 +64,7 @@ public class Profile {
         this.userAccId = userAccId;
         this.currentlyActive = currentlyActive;
         this.createdReports = createdReports;
+        this.linkedProfiles = linkedProfiles;
         this.sharedReports = sharedReports;
     }
 
@@ -122,6 +126,14 @@ public class Profile {
 
     public String getPictureURL() {
         return pictureURL;
+    }
+
+    public Map<String, String> getLinkedProfiles() {
+        return linkedProfiles;
+    }
+
+    public void setLinkedProfiles(Map<String, String> linkedProfiles) {
+        this.linkedProfiles = linkedProfiles;
     }
 
     public void setPictureURL(String pictureURL) {

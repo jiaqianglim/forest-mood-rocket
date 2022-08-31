@@ -49,7 +49,7 @@ public class UserService {
         return user;
     }
 
-    private User addProfileToUser(Profile profile, User user) {
+    public User addProfileToUser(Profile profile, User user) {
         Map<String, String> profileIdsAndName = user.getProfileIdsAndName();
         profileIdsAndName.put(profile.getId(), profile.getDisplayName());
         user.setProfileIdsAndName(profileIdsAndName);

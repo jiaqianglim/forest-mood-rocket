@@ -1,6 +1,7 @@
 package cafefashionsociety.structureliteraturemeadow.service;
 
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,11 @@ public class ProfileService {
 
     @Autowired
     IProfileRepository iProfileRepository;
+
+    public Profile findById(String id) {
+        Optional<Profile> opt = iProfileRepository.findById(id);
+        return opt.get();
+    }
 
     public void save(Profile profile) {
         iProfileRepository.save(profile);

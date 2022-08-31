@@ -2,15 +2,29 @@ package cafefashionsociety.structureliteraturemeadow.model.forms;
 
 import java.time.LocalDate;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import cafefashionsociety.structureliteraturemeadow.config.ProjectConfig;
+import cafefashionsociety.structureliteraturemeadow.model.Report;
+
 public class ReportForm {
 
+    private String userAccId;
     private String profileId;
     private LocalDate incidentDate;
     private String title;
     private String what;
     private String soWhat;
     private String tags;
-    
+
+    @Autowired
+    ProjectConfig projectConfig;
+
+    public Report toReport() {
+        return new Report(projectConfig.createUUIDString(), userAccId, profileId, incidentDate, title, what,
+                soWhat, tags);
+    }
+
     public String getProfileId() {
         return profileId;
     }

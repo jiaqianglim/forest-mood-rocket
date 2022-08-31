@@ -1,6 +1,7 @@
 package cafefashionsociety.structureliteraturemeadow.model;
 
-import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
@@ -11,13 +12,36 @@ public class Organisation {
     @Id
     private String id;
     private String displayName;
-    private String organisationEmail;
-    private String organisationName;
+    private String orgEmail;
+    private String orgName;
     private String pictureURL;
-    private List<Profile> userProfiles;
-    private List<Profile> previousUserProfiles;
-    private List<Profile> adminProfiles;
-    private List<Report> flaggedReports;
+    private Map<String, String> userProfiles;
+    private Map<String, String> adminProfiles;
+
+    public Organisation() {
+    }
+
+    public Organisation(String id, String displayName, String orgEmail, String orgName,
+            String pictureURL) {
+        this.id = id;
+        this.displayName = displayName;
+        this.orgEmail = orgEmail;
+        this.orgName = orgName;
+        this.pictureURL = pictureURL;
+        this.userProfiles = new LinkedHashMap<>();
+        this.adminProfiles = new LinkedHashMap<>();
+    }
+
+    public Organisation(String id, String displayName, String orgEmail, String orgName,
+            String pictureURL, Map<String, String> userProfiles, Map<String, String> adminProfiles) {
+        this.id = id;
+        this.displayName = displayName;
+        this.orgEmail = orgEmail;
+        this.orgName = orgName;
+        this.pictureURL = pictureURL;
+        this.userProfiles = userProfiles;
+        this.adminProfiles = adminProfiles;
+    }
 
     public String getId() {
         return id;
@@ -35,20 +59,20 @@ public class Organisation {
         this.displayName = displayName;
     }
 
-    public String getOrganisationEmail() {
-        return organisationEmail;
+    public String getOrgEmail() {
+        return orgEmail;
     }
 
-    public void setOrganisationEmail(String organisationEmail) {
-        this.organisationEmail = organisationEmail;
+    public void setOrgEmail(String orgEmail) {
+        this.orgEmail = orgEmail;
     }
 
-    public String getOrganisationName() {
-        return organisationName;
+    public String getOrgName() {
+        return orgName;
     }
 
-    public void setOrganisationName(String organisationName) {
-        this.organisationName = organisationName;
+    public void setOrgName(String orgName) {
+        this.orgName = orgName;
     }
 
     public String getPictureURL() {
@@ -59,36 +83,20 @@ public class Organisation {
         this.pictureURL = pictureURL;
     }
 
-    public List<Profile> getUserProfiles() {
+    public Map<String, String> getUserProfiles() {
         return userProfiles;
     }
 
-    public void setUserProfiles(List<Profile> userProfiles) {
+    public void setUserProfiles(Map<String, String> userProfiles) {
         this.userProfiles = userProfiles;
     }
 
-    public List<Profile> getPreviousUserProfiles() {
-        return previousUserProfiles;
-    }
-
-    public void setPreviousUserProfiles(List<Profile> previousUserProfiles) {
-        this.previousUserProfiles = previousUserProfiles;
-    }
-
-    public List<Profile> getAdminProfiles() {
+    public Map<String, String> getAdminProfiles() {
         return adminProfiles;
     }
 
-    public void setAdminProfiles(List<Profile> adminProfiles) {
+    public void setAdminProfiles(Map<String, String> adminProfiles) {
         this.adminProfiles = adminProfiles;
-    }
-
-    public List<Report> getFlaggedReports() {
-        return flaggedReports;
-    }
-
-    public void setFlaggedReports(List<Report> flaggedReports) {
-        this.flaggedReports = flaggedReports;
     }
 
 }

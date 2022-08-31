@@ -1,49 +1,31 @@
 package cafefashionsociety.structureliteraturemeadow.model;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
-import org.springframework.data.redis.core.index.Indexed;
 
 @RedisHash
 public class Report {
-    // Incident, Task, Reflection, Workshop
+
     @Id
     private String id;
-    @Indexed
     private String userId;
-    @Indexed
     private String profileId;
     private LocalDate reportCreationDate;
     private LocalDate incidentDate;
     private String title;
     private String what;
     private String soWhat;
-    @Indexed
     private String tags;
 
     public Report() {
     }
 
-    // Commandline runner
-    public Report(String title, String what, String soWhat, String tags) {
-        this.id = "r00000000-00000000-00000000-00000000";
-        this.userId = "u" + UUID.randomUUID().toString();
-        this.profileId = "p" + UUID.randomUUID().toString();
-        this.reportCreationDate = LocalDate.now();
-        this.incidentDate = LocalDate.now();
-        this.title = title;
-        this.what = what;
-        this.soWhat = soWhat;
-        this.tags = tags;
-    }
-
-    // Create new report from POST
-    public Report(String userId, String profileId, LocalDate incidentDate, String title, String what, String soWhat,
-            String tags) {
-        this.id = "r" + UUID.randomUUID().toString();
+    // New Report
+    public Report(String id, String userId, String profileId, LocalDate incidentDate, String title, String what,
+            String soWhat, String tags) {
+        this.id = "r"+id;
         this.userId = userId;
         this.profileId = profileId;
         this.reportCreationDate = LocalDate.now();
@@ -54,7 +36,7 @@ public class Report {
         this.tags = tags;
     }
 
-    // Create report from repo
+    // Full
     public Report(String id, String userId, String profileId, LocalDate reportCreationDate, LocalDate incidentDate,
             String title, String what, String soWhat, String tags) {
         this.id = id;

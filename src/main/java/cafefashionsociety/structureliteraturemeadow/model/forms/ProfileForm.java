@@ -3,6 +3,7 @@ package cafefashionsociety.structureliteraturemeadow.model.forms;
 import cafefashionsociety.structureliteraturemeadow.model.Profile;
 
 public class ProfileForm {
+    private String id;
     private String displayName;
     private String organisationEmail;
     private String organisationName;
@@ -14,7 +15,7 @@ public class ProfileForm {
     private Boolean currentlyActive = false;
 
     public Profile toProfile() {
-        return new Profile(displayName, organisationEmail, organisationName, organisationRole, organisationId,
+        return new Profile(id, displayName, organisationEmail, organisationName, organisationRole, organisationId,
                 organisationSearchable, pictureURL, userAccId, currentlyActive);
     }
 

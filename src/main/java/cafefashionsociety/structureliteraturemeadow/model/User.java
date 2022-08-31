@@ -2,13 +2,11 @@ package cafefashionsociety.structureliteraturemeadow.model;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.UUID;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
-import org.springframework.data.redis.core.index.Indexed;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,10 +16,10 @@ public class User implements UserDetails {
 
     @Id
     private String id;
-    @Indexed
     private String username;
     private String password;
-    private String fullname;
+    private String firstName;
+    private String lastName;
     private String userEmail;
     private Collection<? extends GrantedAuthority> authorities;
     private boolean isAccountNonExpired;
@@ -34,21 +32,40 @@ public class User implements UserDetails {
     public User() {
     }
 
-    // Constructor for RegistrationForm
-    public User(String username, String password, String fullname, String userEmail) {
-        this.id = "u" + UUID.randomUUID().toString();
+    // New User
+    public User(String id, String username, String password, String firstName, String lastName, String userEmail) {
+        this.id = "u"+id;
         this.username = username;
         this.password = password;
-        this.fullname = fullname;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.userEmail = userEmail;
         this.authorities = Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
         this.isAccountNonExpired = true;
         this.isAccountNonLocked = true;
         this.isCredentialsNonExpired = true;
         this.isEnabled = true;
-        this.profileIdsAndName = new HashMap<String, String>();
-        this.reportIdsAndTitle = new HashMap<String, String>();
-        reportIdsAndTitle.put("r00000000-00000000-00000000-00000000", "My first sample report");
+        this.profileIdsAndName = new LinkedHashMap<String, String>();
+        this.reportIdsAndTitle = new LinkedHashMap<String, String>();
+    }
+
+    public User(String id, String username, String password, String firstName, String lastName, String userEmail,
+            Collection<? extends GrantedAuthority> authorities, boolean isAccountNonExpired,
+            boolean isAccountNonLocked, boolean isCredentialsNonExpired, boolean isEnabled,
+            Map<String, String> profileIdsAndName, Map<String, String> reportIdsAndTitle) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.userEmail = userEmail;
+        this.authorities = authorities;
+        this.isAccountNonExpired = isAccountNonExpired;
+        this.isAccountNonLocked = isAccountNonLocked;
+        this.isCredentialsNonExpired = isCredentialsNonExpired;
+        this.isEnabled = isEnabled;
+        this.profileIdsAndName = profileIdsAndName;
+        this.reportIdsAndTitle = reportIdsAndTitle;
     }
 
     public String getId() {
@@ -63,10 +80,6 @@ public class User implements UserDetails {
     @Override
     public String getPassword() {
         return password;
-    }
-
-    public String getFullname() {
-        return fullname;
     }
 
     public String getUserEmail() {
@@ -110,10 +123,6 @@ public class User implements UserDetails {
         this.password = password;
     }
 
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
-    }
-
     public void setUserEmail(String userEmail) {
         this.userEmail = userEmail;
     }
@@ -152,6 +161,22 @@ public class User implements UserDetails {
 
     public void setReportIdsAndTitle(Map<String, String> reportIdsAndTitle) {
         this.reportIdsAndTitle = reportIdsAndTitle;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
 }

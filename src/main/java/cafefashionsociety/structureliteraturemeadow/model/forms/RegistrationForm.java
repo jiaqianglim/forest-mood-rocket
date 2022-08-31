@@ -1,18 +1,26 @@
 package cafefashionsociety.structureliteraturemeadow.model.forms;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import cafefashionsociety.structureliteraturemeadow.config.ProjectConfig;
 import cafefashionsociety.structureliteraturemeadow.model.User;
 
 public class RegistrationForm {
 
     private String username;
     private String password;
-    private String fullname;
+    private String firstName;
+    private String lastName;
     private String userEmail;
 
+    @Autowired
+    ProjectConfig projectConfig;
+
     public User toUser(PasswordEncoder passwordEncoder) {
-        return new User(username, passwordEncoder.encode(password), fullname, userEmail);
+
+        return new User(projectConfig.createUUIDString(), username, passwordEncoder.encode(password), firstName,
+                lastName, userEmail);
     }
 
     public String getUsername() {
@@ -31,14 +39,6 @@ public class RegistrationForm {
         this.password = password;
     }
 
-    public String getFullname() {
-        return fullname;
-    }
-
-    public void setFullname(String fullname) {
-        this.fullname = fullname;
-    }
-
     public String getUserEmail() {
         return userEmail;
     }
@@ -47,5 +47,20 @@ public class RegistrationForm {
         this.userEmail = userEmail;
     }
 
-    
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
 }

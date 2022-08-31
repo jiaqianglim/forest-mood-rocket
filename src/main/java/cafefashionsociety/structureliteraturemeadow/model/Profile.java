@@ -1,12 +1,10 @@
 package cafefashionsociety.structureliteraturemeadow.model;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.UUID;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
-import org.springframework.data.redis.core.index.Indexed;
 
 @RedisHash
 public class Profile {
@@ -15,44 +13,25 @@ public class Profile {
     private String id;
     private String displayName;
     private String organisationEmail;
-    @Indexed
     private String organisationName;
     private String organisationRole;
-    @Indexed
     private String organisationId;
     private Boolean organisationSearchable = false;
     private String pictureURL;
-    @Indexed
     private String userAccId;
     private Boolean currentlyActive;
-    private List<String> createdReportsIds;
-    private List<String> sharedReportsIds;
+    private Map<String, String> createdReports;
+    private Map<String, String> sharedReports;
 
     public Profile() {
     }
 
-    // Registered at User creation
-    public Profile(String displayName, String userAccId) {
-        this.id = "p" + UUID.randomUUID().toString();
-        this.displayName = "Your personal account";
-        this.organisationEmail = "";
-        this.organisationName = "Personal and Private";
-        this.organisationRole = "";
-        this.organisationId = "";
-        this.organisationSearchable = false;
-        this.pictureURL = "";
-        this.userAccId = userAccId;
-        this.currentlyActive = true;
-        this.createdReportsIds = new LinkedList<>();
-        this.sharedReportsIds = new LinkedList<>();
-        createdReportsIds.add("r00000000-00000000-00000000-00000000");
-    }
-
-    // Add new Profile, take userAccId from user
-    public Profile(String displayName, String organisationEmail, String organisationName, String organisationRole,
+    // Add Profile
+    public Profile(String id, String displayName, String organisationEmail, String organisationName,
+            String organisationRole,
             String organisationId, Boolean organisationSearchable, String pictureURL, String userAccId,
             Boolean currentlyActive) {
-        this.id = "p" + UUID.randomUUID().toString();
+        this.id = "p"+id;
         this.displayName = displayName;
         this.organisationEmail = organisationEmail;
         this.organisationName = organisationName;
@@ -62,15 +41,15 @@ public class Profile {
         this.pictureURL = pictureURL;
         this.userAccId = userAccId;
         this.currentlyActive = currentlyActive;
-        this.createdReportsIds = new LinkedList<>();
-        this.sharedReportsIds = new LinkedList<>();
+        this.createdReports = new LinkedHashMap<String, String>();
+        this.sharedReports = new LinkedHashMap<String, String>();
     }
 
-    // From repo
+    // Full
     public Profile(String id, String displayName, String organisationEmail, String organisationName,
             String organisationRole,
             String organisationId, Boolean organisationSearchable, String pictureURL, String userAccId,
-            Boolean currentlyActive, List<String> createdReportsIds, List<String> sharedReportsIds) {
+            Boolean currentlyActive, Map<String, String> createdReports, Map<String, String> sharedReports) {
         this.id = id;
         this.displayName = displayName;
         this.organisationEmail = organisationEmail;
@@ -81,8 +60,8 @@ public class Profile {
         this.pictureURL = pictureURL;
         this.userAccId = userAccId;
         this.currentlyActive = currentlyActive;
-        this.createdReportsIds = createdReportsIds;
-        this.sharedReportsIds = sharedReportsIds;
+        this.createdReports = createdReports;
+        this.sharedReports = sharedReports;
     }
 
     public String getId() {
@@ -165,20 +144,20 @@ public class Profile {
         this.currentlyActive = currentlyActive;
     }
 
-    public List<String> getCreatedReportsIds() {
-        return createdReportsIds;
+    public Map<String, String> getCreatedReports() {
+        return createdReports;
     }
 
-    public void setCreatedReportsIds(List<String> createdReportsIds) {
-        this.createdReportsIds = createdReportsIds;
+    public void setCreatedReports(Map<String, String> createdReports) {
+        this.createdReports = createdReports;
     }
 
-    public List<String> getSharedReportsIds() {
-        return sharedReportsIds;
+    public Map<String, String> getSharedReports() {
+        return sharedReports;
     }
 
-    public void setSharedReportsIds(List<String> sharedReportsIds) {
-        this.sharedReportsIds = sharedReportsIds;
+    public void setSharedReports(Map<String, String> sharedReports) {
+        this.sharedReports = sharedReports;
     }
 
 }

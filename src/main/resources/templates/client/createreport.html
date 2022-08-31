@@ -12,16 +12,15 @@
   <body>
     <main th:fragment="content">
       <form th:action="@{/r/new}" method="post" class="col-lg-8 mx-auto p-3 py-md-5" th:object="${reportForm}">
-        <h1>Create a new report</h1>
+        <h1>Hey <span th:text="${user.username}" ></span>, create a new note!</h1>
         <div class="mb-0">
           <div class="row mb-0">
             <div class="col-6">
-              <label for="profile" class="form-label">Save in Profile</label>
+              <label for="profile" class="form-label">Choose a profile to save the note in:</label>
               <select class="form-select" th:field="*{profileId}" required>
-                <option selected value="Personal">Select profile to save</option>
-                <option th:each="profileId : ${user.profileIds}"
-                        th:value="${profileId}"
-                        th:text="${profileId}"></option>
+                <option th:each="profile : ${user.profileIdsAndName}"
+                        th:value="${profile.key}"
+                        th:text="${profile.value}"></option>
                 </select>
             </div>
             <div class="col-6">

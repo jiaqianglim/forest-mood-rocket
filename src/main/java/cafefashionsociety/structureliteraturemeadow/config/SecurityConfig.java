@@ -50,8 +50,7 @@ public class SecurityConfig {
                 .defaultSuccessUrl("/r/new")
                 .failureForwardUrl("/register")
                 .and()
-                .logout()
-                .permitAll()
+                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).permitAll()
                 .logoutSuccessUrl("/")
                 .and()
                 .build();

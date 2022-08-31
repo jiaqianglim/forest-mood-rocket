@@ -7,5 +7,5 @@ import cafefashionsociety.structureliteraturemeadow.model.Organisation;
 
 @Repository
 public interface IOrganisationRepository extends CrudRepository<Organisation, String> {
-
+    public <S extends Organisation> S save(S entity);
 }

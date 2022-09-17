@@ -44,8 +44,6 @@ public class ProfileController {
     public String profileInfoPage(@PathVariable(required = true) String pathid,
             Model model, Authentication authentication) {
         User user = userService.findByUsername(authentication.getName());
-        if (!user.getProfileIdsAndName().containsKey(pathid))
-            return "error/permissionerror";
         Profile profile = profileService.findById(pathid);
         if (profile == null)
             return "error/resourceerror";

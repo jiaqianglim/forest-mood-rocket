@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import cafefashionsociety.structureliteraturemeadow.config.ProjectConfig;
+import cafefashionsociety.structureliteraturemeadow.config.UtilityBeans;
 import cafefashionsociety.structureliteraturemeadow.model.Report;
 
 public class ReportForm {
@@ -18,7 +18,7 @@ public class ReportForm {
     private String tags;
 
     @Autowired
-    ProjectConfig projectConfig;
+    UtilityBeans projectConfig;
 
     public Report toReport() {
         return new Report(projectConfig.createUUIDString(), userAccId, profileId, incidentDate, title, what,

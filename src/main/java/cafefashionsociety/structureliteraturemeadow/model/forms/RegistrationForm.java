@@ -3,7 +3,7 @@ package cafefashionsociety.structureliteraturemeadow.model.forms;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import cafefashionsociety.structureliteraturemeadow.config.ProjectConfig;
+import cafefashionsociety.structureliteraturemeadow.config.UtilityBeans;
 import cafefashionsociety.structureliteraturemeadow.model.User;
 
 public class RegistrationForm {
@@ -15,7 +15,7 @@ public class RegistrationForm {
     private String userEmail;
 
     @Autowired
-    ProjectConfig projectConfig;
+    UtilityBeans projectConfig;
 
     public User toUser(PasswordEncoder passwordEncoder) {
 

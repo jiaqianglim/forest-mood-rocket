@@ -7,5 +7,43 @@
   <head>
     <title>Document</title>
   </head>
-  <body></body>
+  <body>
+    <main th:fragment="content">
+      <h1 class="bd-title mt-0">Your account details</h1>
+      <div class="container">
+        <div class="row">
+          <div class="col-4">Username:</div>
+          <div class="col-8"><span th:text="${user.username}"></span></div>
+        </div>
+        <div class="row">
+          <div class="col-4">First Name:</div>
+          <div class="col-8"><span th:text="${user.firstName}"></span></div>
+        </div>
+        <div class="row">
+          <div class="col-4">Last Name:</div>
+          <div class="col-8"><span th:text="${user.lastName}"></span></div>
+        </div>
+        <div class="row">
+          <div class="col-4">Account Email:</div>
+          <div class="col-8"><span th:text="${user.userEmail}"></span></div>
+        </div>
+        <div class="row">
+          <div class="col-4">Profiles:</div>
+          <div class="col-8">
+            <div class="row" th:each="profile:${user.profileIdsAndName}">
+              <div class="col" th:text="${user.profileIdsAndName.value}"></div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-4">Profiles:</div>
+          <div class="col-8">
+            <div class="row" th:each="report:${user.reportIdsAndTitle}">
+              <div class="col" th:text="${user.reportIdsAndTitle.value}"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
 </html>

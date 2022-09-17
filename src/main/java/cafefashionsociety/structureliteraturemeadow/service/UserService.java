@@ -1,6 +1,6 @@
 package cafefashionsociety.structureliteraturemeadow.service;
 
-import java.util.Map;
+import java.util.Deque;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -22,9 +22,8 @@ public class UserService {
     IUserRepository iUserRepository;
 
     public User addNewUserPersonalProfileToUser(String profileId, User user) {
-        Map<String, String> profileIdsAndName = user.getProfileIdsAndName();
-        profileIdsAndName.put(profileId, "Your personal account");
-        user.setProfileIdsAndName(profileIdsAndName);
+        Deque<String> profileIds = user.getProfileIds();
+        profileIds.addFirst(profileId);
         return user;
     }
 
@@ -50,16 +49,16 @@ public class UserService {
     }
 
     public User addProfileToUser(Profile profile, User user) {
-        Map<String, String> profileIdsAndName = user.getProfileIdsAndName();
-        profileIdsAndName.put(profile.getId(), profile.getDisplayName());
-        user.setProfileIdsAndName(profileIdsAndName);
+        Deque<String> profileIds = user.getProfileIds();
+        String newProfileId = profile.getId();
+        profileIds.addFirst(newProfileId);
         return user;
     }
 
     private User addReportToUser(Report report, User user) {
-        Map<String, String> reportIdsAndTitle = user.getReportIdsAndTitle();
-        reportIdsAndTitle.put(report.getId(), report.getTitle());
-        user.setProfileIdsAndName(reportIdsAndTitle);
+        Deque<String> reportIds = user.getReportIds();
+        String newReportId = report.getId();
+        reportIds.addFirst(newReportId);
         return user;
     }
 }

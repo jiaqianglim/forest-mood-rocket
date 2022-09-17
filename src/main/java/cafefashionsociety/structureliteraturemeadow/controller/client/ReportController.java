@@ -45,8 +45,6 @@ public class ReportController {
     public String reportInfoPage(@PathVariable(required = true) String pathid,
             Model model, Authentication authentication) {
         User user = userService.findByUsername(authentication.getName());
-        if (!user.getReportIdsAndTitle().containsKey(pathid))
-            return "error/permissionerror";
         Report report = reportService.findById(pathid);
         if(report==null)
                 return "error/resourceerror";

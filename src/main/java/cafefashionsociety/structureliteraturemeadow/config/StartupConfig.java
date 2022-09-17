@@ -37,7 +37,7 @@ public class StartupConfig implements CommandLineRunner {
         UserService userService;
 
         @Autowired
-        ProjectConfig projectConfig;
+        UtilityBeans projectConfig;
 
         @Autowired
         PasswordEncoder passwordEncoder;

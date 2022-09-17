@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import cafefashionsociety.structureliteraturemeadow.config.Layout;
-import cafefashionsociety.structureliteraturemeadow.config.ProjectConfig;
+import cafefashionsociety.structureliteraturemeadow.config.UtilityBeans;
 import cafefashionsociety.structureliteraturemeadow.model.Profile;
 import cafefashionsociety.structureliteraturemeadow.model.Report;
 import cafefashionsociety.structureliteraturemeadow.model.User;
@@ -29,7 +29,7 @@ public class RegisterController {
     Logger logger = LoggerFactory.getLogger(RegisterController.class);
 
     @Autowired
-    ProjectConfig projectConfig;
+    UtilityBeans projectConfig;
 
     @Autowired
     UserService userService;

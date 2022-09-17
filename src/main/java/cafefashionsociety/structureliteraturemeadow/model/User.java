@@ -1,9 +1,9 @@
 package cafefashionsociety.structureliteraturemeadow.model;
 
+import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.Deque;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
@@ -26,15 +26,15 @@ public class User implements UserDetails {
     private boolean isAccountNonLocked;
     private boolean isCredentialsNonExpired;
     private boolean isEnabled;
-    private Map<String, String> profileIdsAndName;
-    private Map<String, String> reportIdsAndTitle;
+    private Deque<String> profileIds;
+    private Deque<String> reportIds;
 
     public User() {
     }
 
     // New User
     public User(String id, String username, String password, String firstName, String lastName, String userEmail) {
-        this.id = "u"+id;
+        this.id = "u" + id;
         this.username = username;
         this.password = password;
         this.firstName = firstName;
@@ -45,14 +45,14 @@ public class User implements UserDetails {
         this.isAccountNonLocked = true;
         this.isCredentialsNonExpired = true;
         this.isEnabled = true;
-        this.profileIdsAndName = new LinkedHashMap<String, String>();
-        this.reportIdsAndTitle = new LinkedHashMap<String, String>();
+        this.profileIds = new ArrayDeque<String>();
+        this.reportIds = new ArrayDeque<String>();
     }
 
     public User(String id, String username, String password, String firstName, String lastName, String userEmail,
             Collection<? extends GrantedAuthority> authorities, boolean isAccountNonExpired,
             boolean isAccountNonLocked, boolean isCredentialsNonExpired, boolean isEnabled,
-            Map<String, String> profileIdsAndName, Map<String, String> reportIdsAndTitle) {
+            Deque<String> profileIds, Deque<String> reportIds) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -64,8 +64,8 @@ public class User implements UserDetails {
         this.isAccountNonLocked = isAccountNonLocked;
         this.isCredentialsNonExpired = isCredentialsNonExpired;
         this.isEnabled = isEnabled;
-        this.profileIdsAndName = profileIdsAndName;
-        this.reportIdsAndTitle = reportIdsAndTitle;
+        this.profileIds = profileIds;
+        this.reportIds = reportIds;
     }
 
     public String getId() {
@@ -147,20 +147,20 @@ public class User implements UserDetails {
         this.isEnabled = isEnabled;
     }
 
-    public Map<String, String> getProfileIdsAndName() {
-        return profileIdsAndName;
+    public Deque<String> getProfileIds() {
+        return profileIds;
     }
 
-    public void setProfileIdsAndName(Map<String, String> profileIdsAndName) {
-        this.profileIdsAndName = profileIdsAndName;
+    public void setProfileIds(Deque<String> profileIds) {
+        this.profileIds = profileIds;
     }
 
-    public Map<String, String> getReportIdsAndTitle() {
-        return reportIdsAndTitle;
+    public Deque<String> getReportIds() {
+        return reportIds;
     }
 
-    public void setReportIdsAndTitle(Map<String, String> reportIdsAndTitle) {
-        this.reportIdsAndTitle = reportIdsAndTitle;
+    public void setReportIds(Deque<String> reportIds) {
+        this.reportIds = reportIds;
     }
 
     public String getFirstName() {

@@ -1,5 +1,7 @@
 package cafefashionsociety.structureliteraturemeadow.controller.client;
 
+import java.util.LinkedList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -36,6 +38,7 @@ public class NoteController {
     @GetMapping("/all")
     public String allNotesPage(Model model, Authentication authentication) {
         User user = userService.findByUsername(authentication.getName());
+        LinkedList<Note> allNotes = (LinkedList<Note>) noteService.findAllById(user.getNoteIds());
         model.addAttribute("user", user);
         model.addAttribute("title", "View all notes");
         return "allnotes";

@@ -1,6 +1,6 @@
 package cafefashionsociety.structureliteraturemeadow.service;
 
-import java.util.Deque;
+import java.util.LinkedList;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -22,7 +22,7 @@ public class UserService {
     IUserRepository iUserRepository;
 
     public User addNewUserPersonalProfileToUser(String profileId, User user) {
-        Deque<String> profileIds = user.getProfileIds();
+        LinkedList<String> profileIds = user.getProfileIds();
         profileIds.addFirst(profileId);
         user.setProfileIds(profileIds);
         return user;
@@ -50,7 +50,7 @@ public class UserService {
     }
 
     public User addProfileToUser(Profile profile, User user) {
-        Deque<String> profileIds = user.getProfileIds();
+        LinkedList<String> profileIds = user.getProfileIds();
         String newProfileId = profile.getId();
         profileIds.addFirst(newProfileId);
         user.setProfileIds(profileIds);
@@ -58,7 +58,7 @@ public class UserService {
     }
 
     private User addNoteToUser(Note note, User user) {
-        Deque<String> noteIds = user.getNoteIds();
+        LinkedList<String> noteIds = user.getNoteIds();
         String newNoteId = note.getId();
         noteIds.addFirst(newNoteId);
         user.setNoteIds(noteIds);

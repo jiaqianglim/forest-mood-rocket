@@ -1,6 +1,6 @@
 package cafefashionsociety.structureliteraturemeadow.service;
 
-import java.util.Deque;
+import java.util.LinkedList;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class ProfileService {
 
     public Profile addNoteToProfile(Note note, Profile profile) {
         String noteId = note.getId();
-        Deque<String> createdNotes = profile.getCreatedNotes();
+        LinkedList<String> createdNotes = profile.getCreatedNotes();
         createdNotes.addFirst(noteId);
         profile.setCreatedNotes(createdNotes);
         return profile;

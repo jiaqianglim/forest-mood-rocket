@@ -2,7 +2,6 @@ package cafefashionsociety.structureliteraturemeadow.model;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Deque;
 import java.util.LinkedList;
 
 import org.springframework.data.annotation.Id;
@@ -26,8 +25,8 @@ public class User implements UserDetails {
     private boolean isAccountNonLocked;
     private boolean isCredentialsNonExpired;
     private boolean isEnabled;
-    private Deque<String> profileIds;
-    private Deque<String> noteIds;
+    private LinkedList<String> profileIds;
+    private LinkedList<String> noteIds;
 
     public User() {
     }
@@ -52,7 +51,7 @@ public class User implements UserDetails {
     public User(String id, String username, String password, String firstName, String lastName, String userEmail,
             Collection<? extends GrantedAuthority> authorities, boolean isAccountNonExpired,
             boolean isAccountNonLocked, boolean isCredentialsNonExpired, boolean isEnabled,
-            Deque<String> profileIds, Deque<String> noteIds) {
+            LinkedList<String> profileIds, LinkedList<String> noteIds) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -147,19 +146,19 @@ public class User implements UserDetails {
         this.isEnabled = isEnabled;
     }
 
-    public Deque<String> getProfileIds() {
+    public LinkedList<String> getProfileIds() {
         return profileIds;
     }
 
-    public void setProfileIds(Deque<String> profileIds) {
+    public void setProfileIds(LinkedList<String> profileIds) {
         this.profileIds = profileIds;
     }
 
-    public Deque<String> getNoteIds() {
+    public LinkedList<String> getNoteIds() {
         return noteIds;
     }
 
-    public void setNoteIds(Deque<String> noteIds) {
+    public void setNoteIds(LinkedList<String> noteIds) {
         this.noteIds = noteIds;
     }
 

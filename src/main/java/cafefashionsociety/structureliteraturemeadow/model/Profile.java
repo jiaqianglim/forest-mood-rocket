@@ -1,6 +1,5 @@
 package cafefashionsociety.structureliteraturemeadow.model;
 
-import java.util.Deque;
 import java.util.LinkedList;
 
 import org.springframework.data.annotation.Id;
@@ -20,9 +19,9 @@ public class Profile {
     private String pictureURL;
     private String userAccId;
     private Boolean currentlyActive;
-    private Deque<String> createdNotes;
-    private Deque<String> linkedProfiles;
-    private Deque<String> sharedNotes;
+    private LinkedList<String> createdNotes;
+    private LinkedList<String> linkedProfiles;
+    private LinkedList<String> sharedNotes;
 
     public Profile() {
     }
@@ -51,8 +50,8 @@ public class Profile {
     public Profile(String id, String displayName, String organisationEmail, String organisationName,
             String organisationRole,
             String organisationId, Boolean organisationSearchable, String pictureURL, String userAccId,
-            Boolean currentlyActive, Deque<String> createdNotes, Deque<String> linkedProfiles,
-            Deque<String> sharedNotes) {
+            Boolean currentlyActive, LinkedList<String> createdNotes, LinkedList<String> linkedProfiles,
+            LinkedList<String> sharedNotes) {
         this.id = id;
         this.displayName = displayName;
         this.organisationEmail = organisationEmail;
@@ -128,11 +127,11 @@ public class Profile {
         return pictureURL;
     }
 
-    public Deque<String> getLinkedProfiles() {
+    public LinkedList<String> getLinkedProfiles() {
         return linkedProfiles;
     }
 
-    public void setLinkedProfiles(Deque<String> linkedProfiles) {
+    public void setLinkedProfiles(LinkedList<String> linkedProfiles) {
         this.linkedProfiles = linkedProfiles;
     }
 
@@ -156,19 +155,19 @@ public class Profile {
         this.currentlyActive = currentlyActive;
     }
 
-    public Deque<String> getCreatedNotes() {
+    public LinkedList<String> getCreatedNotes() {
         return createdNotes;
     }
 
-    public void setCreatedNotes(Deque<String> createdNotes) {
+    public void setCreatedNotes(LinkedList<String> createdNotes) {
         this.createdNotes = createdNotes;
     }
 
-    public Deque<String> getSharedNotes() {
+    public LinkedList<String> getSharedNotes() {
         return sharedNotes;
     }
 
-    public void setSharedNotes(Deque<String> sharedNotes) {
+    public void setSharedNotes(LinkedList<String> sharedNotes) {
         this.sharedNotes = sharedNotes;
     }
 

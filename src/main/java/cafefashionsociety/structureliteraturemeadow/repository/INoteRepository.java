@@ -11,6 +11,9 @@ import cafefashionsociety.structureliteraturemeadow.model.Note;
 public interface INoteRepository extends CrudRepository<Note, String> {
 
     public <S extends Note> S save(S entity);
+
     public Optional<Note> findById(String id);
-    
+
+    public Iterable<Note> findAllById(Iterable<String> ids);
+
 }

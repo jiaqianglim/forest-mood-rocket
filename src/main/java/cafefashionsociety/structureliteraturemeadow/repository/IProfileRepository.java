@@ -11,4 +11,5 @@ import cafefashionsociety.structureliteraturemeadow.model.Profile;
 public interface IProfileRepository extends CrudRepository<Profile, String> {
     public <S extends Profile> S save(S entity);
     public Optional<Profile> findById(String id);
+    public Iterable<Profile> findAllById(Iterable<String> ids);
 }

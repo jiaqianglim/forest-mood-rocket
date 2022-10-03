@@ -6,29 +6,29 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 
 @RedisHash
-public class Report {
+public class Note {
 
     @Id
     private String id;
     private String userId;
     private String profileId;
-    private LocalDate reportCreationDate;
+    private LocalDate noteCreationDate;
     private LocalDate incidentDate;
     private String title;
     private String what;
     private String soWhat;
     private String tags;
 
-    public Report() {
+    public Note() {
     }
 
-    // New Report
-    public Report(String id, String userId, String profileId, LocalDate incidentDate, String title, String what,
+    // New Note
+    public Note(String id, String userId, String profileId, LocalDate incidentDate, String title, String what,
             String soWhat, String tags) {
         this.id = "r"+id;
         this.userId = userId;
         this.profileId = profileId;
-        this.reportCreationDate = LocalDate.now();
+        this.noteCreationDate = LocalDate.now();
         this.incidentDate = incidentDate;
         this.title = title;
         this.what = what;
@@ -37,12 +37,12 @@ public class Report {
     }
 
     // Full
-    public Report(String id, String userId, String profileId, LocalDate reportCreationDate, LocalDate incidentDate,
+    public Note(String id, String userId, String profileId, LocalDate noteCreationDate, LocalDate incidentDate,
             String title, String what, String soWhat, String tags) {
         this.id = id;
         this.userId = userId;
         this.profileId = profileId;
-        this.reportCreationDate = reportCreationDate;
+        this.noteCreationDate = noteCreationDate;
         this.incidentDate = incidentDate;
         this.title = title;
         this.what = what;
@@ -114,12 +114,12 @@ public class Report {
         this.tags = tags;
     }
 
-    public LocalDate getreportCreationDate() {
-        return reportCreationDate;
+    public LocalDate getnoteCreationDate() {
+        return noteCreationDate;
     }
 
-    public void setreportCreationDate(LocalDate reportCreationDate) {
-        this.reportCreationDate = reportCreationDate;
+    public void setnoteCreationDate(LocalDate noteCreationDate) {
+        this.noteCreationDate = noteCreationDate;
     }
 
 }

@@ -27,7 +27,7 @@ public class User implements UserDetails {
     private boolean isCredentialsNonExpired;
     private boolean isEnabled;
     private Deque<String> profileIds;
-    private Deque<String> reportIds;
+    private Deque<String> noteIds;
 
     public User() {
     }
@@ -46,13 +46,13 @@ public class User implements UserDetails {
         this.isCredentialsNonExpired = true;
         this.isEnabled = true;
         this.profileIds = new LinkedList<String>();
-        this.reportIds = new LinkedList<String>();
+        this.noteIds = new LinkedList<String>();
     }
 
     public User(String id, String username, String password, String firstName, String lastName, String userEmail,
             Collection<? extends GrantedAuthority> authorities, boolean isAccountNonExpired,
             boolean isAccountNonLocked, boolean isCredentialsNonExpired, boolean isEnabled,
-            Deque<String> profileIds, Deque<String> reportIds) {
+            Deque<String> profileIds, Deque<String> noteIds) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -65,7 +65,7 @@ public class User implements UserDetails {
         this.isCredentialsNonExpired = isCredentialsNonExpired;
         this.isEnabled = isEnabled;
         this.profileIds = profileIds;
-        this.reportIds = reportIds;
+        this.noteIds = noteIds;
     }
 
     public String getId() {
@@ -155,12 +155,12 @@ public class User implements UserDetails {
         this.profileIds = profileIds;
     }
 
-    public Deque<String> getReportIds() {
-        return reportIds;
+    public Deque<String> getNoteIds() {
+        return noteIds;
     }
 
-    public void setReportIds(Deque<String> reportIds) {
-        this.reportIds = reportIds;
+    public void setNoteIds(Deque<String> noteIds) {
+        this.noteIds = noteIds;
     }
 
     public String getFirstName() {

@@ -10,12 +10,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import cafefashionsociety.structureliteraturemeadow.model.Organisation;
 import cafefashionsociety.structureliteraturemeadow.model.Profile;
-import cafefashionsociety.structureliteraturemeadow.model.Report;
+import cafefashionsociety.structureliteraturemeadow.model.Note;
 import cafefashionsociety.structureliteraturemeadow.model.User;
 import cafefashionsociety.structureliteraturemeadow.repository.IUserRepository;
 import cafefashionsociety.structureliteraturemeadow.service.OrganisationService;
 import cafefashionsociety.structureliteraturemeadow.service.ProfileService;
-import cafefashionsociety.structureliteraturemeadow.service.ReportService;
+import cafefashionsociety.structureliteraturemeadow.service.NoteService;
 import cafefashionsociety.structureliteraturemeadow.service.UserService;
 
 @Configuration
@@ -31,7 +31,7 @@ public class StartupConfig implements CommandLineRunner {
         ProfileService profileService;
 
         @Autowired
-        ReportService reportService;
+        NoteService noteService;
 
         @Autowired
         UserService userService;
@@ -60,18 +60,18 @@ public class StartupConfig implements CommandLineRunner {
                                         "", true, "",
                                         testUser.getId(),
                                         true);
-                        Report testReport = new Report(idkey,
+                        Note testNote = new Note(idkey,
                                         testUser.getId(), testProfile.getId(),
-                                        LocalDate.now(), "My first sample report",
-                                        "I created a new sample report!", "I made my first step in learning!",
+                                        LocalDate.now(), "My first sample note",
+                                        "I created a new sample note!", "I made my first step in learning!",
                                         "Excited");
                         Organisation testOrg = new Organisation(idkey, "OrgTEST",
                                         "testOrg@Email.com", "OrgTESTName", "");
 
-                        testProfile = profileService.addReportToProfile(testReport, testProfile);
-                        testUser = userService.addReportToProfileToUser(testReport, testProfile, testUser);
+                        testProfile = profileService.addNoteToProfile(testNote, testProfile);
+                        testUser = userService.addNoteToProfileToUser(testNote, testProfile, testUser);
                         organisationService.save(testOrg);
-                        reportService.save(testReport);
+                        noteService.save(testNote);
                         profileService.save(testProfile);
                         userService.save(testUser);
                 }

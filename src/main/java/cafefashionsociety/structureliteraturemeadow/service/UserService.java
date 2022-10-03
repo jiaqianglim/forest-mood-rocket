@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cafefashionsociety.structureliteraturemeadow.model.Profile;
-import cafefashionsociety.structureliteraturemeadow.model.Report;
+import cafefashionsociety.structureliteraturemeadow.model.Note;
 import cafefashionsociety.structureliteraturemeadow.model.User;
 import cafefashionsociety.structureliteraturemeadow.repository.IUserRepository;
 
@@ -43,9 +43,9 @@ public class UserService {
         logger.info("User " + user.getUsername() + " saved");
     }
 
-    public User addReportToProfileToUser(Report report, Profile profile, User user) {
+    public User addNoteToProfileToUser(Note note, Profile profile, User user) {
         user = addProfileToUser(profile, user);
-        user = addReportToUser(report, user);
+        user = addNoteToUser(note, user);
         return user;
     }
 
@@ -57,11 +57,11 @@ public class UserService {
         return user;
     }
 
-    private User addReportToUser(Report report, User user) {
-        Deque<String> reportIds = user.getReportIds();
-        String newReportId = report.getId();
-        reportIds.addFirst(newReportId);
-        user.setReportIds(reportIds);
+    private User addNoteToUser(Note note, User user) {
+        Deque<String> noteIds = user.getNoteIds();
+        String newNoteId = note.getId();
+        noteIds.addFirst(newNoteId);
+        user.setNoteIds(noteIds);
         return user;
     }
 }

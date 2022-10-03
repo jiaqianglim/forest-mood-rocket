@@ -15,7 +15,7 @@ import cafefashionsociety.structureliteraturemeadow.model.Profile;
 import cafefashionsociety.structureliteraturemeadow.model.User;
 import cafefashionsociety.structureliteraturemeadow.model.forms.ProfileForm;
 import cafefashionsociety.structureliteraturemeadow.service.ProfileService;
-import cafefashionsociety.structureliteraturemeadow.service.ReportService;
+import cafefashionsociety.structureliteraturemeadow.service.NoteService;
 import cafefashionsociety.structureliteraturemeadow.service.UserService;
 
 @Layout
@@ -27,7 +27,7 @@ public class ProfileController {
     ProfileService profileService;
 
     @Autowired
-    ReportService reportService;
+    NoteService noteService;
 
     @Autowired
     UserService userService;
@@ -59,7 +59,7 @@ public class ProfileController {
         ProfileForm profileForm = new ProfileForm();
         model.addAttribute("user", user);
         model.addAttribute("profileForm", profileForm);
-        model.addAttribute("title", "Create a new report");
+        model.addAttribute("title", "Create a new note");
         return "createprofile";
     }
 

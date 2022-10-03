@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import cafefashionsociety.structureliteraturemeadow.config.Layout;
 import cafefashionsociety.structureliteraturemeadow.model.User;
 import cafefashionsociety.structureliteraturemeadow.service.ProfileService;
-import cafefashionsociety.structureliteraturemeadow.service.ReportService;
+import cafefashionsociety.structureliteraturemeadow.service.NoteService;
 import cafefashionsociety.structureliteraturemeadow.service.UserService;
 
 @Layout
@@ -23,7 +23,7 @@ public class UserController {
     ProfileService profileService;
 
     @Autowired
-    ReportService reportService;
+    NoteService noteService;
 
     @Autowired
     UserService userService;

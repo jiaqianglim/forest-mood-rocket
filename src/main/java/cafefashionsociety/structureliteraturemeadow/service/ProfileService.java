@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cafefashionsociety.structureliteraturemeadow.model.Profile;
-import cafefashionsociety.structureliteraturemeadow.model.Report;
+import cafefashionsociety.structureliteraturemeadow.model.Note;
 import cafefashionsociety.structureliteraturemeadow.repository.IProfileRepository;
 
 @Service
@@ -25,11 +25,11 @@ public class ProfileService {
         iProfileRepository.save(profile);
     }
 
-    public Profile addReportToProfile(Report report, Profile profile) {
-        String reportId = report.getId();
-        Deque<String> createdReports = profile.getCreatedReports();
-        createdReports.addFirst(reportId);
-        profile.setCreatedReports(createdReports);
+    public Profile addNoteToProfile(Note note, Profile profile) {
+        String noteId = note.getId();
+        Deque<String> createdNotes = profile.getCreatedNotes();
+        createdNotes.addFirst(noteId);
+        profile.setCreatedNotes(createdNotes);
         return profile;
     }
 

@@ -12,69 +12,69 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import cafefashionsociety.structureliteraturemeadow.config.Layout;
 import cafefashionsociety.structureliteraturemeadow.model.Profile;
-import cafefashionsociety.structureliteraturemeadow.model.Report;
+import cafefashionsociety.structureliteraturemeadow.model.Note;
 import cafefashionsociety.structureliteraturemeadow.model.User;
-import cafefashionsociety.structureliteraturemeadow.model.forms.ReportForm;
+import cafefashionsociety.structureliteraturemeadow.model.forms.NoteForm;
 import cafefashionsociety.structureliteraturemeadow.service.ProfileService;
-import cafefashionsociety.structureliteraturemeadow.service.ReportService;
+import cafefashionsociety.structureliteraturemeadow.service.NoteService;
 import cafefashionsociety.structureliteraturemeadow.service.UserService;
 
 @Layout
 @Controller
 @RequestMapping(path = "/r")
-public class ReportController {
+public class NoteController {
 
     @Autowired
     ProfileService profileService;
 
     @Autowired
-    ReportService reportService;
+    NoteService noteService;
 
     @Autowired
     UserService userService;
 
     @GetMapping("/all")
-    public String allReportsPage(Model model, Authentication authentication) {
+    public String allNotesPage(Model model, Authentication authentication) {
         User user = userService.findByUsername(authentication.getName());
         model.addAttribute("user", user);
-        model.addAttribute("title", "View all reports");
-        return "allreports";
+        model.addAttribute("title", "View all notes");
+        return "allnotes";
     }
 
     @GetMapping(path = "/{pathid}")
-    public String reportInfoPage(@PathVariable(required = true) String pathid,
+    public String noteInfoPage(@PathVariable(required = true) String pathid,
             Model model, Authentication authentication) {
         User user = userService.findByUsername(authentication.getName());
-        Report report = reportService.findById(pathid);
-        if(report==null)
+        Note note = noteService.findById(pathid);
+        if(note==null)
                 return "error/resourceerror";
         model.addAttribute("user", user);
-        model.addAttribute("report", report);
-        model.addAttribute("title", report.getTitle());
-        return "report";
+        model.addAttribute("note", note);
+        model.addAttribute("title", note.getTitle());
+        return "note";
     }
 
     @GetMapping("/new")
-    public String createReportPage(Model model, Authentication authentication) {
+    public String createNotePage(Model model, Authentication authentication) {
         User user = userService.findByUsername(authentication.getName());
-        ReportForm reportForm = new ReportForm();
+        NoteForm noteForm = new NoteForm();
         model.addAttribute("user", user);
-        model.addAttribute("reportForm", reportForm);
-        model.addAttribute("title", "Create a new report");
-        return "client/createreport";
+        model.addAttribute("noteForm", noteForm);
+        model.addAttribute("title", "Create a new note");
+        return "client/createnote";
     }
 
     @PostMapping(path = "/new", consumes = "application/x-www-form-urlencoded", produces = "text/html")
-    public String postNewReport(@ModelAttribute ReportForm reportForm, Model model, Authentication authentication) {
+    public String postNewNote(@ModelAttribute NoteForm noteForm, Model model, Authentication authentication) {
         User user = userService.findByUsername(authentication.getName());
-        Report newReport = reportForm.toReport();
-        Profile profile = profileService.findById(newReport.getProfileId());
-        user = userService.addReportToProfileToUser(newReport, profile, user);
-        reportService.save(newReport);
+        Note newNote = noteForm.toNote();
+        Profile profile = profileService.findById(newNote.getProfileId());
+        user = userService.addNoteToProfileToUser(newNote, profile, user);
+        noteService.save(newNote);
         profileService.save(profile);
         userService.save(user);
         model.addAttribute("user", user);
-        model.addAttribute("title", "All reports");
-        return "allreports";
+        model.addAttribute("title", "All notes");
+        return "allnotes";
     }
 }

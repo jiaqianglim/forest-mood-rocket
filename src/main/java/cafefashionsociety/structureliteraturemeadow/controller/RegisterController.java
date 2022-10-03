@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import cafefashionsociety.structureliteraturemeadow.config.Layout;
 import cafefashionsociety.structureliteraturemeadow.config.UtilityBeans;
 import cafefashionsociety.structureliteraturemeadow.model.Profile;
-import cafefashionsociety.structureliteraturemeadow.model.Report;
+import cafefashionsociety.structureliteraturemeadow.model.Note;
 import cafefashionsociety.structureliteraturemeadow.model.User;
 import cafefashionsociety.structureliteraturemeadow.model.forms.RegistrationForm;
 import cafefashionsociety.structureliteraturemeadow.service.ProfileService;
-import cafefashionsociety.structureliteraturemeadow.service.ReportService;
+import cafefashionsociety.structureliteraturemeadow.service.NoteService;
 import cafefashionsociety.structureliteraturemeadow.service.UserService;
 
 @Layout
@@ -38,7 +38,7 @@ public class RegisterController {
     ProfileService profileService;
 
     @Autowired
-    ReportService reportService;
+    NoteService noteService;
 
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -58,13 +58,13 @@ public class RegisterController {
                 "Active Learner",
                 "", false, "", newUser.getId(),
                 true);
-        Report newSampleReport = new Report(projectConfig.createUUIDString(), newUser.getId(),
-                newPersonalProfile.getId(), LocalDate.now(), "My first sample report",
-                "I created a new sample report!", "I made my first step in learning!", "Excited");
+        Note newSampleNote = new Note(projectConfig.createUUIDString(), newUser.getId(),
+                newPersonalProfile.getId(), LocalDate.now(), "My first sample note",
+                "I created a new sample note!", "I made my first step in learning!", "Excited");
 
-        newPersonalProfile = profileService.addReportToProfile(newSampleReport, newPersonalProfile);
-        newUser = userService.addReportToProfileToUser(newSampleReport, newPersonalProfile, newUser);
-        reportService.save(newSampleReport);
+        newPersonalProfile = profileService.addNoteToProfile(newSampleNote, newPersonalProfile);
+        newUser = userService.addNoteToProfileToUser(newSampleNote, newPersonalProfile, newUser);
+        noteService.save(newSampleNote);
         profileService.save(newPersonalProfile);
         userService.save(newUser);
         logger.info("new user {user} saved", newUser.getUsername());

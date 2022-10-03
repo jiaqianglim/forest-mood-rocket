@@ -20,9 +20,9 @@ public class Profile {
     private String pictureURL;
     private String userAccId;
     private Boolean currentlyActive;
-    private Deque<String> createdReports;
+    private Deque<String> createdNotes;
     private Deque<String> linkedProfiles;
-    private Deque<String> sharedReports;
+    private Deque<String> sharedNotes;
 
     public Profile() {
     }
@@ -42,17 +42,17 @@ public class Profile {
         this.pictureURL = pictureURL;
         this.userAccId = userAccId;
         this.currentlyActive = currentlyActive;
-        this.createdReports = new LinkedList<String>();
+        this.createdNotes = new LinkedList<String>();
         this.linkedProfiles = new LinkedList<String>();
-        this.sharedReports = new LinkedList<String>();
+        this.sharedNotes = new LinkedList<String>();
     }
 
     // Full
     public Profile(String id, String displayName, String organisationEmail, String organisationName,
             String organisationRole,
             String organisationId, Boolean organisationSearchable, String pictureURL, String userAccId,
-            Boolean currentlyActive, Deque<String> createdReports, Deque<String> linkedProfiles,
-            Deque<String> sharedReports) {
+            Boolean currentlyActive, Deque<String> createdNotes, Deque<String> linkedProfiles,
+            Deque<String> sharedNotes) {
         this.id = id;
         this.displayName = displayName;
         this.organisationEmail = organisationEmail;
@@ -63,9 +63,9 @@ public class Profile {
         this.pictureURL = pictureURL;
         this.userAccId = userAccId;
         this.currentlyActive = currentlyActive;
-        this.createdReports = createdReports;
+        this.createdNotes = createdNotes;
         this.linkedProfiles = linkedProfiles;
-        this.sharedReports = sharedReports;
+        this.sharedNotes = sharedNotes;
     }
 
     public String getId() {
@@ -156,20 +156,20 @@ public class Profile {
         this.currentlyActive = currentlyActive;
     }
 
-    public Deque<String> getCreatedReports() {
-        return createdReports;
+    public Deque<String> getCreatedNotes() {
+        return createdNotes;
     }
 
-    public void setCreatedReports(Deque<String> createdReports) {
-        this.createdReports = createdReports;
+    public void setCreatedNotes(Deque<String> createdNotes) {
+        this.createdNotes = createdNotes;
     }
 
-    public Deque<String> getSharedReports() {
-        return sharedReports;
+    public Deque<String> getSharedNotes() {
+        return sharedNotes;
     }
 
-    public void setSharedReports(Deque<String> sharedReports) {
-        this.sharedReports = sharedReports;
+    public void setSharedNotes(Deque<String> sharedNotes) {
+        this.sharedNotes = sharedNotes;
     }
 
 }

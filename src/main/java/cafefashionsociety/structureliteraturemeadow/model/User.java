@@ -1,9 +1,9 @@
 package cafefashionsociety.structureliteraturemeadow.model;
 
-import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Deque;
+import java.util.LinkedList;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
@@ -45,8 +45,8 @@ public class User implements UserDetails {
         this.isAccountNonLocked = true;
         this.isCredentialsNonExpired = true;
         this.isEnabled = true;
-        this.profileIds = new ArrayDeque<String>();
-        this.reportIds = new ArrayDeque<String>();
+        this.profileIds = new LinkedList<String>();
+        this.reportIds = new LinkedList<String>();
     }
 
     public User(String id, String username, String password, String firstName, String lastName, String userEmail,

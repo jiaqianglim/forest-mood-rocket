@@ -1,7 +1,7 @@
 package cafefashionsociety.structureliteraturemeadow.model;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.Deque;
+import java.util.LinkedList;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
@@ -20,9 +20,9 @@ public class Profile {
     private String pictureURL;
     private String userAccId;
     private Boolean currentlyActive;
-    private Map<String, String> createdReports;
-    private Map<String, String> linkedProfiles;
-    private Map<String, String> sharedReports;
+    private Deque<String> createdReports;
+    private Deque<String> linkedProfiles;
+    private Deque<String> sharedReports;
 
     public Profile() {
     }
@@ -42,17 +42,17 @@ public class Profile {
         this.pictureURL = pictureURL;
         this.userAccId = userAccId;
         this.currentlyActive = currentlyActive;
-        this.createdReports = new LinkedHashMap<String, String>();
-        this.linkedProfiles = new LinkedHashMap<String, String>();
-        this.sharedReports = new LinkedHashMap<String, String>();
+        this.createdReports = new LinkedList<String>();
+        this.linkedProfiles = new LinkedList<String>();
+        this.sharedReports = new LinkedList<String>();
     }
 
     // Full
     public Profile(String id, String displayName, String organisationEmail, String organisationName,
             String organisationRole,
             String organisationId, Boolean organisationSearchable, String pictureURL, String userAccId,
-            Boolean currentlyActive, Map<String, String> createdReports, Map<String, String> linkedProfiles,
-            Map<String, String> sharedReports) {
+            Boolean currentlyActive, Deque<String> createdReports, Deque<String> linkedProfiles,
+            Deque<String> sharedReports) {
         this.id = id;
         this.displayName = displayName;
         this.organisationEmail = organisationEmail;
@@ -128,11 +128,11 @@ public class Profile {
         return pictureURL;
     }
 
-    public Map<String, String> getLinkedProfiles() {
+    public Deque<String> getLinkedProfiles() {
         return linkedProfiles;
     }
 
-    public void setLinkedProfiles(Map<String, String> linkedProfiles) {
+    public void setLinkedProfiles(Deque<String> linkedProfiles) {
         this.linkedProfiles = linkedProfiles;
     }
 
@@ -156,19 +156,19 @@ public class Profile {
         this.currentlyActive = currentlyActive;
     }
 
-    public Map<String, String> getCreatedReports() {
+    public Deque<String> getCreatedReports() {
         return createdReports;
     }
 
-    public void setCreatedReports(Map<String, String> createdReports) {
+    public void setCreatedReports(Deque<String> createdReports) {
         this.createdReports = createdReports;
     }
 
-    public Map<String, String> getSharedReports() {
+    public Deque<String> getSharedReports() {
         return sharedReports;
     }
 
-    public void setSharedReports(Map<String, String> sharedReports) {
+    public void setSharedReports(Deque<String> sharedReports) {
         this.sharedReports = sharedReports;
     }
 

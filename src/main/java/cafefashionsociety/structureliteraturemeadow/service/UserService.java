@@ -24,6 +24,7 @@ public class UserService {
     public User addNewUserPersonalProfileToUser(String profileId, User user) {
         Deque<String> profileIds = user.getProfileIds();
         profileIds.addFirst(profileId);
+        user.setProfileIds(profileIds);
         return user;
     }
 
@@ -52,6 +53,7 @@ public class UserService {
         Deque<String> profileIds = user.getProfileIds();
         String newProfileId = profile.getId();
         profileIds.addFirst(newProfileId);
+        user.setProfileIds(profileIds);
         return user;
     }
 
@@ -59,6 +61,7 @@ public class UserService {
         Deque<String> reportIds = user.getReportIds();
         String newReportId = report.getId();
         reportIds.addFirst(newReportId);
+        user.setReportIds(reportIds);
         return user;
     }
 }

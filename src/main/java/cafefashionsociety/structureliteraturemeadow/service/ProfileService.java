@@ -1,6 +1,6 @@
 package cafefashionsociety.structureliteraturemeadow.service;
 
-import java.util.Map;
+import java.util.Deque;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +26,10 @@ public class ProfileService {
     }
 
     public Profile addReportToProfile(Report report, Profile profile) {
-        Map<String, String> profileCreatedReports = profile.getCreatedReports();
-        profileCreatedReports.put(report.getId(), report.getTitle());
-        profile.setCreatedReports(profileCreatedReports);
+        String reportId = report.getId();
+        Deque<String> createdReports = profile.getCreatedReports();
+        createdReports.addFirst(reportId);
+        profile.setCreatedReports(createdReports);
         return profile;
     }
 

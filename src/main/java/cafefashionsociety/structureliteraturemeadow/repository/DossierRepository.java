@@ -13,7 +13,7 @@ public class DossierRepository {
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
 
-    public List<String> getDossierListById(String id) {
+    public List<String> getNoteIdsByDossierId(String id) {
         List<String> dossier = (List<String>) redisTemplate.opsForValue().get(id);
         return dossier;
     }
@@ -22,7 +22,9 @@ public class DossierRepository {
         redisTemplate.opsForList().leftPush(dossierId, noteid);
     }
 
-    public void save(Dossier dossier) {
+    public Dossier save(Dossier dossier) {
         redisTemplate.opsForValue().set(dossier.getId(), dossier.getNoteIds());
+        Dossier savedDossier = (Dossier) redisTemplate.opsForValue().get(dossier.getId());
+        return savedDossier;
     }
 }

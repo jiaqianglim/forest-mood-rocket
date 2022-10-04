@@ -23,7 +23,7 @@ import cafefashionsociety.structureliteraturemeadow.service.UserService;
 
 @Layout
 @Controller
-@RequestMapping(path = "/r")
+@RequestMapping(path = "/n")
 public class NoteController {
 
     @Autowired

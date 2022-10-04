@@ -57,6 +57,7 @@ public class ProfileController {
         return "profile";
     }
 
+    //New profile creation
     @GetMapping(path = "/new")
     public String createProfilePage(Model model, Authentication authentication) {
         User user = userService.findByUsername(authentication.getName());

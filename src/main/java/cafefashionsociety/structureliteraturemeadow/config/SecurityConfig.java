@@ -42,7 +42,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeRequests()
-                .antMatchers("/u", "/p", "/o").hasRole("USER")
+                .antMatchers("/u", "/p", "/n").hasRole("USER")
                 .antMatchers("/api", "/api/**").permitAll()
                 .antMatchers("/", "/**").permitAll()
                 .and()

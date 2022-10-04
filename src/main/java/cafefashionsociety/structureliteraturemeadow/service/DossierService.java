@@ -14,7 +14,7 @@ public class DossierService {
     DossierRepository dossierRepository;
 
     public Dossier getDossierById(String id) {
-        List<String> noteIds = dossierRepository.getDossierListById(id);
+        List<String> noteIds = dossierRepository.getNoteIdsByDossierId(id);
         return new Dossier(id, noteIds);
     }
 
@@ -24,5 +24,6 @@ public class DossierService {
 
     public void save(Dossier dossier) {
         dossierRepository.save(dossier);
+
     }
 }

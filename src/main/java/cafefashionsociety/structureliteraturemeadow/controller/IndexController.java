@@ -22,14 +22,4 @@ public class IndexController {
         return "main/about";
     }
 
-    @GetMapping(path = "/docs")
-    public String docsPage() {
-        return "main/docs";
-    }
-
-    @GetMapping(path = "/design")
-    public String designPage() {
-        return "main/design";
-    }
-
 }

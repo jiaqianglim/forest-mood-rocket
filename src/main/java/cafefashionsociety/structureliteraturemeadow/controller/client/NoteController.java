@@ -39,6 +39,7 @@ public class NoteController {
     public String allNotesPage(Model model, Authentication authentication) {
         User user = userService.findByUsername(authentication.getName());
         LinkedList<Note> allNotes = (LinkedList<Note>) noteService.findAllById(user.getNoteIds());
+        model.addAttribute("allNotes", allNotes);
         model.addAttribute("user", user);
         model.addAttribute("title", "View all notes");
         return "allnotes";

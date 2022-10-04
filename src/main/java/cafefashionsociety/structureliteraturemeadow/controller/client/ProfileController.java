@@ -1,5 +1,7 @@
 package cafefashionsociety.structureliteraturemeadow.controller.client;
 
+import java.util.LinkedList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -35,6 +37,8 @@ public class ProfileController {
     @GetMapping(path = "/all")
     public String allProfilesPage(Model model, Authentication authentication) {
         User user = userService.findByUsername(authentication.getName());
+        LinkedList<Profile> allProfiles = (LinkedList<Profile>) profileService.findAllById(user.getProfileIds());
+        model.addAttribute("allProfiles", allProfiles);
         model.addAttribute("user", user);
         model.addAttribute("title", "View all profiles");
         return "allprofiles";

@@ -1,6 +1,7 @@
 package cafefashionsociety.structureliteraturemeadow.model;
 
 import java.util.LinkedList;
+import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
@@ -11,60 +12,32 @@ public class Profile {
     @Id
     private String id;
     private String displayName;
-    private String organisationEmail;
     private String organisationName;
     private String organisationRole;
-    private String organisationId;
-    private Boolean organisationSearchable = false;
-    private String pictureURL;
-    private String userAccId;
-    private Boolean currentlyActive;
-    private LinkedList<String> createdNotes;
-    private LinkedList<String> linkedProfiles;
-    private LinkedList<String> sharedNotes;
+    private List<String> noteIds;
 
     public Profile() {
     }
 
     // Add Profile
-    public Profile(String id, String displayName, String organisationEmail, String organisationName,
-            String organisationRole,
-            String organisationId, Boolean organisationSearchable, String pictureURL, String userAccId,
-            Boolean currentlyActive) {
+    public Profile(String id, String displayName, String organisationName,
+            String organisationRole) {
         this.id = "p" + id;
         this.displayName = displayName;
-        this.organisationEmail = organisationEmail;
         this.organisationName = organisationName;
         this.organisationRole = organisationRole;
-        this.organisationId = organisationId;
-        this.organisationSearchable = organisationSearchable;
-        this.pictureURL = pictureURL;
-        this.userAccId = userAccId;
-        this.currentlyActive = currentlyActive;
-        this.createdNotes = new LinkedList<String>();
-        this.linkedProfiles = new LinkedList<String>();
-        this.sharedNotes = new LinkedList<String>();
+        this.noteIds = new LinkedList<>();
     }
 
     // Full
-    public Profile(String id, String displayName, String organisationEmail, String organisationName,
-            String organisationRole,
-            String organisationId, Boolean organisationSearchable, String pictureURL, String userAccId,
-            Boolean currentlyActive, LinkedList<String> createdNotes, LinkedList<String> linkedProfiles,
-            LinkedList<String> sharedNotes) {
+    public Profile(String id, String displayName, String organisationName,
+    String organisationRole, List<String> noteIds
+   ) {
         this.id = id;
         this.displayName = displayName;
-        this.organisationEmail = organisationEmail;
         this.organisationName = organisationName;
         this.organisationRole = organisationRole;
-        this.organisationId = organisationId;
-        this.organisationSearchable = organisationSearchable;
-        this.pictureURL = pictureURL;
-        this.userAccId = userAccId;
-        this.currentlyActive = currentlyActive;
-        this.createdNotes = createdNotes;
-        this.linkedProfiles = linkedProfiles;
-        this.sharedNotes = sharedNotes;
+        this.noteIds = noteIds;
     }
 
     public String getId() {
@@ -83,14 +56,6 @@ public class Profile {
         this.displayName = displayName;
     }
 
-    public String getOrganisationEmail() {
-        return organisationEmail;
-    }
-
-    public void setOrganisationEmail(String organisationEmail) {
-        this.organisationEmail = organisationEmail;
-    }
-
     public String getOrganisationName() {
         return organisationName;
     }
@@ -107,68 +72,14 @@ public class Profile {
         this.organisationRole = organisationRole;
     }
 
-    public Boolean getOrganisationSearchable() {
-        return organisationSearchable;
+    public List<String> getNoteIds() {
+        return noteIds;
     }
 
-    public void setOrganisationSearchable(Boolean organisationSearchable) {
-        this.organisationSearchable = organisationSearchable;
+    public void setNoteIds(List<String> noteIds) {
+        this.noteIds = noteIds;
     }
 
-    public String getOrganisationId() {
-        return organisationId;
-    }
-
-    public void setOrganisationId(String organisationId) {
-        this.organisationId = organisationId;
-    }
-
-    public String getPictureURL() {
-        return pictureURL;
-    }
-
-    public LinkedList<String> getLinkedProfiles() {
-        return linkedProfiles;
-    }
-
-    public void setLinkedProfiles(LinkedList<String> linkedProfiles) {
-        this.linkedProfiles = linkedProfiles;
-    }
-
-    public void setPictureURL(String pictureURL) {
-        this.pictureURL = pictureURL;
-    }
-
-    public String getUserAccId() {
-        return userAccId;
-    }
-
-    public void setUserAccId(String userAccId) {
-        this.userAccId = userAccId;
-    }
-
-    public Boolean getCurrentlyActive() {
-        return currentlyActive;
-    }
-
-    public void setCurrentlyActive(Boolean currentlyActive) {
-        this.currentlyActive = currentlyActive;
-    }
-
-    public LinkedList<String> getCreatedNotes() {
-        return createdNotes;
-    }
-
-    public void setCreatedNotes(LinkedList<String> createdNotes) {
-        this.createdNotes = createdNotes;
-    }
-
-    public LinkedList<String> getSharedNotes() {
-        return sharedNotes;
-    }
-
-    public void setSharedNotes(LinkedList<String> sharedNotes) {
-        this.sharedNotes = sharedNotes;
-    }
+    
 
 }

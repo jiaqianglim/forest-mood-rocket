@@ -25,7 +25,7 @@ public class Note {
     // New Note
     public Note(String id, String userId, String profileId, LocalDate incidentDate, String title, String what,
             String soWhat, String tags) {
-        this.id = "r"+id;
+        this.id = "n"+id;
         this.userId = userId;
         this.profileId = profileId;
         this.noteCreationDate = LocalDate.now();

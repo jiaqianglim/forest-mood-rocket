@@ -35,24 +35,4 @@ public class UserController {
         model.addAttribute("title", user.getUsername().concat("'s details'"));
         return "user";
     }
-
-    @GetMapping(path = "/edit")
-    public String editUserPage(Model model, Authentication authentication) {
-        User user = userService.findByUsername(authentication.getName());
-        model.addAttribute("user", user);
-        model.addAttribute("title", user.getUsername().concat("'s details'"));
-        return "user";
-    }
-
-    @PutMapping(path = "/edit")
-    public String saveEditedUserPage(Model model, Authentication authentication, @ModelAttribute User editedUser) {
-        User user = userService.findByUsername(authentication.getName());
-        if (user.getId().equals(editedUser.getId())) {
-            userService.save(editedUser);
-        }
-        model.addAttribute("message", "New details have been saved");
-        model.addAttribute("User", user);
-        model.addAttribute("title", editedUser.getUsername().concat("'s details'"));
-        return "user";
-    }
 }

@@ -5,7 +5,7 @@
   xmlns:th="http://www.thymeleaf.org"
 >
   <head>
-    <title>Document</title>
+    <title>User details</title>
   </head>
   <body>
     <main th:fragment="content">
@@ -26,22 +26,6 @@
         <div class="row">
           <div class="col-4">Account Email:</div>
           <div class="col-8"><span th:text="${user.userEmail}"></span></div>
-        </div>
-        <div class="row">
-          <div class="col-4">Profiles:</div>
-          <div class="col-8">
-            <div class="row" th:each="profile:${user.profileIdsAndName}">
-              <div class="col" th:text="${user.profileIdsAndName.value}"></div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-4">Profiles:</div>
-          <div class="col-8">
-            <div class="row" th:each="report:${user.reportIdsAndTitle}">
-              <div class="col" th:text="${user.reportIdsAndTitle.value}"></div>
-            </div>
-          </div>
         </div>
       </div>
     </main>

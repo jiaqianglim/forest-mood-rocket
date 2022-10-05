@@ -11,10 +11,8 @@ public class Quote {
     private String quotetext;
     private String quoteauthor;
 
-    public Quote() {
-    }
-
-    public Quote(String quotetext, String quoteauthor) {
+    public Quote(String quoteid, String quotetext, String quoteauthor) {
+        this.quoteid = quoteid;
         this.quotetext = quotetext;
         this.quoteauthor = quoteauthor;
     }

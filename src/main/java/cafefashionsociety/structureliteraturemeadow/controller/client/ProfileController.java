@@ -41,7 +41,7 @@ public class ProfileController {
         model.addAttribute("allProfiles", allProfiles);
         model.addAttribute("user", user);
         model.addAttribute("title", "View all profiles");
-        return "allprofiles";
+        return "client/allprofiles";
     }
 
     @GetMapping(path = "/{pathid}")
@@ -51,13 +51,16 @@ public class ProfileController {
         Profile profile = profileService.findById(pathid);
         if (profile == null)
             return "error/resourceerror";
+        if (!user.getProfileIds().contains(profile.getId())) {
+            return "error/permissionerror";
+        }
         model.addAttribute("user", user);
         model.addAttribute("profile", profile);
         model.addAttribute("title", profile.getDisplayName());
-        return "profile";
+        return "client/profile";
     }
 
-    //New profile creation
+    // New profile creation
     @GetMapping(path = "/new")
     public String createProfilePage(Model model, Authentication authentication) {
         User user = userService.findByUsername(authentication.getName());
@@ -65,7 +68,7 @@ public class ProfileController {
         model.addAttribute("user", user);
         model.addAttribute("profileForm", profileForm);
         model.addAttribute("title", "Create a new note");
-        return "createprofile";
+        return "client/createprofile";
     }
 
     @PostMapping(path = "/new", consumes = "application/x-www-form-urlencoded", produces = "text/html")
@@ -78,6 +81,6 @@ public class ProfileController {
         userService.save(user);
         model.addAttribute("user", user);
         model.addAttribute("title", "All profiles");
-        return "allprofiles";
+        return "client/allprofiles";
     }
 }

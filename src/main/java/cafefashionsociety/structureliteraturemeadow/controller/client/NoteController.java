@@ -42,7 +42,7 @@ public class NoteController {
         model.addAttribute("allNotes", allNotes);
         model.addAttribute("user", user);
         model.addAttribute("title", "View all notes");
-        return "allnotes";
+        return "client/allnotes";
     }
 
     @GetMapping(path = "/{pathid}")
@@ -50,12 +50,15 @@ public class NoteController {
             Model model, Authentication authentication) {
         User user = userService.findByUsername(authentication.getName());
         Note note = noteService.findById(pathid);
-        if(note==null)
-                return "error/resourceerror";
+        if (note == null)
+            return "error/resourceerror";
+        if (!user.getProfileIds().contains(note.getId())) {
+            return "error/permissionerror";
+        }
         model.addAttribute("user", user);
         model.addAttribute("note", note);
         model.addAttribute("title", note.getTitle());
-        return "note";
+        return "client/note";
     }
 
     @GetMapping("/new")
@@ -79,6 +82,6 @@ public class NoteController {
         userService.save(user);
         model.addAttribute("user", user);
         model.addAttribute("title", "All notes");
-        return "allnotes";
+        return "client/allnotes";
     }
 }

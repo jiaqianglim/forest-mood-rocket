@@ -47,7 +47,7 @@ public class RedisConfig {
         logger.info("redis host port > {redisHost} {redisPort}", redisHost,
                 redisPort);
 
-        RedisTemplate<String, Object> template = new RedisTemplate<String, Object>();
+        final RedisTemplate<String, Object> template = new RedisTemplate<String, Object>();
         RedisSerializer<Object> serializer = new JdkSerializationRedisSerializer(getClass().getClassLoader());
         template.setConnectionFactory(jedisFac);
         template.setKeySerializer(new StringRedisSerializer());

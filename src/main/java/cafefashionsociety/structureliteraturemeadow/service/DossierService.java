@@ -1,6 +1,7 @@
 package cafefashionsociety.structureliteraturemeadow.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,8 +15,9 @@ public class DossierService {
     DossierRepository dossierRepository;
 
     public Dossier getDossierById(String id) {
-        List<String> noteIds = dossierRepository.getNoteIdsByDossierId(id);
-        return new Dossier(id, noteIds);
+        Optional<Dossier> opt = dossierRepository.getDossierById(id);
+        Dossier dossier = opt.isEmpty() ? new Dossier(id) : opt.get();
+        return dossier;
     }
 
     public void addNoteId(String dossierId, String noteId) {

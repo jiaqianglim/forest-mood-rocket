@@ -1,6 +1,6 @@
 package cafefashionsociety.structureliteraturemeadow.repository;
 
-import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -13,8 +13,8 @@ public class DossierRepository {
     @Autowired
     private RedisTemplate redisTemplate;
 
-    public List<String> getNoteIdsByDossierId(String id) {
-        List<String> dossier = (List<String>) redisTemplate.opsForValue().get(id);
+    public Optional<Dossier> getDossierById(String id) {
+        Optional<Dossier> dossier = Optional.ofNullable((Dossier) redisTemplate.opsForValue().get(id));
         return dossier;
     }
 

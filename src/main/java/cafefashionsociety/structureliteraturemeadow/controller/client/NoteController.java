@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import cafefashionsociety.structureliteraturemeadow.config.Layout;
 import cafefashionsociety.structureliteraturemeadow.model.Profile;
@@ -18,6 +19,7 @@ import cafefashionsociety.structureliteraturemeadow.model.Note;
 import cafefashionsociety.structureliteraturemeadow.model.User;
 import cafefashionsociety.structureliteraturemeadow.model.forms.NoteForm;
 import cafefashionsociety.structureliteraturemeadow.service.ProfileService;
+import cafefashionsociety.structureliteraturemeadow.service.CreateService;
 import cafefashionsociety.structureliteraturemeadow.service.NoteService;
 import cafefashionsociety.structureliteraturemeadow.service.UserService;
 
@@ -34,6 +36,9 @@ public class NoteController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    CreateService createService;
 
     @GetMapping("/all")
     public String allNotesPage(Model model, Authentication authentication) {
@@ -71,15 +76,24 @@ public class NoteController {
         return "client/createnote";
     }
 
+    @GetMapping("/clean")
+    public String createCleanNotePage(Model model, Authentication authentication, @RequestParam String pathid) {
+        User user = userService.findByUsername(authentication.getName());
+        NoteForm noteForm = new NoteForm();
+        Note note = noteService.findById(pathid);
+        model.addAttribute("oldNote", note);
+        model.addAttribute("user", user);
+        model.addAttribute("noteForm", noteForm);
+        model.addAttribute("title", "Create a new note");
+        return "client/createnote";
+    }
+
     @PostMapping(path = "/new", consumes = "application/x-www-form-urlencoded", produces = "text/html")
     public String postNewNote(@ModelAttribute NoteForm noteForm, Model model, Authentication authentication) {
         User user = userService.findByUsername(authentication.getName());
         Note newNote = noteForm.toNote();
         Profile profile = profileService.findById(newNote.getProfileId());
-        user = userService.addNoteToProfileToUser(newNote, profile, user);
-        noteService.save(newNote);
-        profileService.save(profile);
-        userService.save(user);
+        createService.addAndSave(newNote, profile, user);
         model.addAttribute("user", user);
         model.addAttribute("title", "All notes");
         return "client/allnotes";

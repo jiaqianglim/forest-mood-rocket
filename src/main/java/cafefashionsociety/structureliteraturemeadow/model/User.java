@@ -27,6 +27,7 @@ public class User implements UserDetails {
     private boolean isEnabled;
     private LinkedList<String> profileIds;
     private LinkedList<String> noteIds;
+    private LinkedList<String> dossierIds;
 
     public User() {
     }
@@ -46,12 +47,13 @@ public class User implements UserDetails {
         this.isEnabled = true;
         this.profileIds = new LinkedList<String>();
         this.noteIds = new LinkedList<String>();
+        this.dossierIds = new LinkedList<>();
     }
 
     public User(String id, String username, String password, String firstName, String lastName, String userEmail,
             Collection<? extends GrantedAuthority> authorities, boolean isAccountNonExpired,
             boolean isAccountNonLocked, boolean isCredentialsNonExpired, boolean isEnabled,
-            LinkedList<String> profileIds, LinkedList<String> noteIds) {
+            LinkedList<String> profileIds, LinkedList<String> noteIds, LinkedList<String> dossierIds) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -65,6 +67,7 @@ public class User implements UserDetails {
         this.isEnabled = isEnabled;
         this.profileIds = profileIds;
         this.noteIds = noteIds;
+        this.dossierIds = dossierIds;
     }
 
     public String getId() {
@@ -177,5 +180,15 @@ public class User implements UserDetails {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
+    public LinkedList<String> getDossierIds() {
+        return dossierIds;
+    }
+
+    public void setDossierIds(LinkedList<String> dossierIds) {
+        this.dossierIds = dossierIds;
+    }
+
+    
 
 }

@@ -17,6 +17,7 @@ import cafefashionsociety.structureliteraturemeadow.model.Profile;
 import cafefashionsociety.structureliteraturemeadow.model.User;
 import cafefashionsociety.structureliteraturemeadow.model.forms.ProfileForm;
 import cafefashionsociety.structureliteraturemeadow.service.ProfileService;
+import cafefashionsociety.structureliteraturemeadow.service.CreateService;
 import cafefashionsociety.structureliteraturemeadow.service.NoteService;
 import cafefashionsociety.structureliteraturemeadow.service.UserService;
 
@@ -33,6 +34,9 @@ public class ProfileController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    CreateService createService;
 
     @GetMapping(path = "/all")
     public String allProfilesPage(Model model, Authentication authentication) {
@@ -76,9 +80,7 @@ public class ProfileController {
             Model model, Authentication authentication) {
         User user = userService.findByUsername(authentication.getName());
         Profile newProfile = profileForm.toProfile();
-        user = userService.addProfileToUser(newProfile, user);
-        profileService.save(newProfile);
-        userService.save(user);
+        createService.addAndSave(newProfile, user);
         model.addAttribute("user", user);
         model.addAttribute("title", "All profiles");
         return "client/allprofiles";

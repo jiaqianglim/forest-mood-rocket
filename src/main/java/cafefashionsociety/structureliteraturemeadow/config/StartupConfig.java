@@ -13,6 +13,7 @@ import cafefashionsociety.structureliteraturemeadow.model.Note;
 import cafefashionsociety.structureliteraturemeadow.model.User;
 import cafefashionsociety.structureliteraturemeadow.repository.IUserRepository;
 import cafefashionsociety.structureliteraturemeadow.service.ProfileService;
+import cafefashionsociety.structureliteraturemeadow.service.CreateService;
 import cafefashionsociety.structureliteraturemeadow.service.NoteService;
 import cafefashionsociety.structureliteraturemeadow.service.UserService;
 
@@ -23,13 +24,7 @@ public class StartupConfig implements CommandLineRunner {
         IUserRepository iUserRepository;
 
         @Autowired
-        ProfileService profileService;
-
-        @Autowired
-        NoteService noteService;
-
-        @Autowired
-        UserService userService;
+        CreateService createService;
 
         @Autowired
         UtilityBeans projectConfig;
@@ -56,11 +51,7 @@ public class StartupConfig implements CommandLineRunner {
                                         "I created a new sample note!", "I made my first step in learning!",
                                         "Excited");
 
-                        testProfile = profileService.addNoteToProfile(testNote, testProfile);
-                        testUser = userService.addNoteToProfileToUser(testNote, testProfile, testUser);
-                        noteService.save(testNote);
-                        profileService.save(testProfile);
-                        userService.save(testUser);
+                        createService.addAndSave(testNote, testProfile, testUser);
                 }
 
         }

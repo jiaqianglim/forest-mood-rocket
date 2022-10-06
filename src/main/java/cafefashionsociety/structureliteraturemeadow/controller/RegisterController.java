@@ -18,6 +18,7 @@ import cafefashionsociety.structureliteraturemeadow.model.Note;
 import cafefashionsociety.structureliteraturemeadow.model.User;
 import cafefashionsociety.structureliteraturemeadow.model.forms.RegistrationForm;
 import cafefashionsociety.structureliteraturemeadow.service.ProfileService;
+import cafefashionsociety.structureliteraturemeadow.service.CreateService;
 import cafefashionsociety.structureliteraturemeadow.service.NoteService;
 import cafefashionsociety.structureliteraturemeadow.service.UserService;
 
@@ -41,6 +42,9 @@ public class RegisterController {
     NoteService noteService;
 
     @Autowired
+    CreateService createService;
+
+    @Autowired
     PasswordEncoder passwordEncoder;
 
     @GetMapping
@@ -58,11 +62,7 @@ public class RegisterController {
                 newPersonalProfile.getId(), LocalDate.now(), "My first sample note",
                 "I created a new sample note!", "I made my first step in learning!", "Excited");
 
-        newPersonalProfile = profileService.addNoteToProfile(newSampleNote, newPersonalProfile);
-        newUser = userService.addNoteToProfileToUser(newSampleNote, newPersonalProfile, newUser);
-        noteService.save(newSampleNote);
-        profileService.save(newPersonalProfile);
-        userService.save(newUser);
+
         logger.info("new user {user} saved", newUser.getUsername());
         return "redirect:/login";
     }

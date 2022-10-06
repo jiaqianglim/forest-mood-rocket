@@ -31,12 +31,4 @@ public class ProfileService {
         iProfileRepository.save(profile);
     }
 
-    public Profile addNoteToProfile(Note note, Profile profile) {
-        String noteId = note.getId();
-        LinkedList<String> createdNotes = (LinkedList<String>) profile.getNoteIds();
-        createdNotes.addFirst(noteId);
-        profile.setNoteIds(createdNotes);
-        return profile;
-    }
-
 }

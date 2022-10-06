@@ -7,8 +7,8 @@ import cafefashionsociety.structureliteraturemeadow.model.Note;
 import cafefashionsociety.structureliteraturemeadow.service.DossierService;
 import cafefashionsociety.structureliteraturemeadow.service.NoteService;
 import jakarta.json.Json;
-import jakarta.json.JsonArray;
 import jakarta.json.JsonArrayBuilder;
+import jakarta.json.JsonObject;
 import jakarta.json.JsonObjectBuilder;
 
 import java.util.LinkedList;
@@ -31,15 +31,16 @@ public class DossierRestController {
     public ResponseEntity<String> getDossier(@PathVariable(name = "dossierId") String dossierId) {
         Dossier dossier = dossierService.getDossierById(dossierId);
         LinkedList<Note> notes = (LinkedList<Note>) noteService.findAllById(dossier.getNoteIds());
-        JsonArrayBuilder response = Json.createArrayBuilder();
+        JsonObjectBuilder response = Json.createObjectBuilder().add("dossierName", dossier.getName());
+        JsonArrayBuilder notesArray = Json.createArrayBuilder();
         for (Note note : notes) {
             JsonObjectBuilder noteJson = Json.createObjectBuilder()
                     .add("incidentDate", note.getincidentDate().toString())
                     .add("title", note.getTitle()).add("what", note.getWhat()).add("soWhat", note.getSoWhat());
-            response.add(noteJson);
-
+            notesArray.add(noteJson);
         }
-        JsonArray resp = response.build();
+        response.add("notes", notesArray);
+        JsonObject resp = response.build();
         return ResponseEntity.ok(resp.toString());
     }
 }

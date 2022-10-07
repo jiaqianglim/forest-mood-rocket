@@ -10,12 +10,14 @@ public class ProfileForm {
     private String displayName;
     private String organisationName;
     private String organisationRole;
+    private String profileDescription;
 
     @Autowired
     UtilityBeans projectConfig;
 
     public Profile toProfile() {
-        return new Profile(projectConfig.createUUIDString(), displayName, organisationName, organisationRole);
+        return new Profile(projectConfig.createUUIDString(), displayName, organisationName, organisationRole,
+                profileDescription);
     }
 
 }

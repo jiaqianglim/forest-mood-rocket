@@ -44,7 +44,7 @@ public class StartupConfig implements CommandLineRunner {
                                         passwordEncoder.encode("pass1"),
                                         "user1FirstName", "user1LastName", "testuser1@email.com");
                         Profile testProfile = new Profile(idkey,
-                                        "My Personal Profile", "MyTestOrg", "MyTestRole");
+                                        "My Personal Profile", "MyTestOrg", "MyTestRole", "MyTestProfileDescription");
                         Note testNote = new Note(idkey,
                                         testUser.getId(), testProfile.getId(),
                                         LocalDate.now(), "My first sample note",

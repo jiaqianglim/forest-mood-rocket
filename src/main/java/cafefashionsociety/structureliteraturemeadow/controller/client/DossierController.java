@@ -16,13 +16,17 @@ import cafefashionsociety.structureliteraturemeadow.config.UtilityBeans;
 import cafefashionsociety.structureliteraturemeadow.model.Dossier;
 import cafefashionsociety.structureliteraturemeadow.model.Note;
 import cafefashionsociety.structureliteraturemeadow.model.User;
-import cafefashionsociety.structureliteraturemeadow.model.forms.DossierCreationDTO;
+import cafefashionsociety.structureliteraturemeadow.model.forms.DossierForm;
 import cafefashionsociety.structureliteraturemeadow.service.CreateService;
 import cafefashionsociety.structureliteraturemeadow.service.DossierService;
 import cafefashionsociety.structureliteraturemeadow.service.NoteService;
 import cafefashionsociety.structureliteraturemeadow.service.UserService;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
+@RequestMapping("/d")
 public class DossierController {
     @Autowired
     UserService userService;
@@ -39,15 +43,11 @@ public class DossierController {
     @Autowired
     UtilityBeans utilityBeans;
 
-    @PostMapping(path = "/newdossier", consumes = "application/json", produces = "text/html")
-    public String postNewDossier(Model model, Authentication authentication, @ModelAttribute DossierCreationDTO form) {
+    @PostMapping(path = "/new", consumes = "application/json", produces = "text/html")
+    public String postNewDossier(Model model, Authentication authentication, @ModelAttribute DossierForm form) {
         User user = userService.findByUsername(authentication.getName());
         String name = form.getName();
-        List<Note> noteList = form.getDossier();
-        List<String> noteIdList = new LinkedList<>();
-        for (Note note : noteList) {
-            noteIdList.add(note.getId());
-        }
+        List<String> noteIdList = form.getNoteIds();
         Dossier dossier = new Dossier(utilityBeans.createUUIDString(), name, noteIdList);
         createService.addAndSave(dossier, user);
         List<Note> notes = noteService.findAllById(noteIdList);

@@ -57,11 +57,10 @@ public class RegisterController {
 
         User newUser = registrationForm.toUser(passwordEncoder);
         Profile newPersonalProfile = new Profile(projectConfig.createUUIDString(), newUser.getUsername(),
-                "My Personal Profile", "Active Learner");
+                "My Personal Profile", "Active Learner", "This is my personal profile for my personal notes!");
         Note newSampleNote = new Note(projectConfig.createUUIDString(), newUser.getId(),
                 newPersonalProfile.getId(), LocalDate.now(), "My first sample note",
                 "I created a new sample note!", "I made my first step in learning!", "Excited");
-
 
         logger.info("new user {user} saved", newUser.getUsername());
         return "redirect:/login";

@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import cafefashionsociety.structureliteraturemeadow.config.Layout;
+import cafefashionsociety.structureliteraturemeadow.model.Quote;
 import cafefashionsociety.structureliteraturemeadow.model.User;
 import cafefashionsociety.structureliteraturemeadow.service.ProfileService;
+import cafefashionsociety.structureliteraturemeadow.service.QuoteService;
 import cafefashionsociety.structureliteraturemeadow.service.NoteService;
 import cafefashionsociety.structureliteraturemeadow.service.UserService;
 
@@ -26,9 +28,14 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    QuoteService quoteService;
+
     @GetMapping(path = "/view")
     public String viewUserPage(Model model, Authentication authentication) {
         User user = userService.findByUsername(authentication.getName());
+        Quote quote = quoteService.getRandomQuote();
+        model.addAttribute("quote", quote);
         model.addAttribute("user", user);
         model.addAttribute("title", user.getUsername().concat("'s details'"));
         return "user";

@@ -7,5 +7,37 @@
   <head>
     <title>Document</title>
   </head>
-  <body></body>
+  <body>
+    <main th:fragment="content">
+      <h1>View your notes, or add notes to a dossier for sharing!</h1>
+      <form
+        th:action="@{/d/new}"
+        method="post"
+        class="col-lg-8 mx-auto p-3 py-md-5"
+        th:object="${dossierForm}"
+      >
+        <label for="name">Choose a name for your dossier:</label>
+        <input type="text" th:field="*{name}" />
+        <table class="table">
+          <tr>
+            <th class="col-3">Date</th>
+            <th class="col-7">Title</th>
+            <th class="col-2">Add</th>
+          </tr>
+          <tr th:each="note:${notes}">
+            <td th:text="${note.incidentDate}"></td>
+            <td th:text="${note.title}"></td>
+            <td>
+              <input
+                type="checkbox"
+                th:value="${note.id}"
+                th:field="*{noteIds}"
+              />
+            </td>
+          </tr>
+        </table>
+        <button type="submit" value="Create dossier!"></button>
+      </form>
+    </main>
+  </body>
 </html>

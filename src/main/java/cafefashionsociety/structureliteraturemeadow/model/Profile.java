@@ -14,6 +14,7 @@ public class Profile {
     private String displayName;
     private String organisationName;
     private String organisationRole;
+    private String profileDescription;
     private List<String> noteIds;
 
     public Profile() {
@@ -21,22 +22,23 @@ public class Profile {
 
     // Add Profile
     public Profile(String id, String displayName, String organisationName,
-            String organisationRole) {
+            String organisationRole, String profileDescription) {
         this.id = "p" + id;
         this.displayName = displayName;
         this.organisationName = organisationName;
         this.organisationRole = organisationRole;
+        this.profileDescription = profileDescription;
         this.noteIds = new LinkedList<>();
     }
 
     // Full
     public Profile(String id, String displayName, String organisationName,
-    String organisationRole, List<String> noteIds
-   ) {
+            String organisationRole, String profileDescription, List<String> noteIds) {
         this.id = id;
         this.displayName = displayName;
         this.organisationName = organisationName;
         this.organisationRole = organisationRole;
+        this.profileDescription = profileDescription;
         this.noteIds = noteIds;
     }
 
@@ -79,7 +81,5 @@ public class Profile {
     public void setNoteIds(List<String> noteIds) {
         this.noteIds = noteIds;
     }
-
-    
 
 }

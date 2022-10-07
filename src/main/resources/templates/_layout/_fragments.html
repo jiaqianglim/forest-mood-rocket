@@ -24,7 +24,7 @@
     ></script>
   </head>
   <body>
-    <header class="p-1 text-bg-dark">
+    <headerA class="p-1 text-bg-dark">
       <div class="container">
         <div
           class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-between"
@@ -36,15 +36,7 @@
               <a th:href="@{/}" class="nav-link px-2 text-white">Home</a>
             </li>
             <li>
-              <a th:href="@{/about}" class="nav-link px-2 text-white">About</a>
-            </li>
-            <li>
               <a th:href="@{/docs}" class="nav-link px-2 text-white">Docs</a>
-            </li>
-            <li>
-              <a th:href="@{/design}" class="nav-link px-2 text-white"
-                >Design</a
-              >
             </li>
           </ul>
 
@@ -65,25 +57,56 @@
                 Sign-up
               </a>
             </div>
-            <div sec:authorize="isAuthenticated()">
+            <div>
               <ul
-                class="nav col-12 col-lg-auto me-lg-auto mb-0 justify-content-center mb-md-0"
-              >
-                <li class="nav-link px-2 text-success">
-                  Hey its good to see you
-                  <span sec:authentication="name"></span>!
-                </li>
-                <li>
-                  <a th:href="@{/logout}" class="nav-link px-2 text-white"
-                    >Logout</a
-                  >
-                </li>
-              </ul>
+              class="nav col-12 col-lg-auto me-lg-auto mb-0 justify-content-center mb-md-0"
+            >
+              <li class="nav-link px-2 text-success">
+                Hey its good to see you
+                <span sec:authentication="name"></span>!
+              </li>
+              <li>
+                <a th:href="@{/logout}" class="nav-link px-2 text-white"
+                  >Logout</a
+                >
+              </li>
+            </ul>
             </div>
           </div>
         </div>
       </div>
-    </header>
+    </headerA class="p-1 text-bg-dark">
+    <headerB>
+      <div class="container">
+        <div
+          class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-between"
+        >
+          <ul
+            class="nav col-12 col-lg-auto me-lg-auto mb-0 justify-content-center mb-md-0"
+          >
+            <li>
+              <a th:href="@{/}" class="nav-link px-2 text-white">Home</a>
+            </li>
+            <li>
+              <a th:href="@{/docs}" class="nav-link px-2 text-white">Docs</a>
+            </li>
+          </ul>
+          <ul
+            class="nav col-12 col-lg-auto me-lg-auto mb-0 justify-content-center mb-md-0"
+          >
+            <li class="nav-link px-2 text-success">
+              Hey its good to see you
+              <span sec:authentication="name"></span>!
+            </li>
+            <li>
+              <a th:href="@{/logout}" class="nav-link px-2 text-white"
+                >Logout</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </headerB>
     <!--main th:fragment="content" -->
 
     <footer class="container">

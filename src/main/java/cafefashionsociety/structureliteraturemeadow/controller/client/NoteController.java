@@ -50,6 +50,17 @@ public class NoteController {
         return "client/allnotes";
     }
 
+    @GetMapping(path = "/f")
+    public String noteByProfilePage(@RequestParam String p, Model model, Authentication authentication) {
+        User user = userService.findByUsername(authentication.getName());
+        Profile profileRequested = profileService.findById(p);
+        LinkedList<Note> allNotes = (LinkedList<Note>) noteService.findAllById(profileRequested.getNoteIds());
+        model.addAttribute("allNotes", allNotes);
+        model.addAttribute("user", user);
+        model.addAttribute("title", "View profile notes");
+        return "client/allnotes";
+    }
+
     @GetMapping(path = "/{pathid}")
     public String noteInfoPage(@PathVariable(required = true) String pathid,
             Model model, Authentication authentication) {

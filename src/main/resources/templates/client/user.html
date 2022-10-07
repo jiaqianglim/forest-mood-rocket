@@ -29,17 +29,25 @@
         </div>
         <div class="row">
           <div class="col-4">No. of Profiles:</div>
-          <div class="col-8"><span th:text="${#lists.size(user.profileIds)}"></span></div>
+          <div class="col-8">
+            <span th:text="${#lists.size(user.profileIds)}"></span>
+          </div>
         </div>
         <div class="row">
           <div class="col-4">No. of Notes:</div>
-          <div class="col-8"><span th:text="${#lists.size(user.noteIds)"></span></div>
+          <div class="col-8">
+            <span th:text="${#lists.size(user.noteIds)"></span>
+          </div>
         </div>
         <div class="row">
           <div class="col-4">No. of Dossiers:</div>
-          <div class="col-8"><span th:text="${#lists.size(user.dossierIds)"></span></div>
+          <div class="col-8">
+            <span th:text="${#lists.size(user.dossierIds)"></span>
+          </div>
         </div>
       </div>
+      <div th:text="${quote.text}"></div>
+      <div th:text="${quote.quoteauthor}"></div>
     </main>
   </body>
 </html>

@@ -11,7 +11,7 @@ import jakarta.json.JsonArrayBuilder;
 import jakarta.json.JsonObject;
 import jakarta.json.JsonObjectBuilder;
 
-import java.util.LinkedList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -29,13 +29,13 @@ public class DossierRestController {
 
     @GetMapping(path = "/{dossierid}")
     public ResponseEntity<String> getDossier(@PathVariable(name = "dossierId") String dossierId) {
-        Dossier dossier = dossierService.findDossierById(dossierId);
-        LinkedList<Note> notes = (LinkedList<Note>) noteService.findAllById(dossier.getNoteIds());
+        Dossier dossier = dossierService.findById(dossierId);
+        List<Note> notes = (List<Note>) noteService.findAllById(dossier.getNoteIds());
         JsonObjectBuilder response = Json.createObjectBuilder().add("dossierName", dossier.getName());
         JsonArrayBuilder notesArray = Json.createArrayBuilder();
         for (Note note : notes) {
             JsonObjectBuilder noteJson = Json.createObjectBuilder()
-                    .add("incidentDate", note.getincidentDate().toString())
+                    .add("incidentDate", note.getIncidentDate())
                     .add("title", note.getTitle()).add("what", note.getWhat()).add("soWhat", note.getSoWhat());
             notesArray.add(noteJson);
         }

@@ -8,12 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cafefashionsociety.structureliteraturemeadow.model.Quote;
-import cafefashionsociety.structureliteraturemeadow.repository.IQuoteRespoitory;
+import cafefashionsociety.structureliteraturemeadow.repository.QuoteRespoitory;
 
 @Service
 public class QuoteService {
     @Autowired
-    IQuoteRespoitory quoteRespoitory;
+    QuoteRespoitory quoteRespoitory;
 
     public Quote getQuoteById(String id) {
         Optional opt = quoteRespoitory.findById(id);

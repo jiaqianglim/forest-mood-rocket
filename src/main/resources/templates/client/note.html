@@ -31,8 +31,8 @@
             <td th:text="${note.tags}"></td>
           </tr>
         </table>
+        <a type="button" class="btn btn-primary" th:href="@{'/n/dup/'+${note.id}}">Duplicate & Sanitize</a>
       </div>
-      <a type="button" class="btn btn-primary" th:href="@{/n/dup/${note.id}}">Duplicate & Sanitize</a>
     </main>
   </body>
 </html>

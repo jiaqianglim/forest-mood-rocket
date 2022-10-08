@@ -1,20 +1,22 @@
 package cafefashionsociety.structureliteraturemeadow.model;
 
+import java.io.Serializable;
 import java.util.LinkedList;
+import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 
 @RedisHash
-public class Profile {
+public class Profile implements Serializable {
 
     @Id
-    private String id;
-    private String displayName;
-    private String organisationName;
-    private String organisationRole;
-    private String profileDescription;
-    private LinkedList<String> noteIds;
+    String id;
+    String displayName;
+    String organisationName;
+    String organisationRole;
+    String profileDescription;
+    List<String> noteIds;
 
     public Profile() {
     }
@@ -32,7 +34,7 @@ public class Profile {
 
     // Full
     public Profile(String id, String displayName, String organisationName,
-            String organisationRole, String profileDescription, LinkedList<String> noteIds) {
+            String organisationRole, String profileDescription, List<String> noteIds) {
         this.id = id;
         this.displayName = displayName;
         this.organisationName = organisationName;
@@ -81,13 +83,12 @@ public class Profile {
         this.profileDescription = profileDescription;
     }
 
-    public LinkedList<String> getNoteIds() {
+    public List<String> getNoteIds() {
         return noteIds;
     }
 
-    public void setNoteIds(LinkedList<String> noteIds) {
+    public void setNoteIds(List<String> noteIds) {
         this.noteIds = noteIds;
     }
-
 
 }

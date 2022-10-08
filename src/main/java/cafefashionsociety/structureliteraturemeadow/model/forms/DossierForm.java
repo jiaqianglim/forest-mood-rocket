@@ -1,6 +1,5 @@
 package cafefashionsociety.structureliteraturemeadow.model.forms;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
@@ -11,19 +10,27 @@ import cafefashionsociety.structureliteraturemeadow.model.Dossier;
 @Component
 public class DossierForm {
     String dossierName;
-    LinkedList<String> noteIds;
+    List<DossierFormNoteDTO> dossierFormNoteDTOs;
 
-    public Dossier toDossier(){
+    public Dossier toDossier() {
         UtilityBeans utilityBeans = new UtilityBeans();
-        return new Dossier(utilityBeans.createUUIDString(), dossierName, noteIds);
+        Dossier dossier = new Dossier(utilityBeans.createUUIDString(), dossierName);
+        List<String> noteIds = dossier.getNoteIds();
+        for (DossierFormNoteDTO dto : dossierFormNoteDTOs) {
+            if (dto.getNoteInputChoice().equals("yes")) {
+                noteIds.add(dto.getNoteId());
+            }
+        }
+        dossier.setNoteIds(noteIds);
+        return dossier;
     }
 
     public DossierForm() {
     }
 
-    public DossierForm(String dossierName, LinkedList<String> noteIds) {
+    public DossierForm(String dossierName, List<DossierFormNoteDTO> dossierFormNoteDTOs) {
         this.dossierName = dossierName;
-        this.noteIds = noteIds;
+        this.dossierFormNoteDTOs = dossierFormNoteDTOs;
     }
 
     public String getDossierName() {
@@ -33,14 +40,4 @@ public class DossierForm {
     public void setDossierName(String dossierName) {
         this.dossierName = dossierName;
     }
-
-    public LinkedList<String> getNoteIds() {
-        return noteIds;
-    }
-
-    public void setNoteIds(LinkedList<String> noteIds) {
-        this.noteIds = noteIds;
-    }
-
-    
 }

@@ -12,6 +12,7 @@ import cafefashionsociety.structureliteraturemeadow.model.Quote;
 import cafefashionsociety.structureliteraturemeadow.model.User;
 import cafefashionsociety.structureliteraturemeadow.service.ProfileService;
 import cafefashionsociety.structureliteraturemeadow.service.QuoteService;
+import cafefashionsociety.structureliteraturemeadow.service.UserListService;
 import cafefashionsociety.structureliteraturemeadow.service.NoteService;
 import cafefashionsociety.structureliteraturemeadow.service.UserService;
 
@@ -27,6 +28,9 @@ public class UserController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    UserListService userListService;
 
     @Autowired
     QuoteService quoteService;

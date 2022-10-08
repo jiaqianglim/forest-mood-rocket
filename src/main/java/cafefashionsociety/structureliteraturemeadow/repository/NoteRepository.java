@@ -29,7 +29,9 @@ public class NoteRepository {
     }
 
     public List<Note> findAllById(List<String> ids) {
+        logger.info("getting notes");
         List<Note> notes = redisTemplate.opsForValue().multiGet(ids);
+        logger.info("successful getting notes");
         return notes;
     }
 

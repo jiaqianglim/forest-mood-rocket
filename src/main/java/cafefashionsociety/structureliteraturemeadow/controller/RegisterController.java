@@ -16,6 +16,7 @@ import cafefashionsociety.structureliteraturemeadow.config.UtilityBeans;
 import cafefashionsociety.structureliteraturemeadow.model.Profile;
 import cafefashionsociety.structureliteraturemeadow.model.Note;
 import cafefashionsociety.structureliteraturemeadow.model.User;
+import cafefashionsociety.structureliteraturemeadow.model.UserList;
 import cafefashionsociety.structureliteraturemeadow.model.forms.RegistrationForm;
 import cafefashionsociety.structureliteraturemeadow.service.ProfileService;
 import cafefashionsociety.structureliteraturemeadow.service.CreateService;
@@ -55,17 +56,20 @@ public class RegisterController {
         UtilityBeans utilityBeans = new UtilityBeans();
 
         User newUser = registrationForm.toUser(passwordEncoder);
+
+        UserList newUserLists = new UserList().createUserList("l" + newUser.getUsername());
+
         Profile newPersonalProfile = new Profile(utilityBeans.createUUIDString(), newUser.getUsername(),
                 "My Personal Profile", "Active Learner", "This is my personal profile for my personal notes!");
 
         utilityBeans = new UtilityBeans();
-        Note newSampleNote = new Note(utilityBeans.createUUIDString(), newUser.getId(),
-                newPersonalProfile.getId(), LocalDate.now(), "My first sample note",
+        Note newSampleNote = new Note(utilityBeans.createUUIDString(), newUser.getUsername(),
+                newPersonalProfile.getId(), LocalDate.now().toString(), "My first sample note",
                 "I created a new sample note!", "I made my first step in learning!", "Excited");
 
-        createService.addAndSave(newSampleNote, newPersonalProfile, newUser);
+        createService.addAndSave(newSampleNote, newPersonalProfile, newUserLists);
 
-        logger.info("new user " + newUser.getUsername() + " saved");
+        logger.info("new user " + newUser.getUsername() + " created");
         return "redirect:/login";
     }
 

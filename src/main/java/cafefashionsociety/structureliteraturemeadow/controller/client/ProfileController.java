@@ -1,6 +1,6 @@
 package cafefashionsociety.structureliteraturemeadow.controller.client;
 
-import java.util.LinkedList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import cafefashionsociety.structureliteraturemeadow.config.Layout;
 import cafefashionsociety.structureliteraturemeadow.model.Profile;
 import cafefashionsociety.structureliteraturemeadow.model.User;
+import cafefashionsociety.structureliteraturemeadow.model.UserList;
 import cafefashionsociety.structureliteraturemeadow.model.forms.ProfileForm;
 import cafefashionsociety.structureliteraturemeadow.service.ProfileService;
+import cafefashionsociety.structureliteraturemeadow.service.UserListService;
 import cafefashionsociety.structureliteraturemeadow.service.CreateService;
 import cafefashionsociety.structureliteraturemeadow.service.NoteService;
 import cafefashionsociety.structureliteraturemeadow.service.UserService;
@@ -36,26 +38,31 @@ public class ProfileController {
     UserService userService;
 
     @Autowired
+    UserListService userListService;
+
+    @Autowired
     CreateService createService;
 
     @GetMapping(path = "/all")
     public String allProfilesPage(Model model, Authentication authentication) {
         User user = userService.findByUsername(authentication.getName());
-        LinkedList<Profile> allProfiles = (LinkedList<Profile>) profileService.findAllById(user.getProfileIds());
-        model.addAttribute("allProfiles", allProfiles);
+        UserList userList = userListService.findById("l" + user.getUsername());
+        List<Profile> profiles = profileService.findAllById(userList.getProfileIds());
+        model.addAttribute("profiles", profiles);
         model.addAttribute("user", user);
         model.addAttribute("title", "View all profiles");
-        return "client/allprofiles";
+        return "client/profilesall";
     }
 
     @GetMapping(path = "/{pathid}")
     public String profileInfoPage(@PathVariable(required = true) String pathid,
             Model model, Authentication authentication) {
         User user = userService.findByUsername(authentication.getName());
+        UserList userList = userListService.findById("l" + user.getUsername());
         Profile profile = profileService.findById(pathid);
         if (profile == null)
             return "error/resourceerror";
-        if (!user.getProfileIds().contains(profile.getId())) {
+        if (!userList.getProfileIds().contains(profile.getId())) {
             return "error/permissionerror";
         }
         model.addAttribute("user", user);
@@ -79,8 +86,9 @@ public class ProfileController {
     public String postNewProfile(@ModelAttribute ProfileForm profileForm,
             Model model, Authentication authentication) {
         User user = userService.findByUsername(authentication.getName());
+        UserList userList = userListService.findById("l" + user.getUsername());
         Profile newProfile = profileForm.toProfile();
-        createService.addAndSave(newProfile, user);
+        createService.addAndSave(newProfile, userList);
         model.addAttribute("user", user);
         model.addAttribute("title", "All profiles");
         return "client/allprofiles";

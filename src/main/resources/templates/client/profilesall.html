@@ -9,23 +9,41 @@
   </head>
   <body>
     <main th:fragment="content">
-      <h1>All of your profiles right here!</h1>
       <div class="col-lg-8 mx-auto p-3 py-md-5">
-        <div class="col-4">
-          <div class="card">
-            <div class="card-body" th:each="profile:${profiles}">
-              <h5 class="card-title" th:text="${profile.organisationName}"></h5>
-              <h6
-                class="card-subtitle mb-2 text-muted"
-                th:text="${profile.organisationRole}"
-              >
-                Card subtitle
-              </h6>
-              <p class="card-text" th:text="${profile.profileDescription}">
-                Some quick example text to build on the card title and make up
-                the bulk of the card's content.
-              </p>
-              <a th:href="@{/n/f(p=profile.id)" class="card-link">Notes</a>
+        <h1>All of your profiles right here!</h1>
+        <a type="button" class="btn btn-danger m-3" th:href="@{/p/new}"
+          >Create New Profile</a
+        >
+        <br />
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-4" th:each="profile, status:${profiles}">
+              <div class="card" style="width: 18rem">
+                <img src="placeholder2.jpg" class="card-img-top" />
+                <div class="card-body">
+                  <h5
+                    class="card-title"
+                    th:text="${profile.organisationName}"
+                  ></h5>
+                  <h6
+                    class="card-subtitle mb-2 text-muted"
+                    th:text="${profile.organisationRole}"
+                  >
+                    Card subtitle
+                  </h6>
+                  <p class="card-text" th:text="${profile.profileDescription}">
+                    Some quick example text to build on the card title and make
+                    up the bulk of the card's content.
+                  </p>
+                  <div class="card-text-center">
+                    <a
+                      th:href="@{/n/f(p=${profile.id})}"
+                      class="btn btn-primary"
+                      >Notes</a
+                    >
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

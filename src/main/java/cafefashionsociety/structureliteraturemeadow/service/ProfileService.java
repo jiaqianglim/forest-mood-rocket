@@ -1,6 +1,7 @@
 package cafefashionsociety.structureliteraturemeadow.service;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
 
 import org.slf4j.Logger;
@@ -9,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cafefashionsociety.structureliteraturemeadow.model.Profile;
-import cafefashionsociety.structureliteraturemeadow.repository.IProfileRepository;
+import cafefashionsociety.structureliteraturemeadow.repository.ProfileRepository;
 
 @Service
 public class ProfileService {
@@ -17,21 +18,21 @@ public class ProfileService {
     public Logger logger = LoggerFactory.getLogger(ProfileService.class);
 
     @Autowired
-    IProfileRepository iProfileRepository;
+    ProfileRepository profileRepository;
 
     public Profile findById(String id) {
-        Optional<Profile> opt = iProfileRepository.findById(id);
+        Optional<Profile> opt = profileRepository.findById(id);
         return opt.get();
     }
 
-    public Iterable<Profile> findAllById(LinkedList<String> ids) {
-        Iterable<Profile> profiles = iProfileRepository.findAllById(ids);
+    public List<Profile> findAllById(List<String> ids) {
+        List<Profile> profiles = profileRepository.findAllById(ids);
         return profiles;
     }
 
     public void save(Profile profile) {
-        iProfileRepository.save(profile);
-        Profile savedProfile = (iProfileRepository.findById(profile.getId())).get();
+        profileRepository.save(profile);
+        Profile savedProfile = (profileRepository.findById(profile.getId())).get();
         logger.info("Profile " + savedProfile.getDisplayName() + " saved");
     }
 

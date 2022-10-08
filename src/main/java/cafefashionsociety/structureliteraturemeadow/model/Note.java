@@ -10,26 +10,26 @@ import org.springframework.data.redis.core.RedisHash;
 public class Note implements Serializable {
 
     @Id
-    private String id;
-    private String userId;
-    private String profileId;
-    private LocalDate noteCreationDate;
-    private LocalDate incidentDate;
-    private String title;
-    private String what;
-    private String soWhat;
-    private String tags;
+    String id;
+    String userId;
+    String profileId;
+    String noteCreationDate;
+    String incidentDate;
+    String title;
+    String what;
+    String soWhat;
+    String tags;
 
     public Note() {
     }
 
     // New Note
-    public Note(String id, String userId, String profileId, LocalDate incidentDate, String title, String what,
+    public Note(String id, String userId, String profileId, String incidentDate, String title, String what,
             String soWhat, String tags) {
         this.id = "n" + id;
         this.userId = userId;
         this.profileId = profileId;
-        this.noteCreationDate = LocalDate.now();
+        this.noteCreationDate = LocalDate.now().toString();
         this.incidentDate = incidentDate;
         this.title = title;
         this.what = what;
@@ -38,7 +38,7 @@ public class Note implements Serializable {
     }
 
     // Full
-    public Note(String id, String userId, String profileId, LocalDate noteCreationDate, LocalDate incidentDate,
+    public Note(String id, String userId, String profileId, String noteCreationDate, String incidentDate,
             String title, String what, String soWhat, String tags) {
         this.id = id;
         this.userId = userId;
@@ -75,11 +75,19 @@ public class Note implements Serializable {
         this.profileId = profileId;
     }
 
-    public LocalDate getincidentDate() {
+    public String getNoteCreationDate() {
+        return noteCreationDate;
+    }
+
+    public void setNoteCreationDate(String noteCreationDate) {
+        this.noteCreationDate = noteCreationDate;
+    }
+
+    public String getIncidentDate() {
         return incidentDate;
     }
 
-    public void setincidentDate(LocalDate incidentDate) {
+    public void setIncidentDate(String incidentDate) {
         this.incidentDate = incidentDate;
     }
 
@@ -115,12 +123,5 @@ public class Note implements Serializable {
         this.tags = tags;
     }
 
-    public LocalDate getnoteCreationDate() {
-        return noteCreationDate;
-    }
-
-    public void setnoteCreationDate(LocalDate noteCreationDate) {
-        this.noteCreationDate = noteCreationDate;
-    }
 
 }

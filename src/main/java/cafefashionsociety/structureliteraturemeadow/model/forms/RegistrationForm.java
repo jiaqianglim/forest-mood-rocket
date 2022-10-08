@@ -2,7 +2,6 @@ package cafefashionsociety.structureliteraturemeadow.model.forms;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import cafefashionsociety.structureliteraturemeadow.config.UtilityBeans;
 import cafefashionsociety.structureliteraturemeadow.model.User;
 
 public class RegistrationForm {
@@ -14,8 +13,7 @@ public class RegistrationForm {
     private String userEmail;
 
     public User toUser(PasswordEncoder passwordEncoder) {
-        UtilityBeans utilityBeans = new UtilityBeans();
-        return new User(utilityBeans.createUUIDString(), username, passwordEncoder.encode(password), firstName,
+        return new User(username, passwordEncoder.encode(password), firstName,
                 lastName, userEmail);
     }
 

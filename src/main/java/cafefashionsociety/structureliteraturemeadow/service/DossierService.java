@@ -19,24 +19,20 @@ public class DossierService {
     @Autowired
     DossierRepository dossierRepository;
 
-    public Dossier findDossierById(String id) {
-        Optional<Dossier> opt = dossierRepository.findDossierById(id);
-        Dossier dossier = opt.isEmpty() ? new Dossier(id, "Empty Dossier", new LinkedList<String>()) : opt.get();
+    public Dossier findById(String id) {
+        Optional<Dossier> opt = dossierRepository.findById(id);
+        Dossier dossier = opt.isEmpty() ? new Dossier(id, "Empty Dossier") : opt.get();
         return dossier;
     }
 
-    public LinkedList<Dossier> findAllById(List<String> ids) {
-        LinkedList<Dossier> dossiers = dossierRepository.findAllByIds(ids);
+    public List<Dossier> findAllById(List<String> ids) {
+        List<Dossier> dossiers = dossierRepository.findAllByIds(ids);
         return dossiers;
-    }
-
-    public void addNoteId(String dossierId, String noteId) {
-        dossierRepository.addNoteId(dossierId, noteId);
     }
 
     public void save(Dossier dossier) {
         dossierRepository.save(dossier);
-        Dossier savedDossier = findDossierById(dossier.getId());
+        Dossier savedDossier = findById(dossier.getId());
         logger.info("Dossier " + savedDossier.getName() + " saved");
     }
 }

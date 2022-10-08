@@ -1,10 +1,12 @@
 package cafefashionsociety.structureliteraturemeadow.model;
 
+import java.io.Serializable;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 
 @RedisHash
-public class Quote {
+public class Quote implements Serializable {
 
     @Id
     private String quoteid;

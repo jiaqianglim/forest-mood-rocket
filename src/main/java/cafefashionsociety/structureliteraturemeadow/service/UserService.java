@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cafefashionsociety.structureliteraturemeadow.model.User;
-import cafefashionsociety.structureliteraturemeadow.repository.IUserRepository;
+import cafefashionsociety.structureliteraturemeadow.repository.UserRepository;
 
 @Service
 public class UserService {
@@ -16,21 +16,16 @@ public class UserService {
     public Logger logger = LoggerFactory.getLogger(UserService.class);
 
     @Autowired
-    IUserRepository iUserRepository;
-
-    public User findById(String id) {
-        Optional<User> opt = iUserRepository.findById(id);
-        return opt.get();
-    }
+    UserRepository userRepository;
 
     public User findByUsername(String username) {
-        Optional<User> opt = iUserRepository.findByUsername(username);
+        Optional<User> opt = userRepository.findByUsername(username);
         return opt.get();
     }
 
     public void save(User user) {
-        iUserRepository.save(user);
-        User savedUser = iUserRepository.findByUsername(user.getUsername()).get();
+        userRepository.save(user);
+        User savedUser = userRepository.findByUsername(user.getUsername()).get();
         logger.info("User " + savedUser.getUsername() + " saved");
     }
 

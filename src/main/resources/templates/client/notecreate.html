@@ -13,15 +13,15 @@
     <main th:fragment="content">
       <form th:action="@{/n/new}" method="post" class="col-lg-8 mx-auto p-3 py-md-5" th:object="${noteForm}">
         <h1>Hey <span th:text="${user.username}" ></span>, create a new note!</h1>
-        <input type="text" th:value="${user.id}" th:field="*{userAccId}" hidden>
+        <input type="text" th:value="${user.username}" th:field="*{username}" hidden>
         <div class="mb-0">
           <div class="row mb-0">
             <div class="col-6">
               <label for="profile" class="form-label">Choose a profile to save the note in:</label>
               <select class="form-select" th:field="*{profileId}" required>
-                <option th:each="profile : ${user.profileIdsAndName}"
-                        th:value="${profile.key}"
-                        th:text="${profile.value}"></option>
+                <option th:each="profile : ${profiles}"
+                        th:value="${profile.id}"
+                        th:text="${profile.displayName}"></option>
                 </select>
             </div>
             <div class="col-6">
@@ -46,17 +46,19 @@
             id="what"
             rows="3"
             placeholder="This happened..."
+            th:field="*{what}"
             required
           ></textarea>
-          <label for="what" class="form-label">How do I feel about this?</label>
+          <label for="soWhat" class="form-label">How do I feel about this?</label>
           <textarea
             class="form-control"
-            id="what"
+            id="soWhat"
             rows="3"
+            th:field="*{soWhat}"
             placeholder="I am..."
           ></textarea>
           <label for="tags" class="form-label">Tags</label></br>
-          <input type="text" id="tags" class="form-control" placeholder="Add any tags here">
+          <input type="text" id="tags" class="form-control" th:field="*{tags}" placeholder="Add any tags here">
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>

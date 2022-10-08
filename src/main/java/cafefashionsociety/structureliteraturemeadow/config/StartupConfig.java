@@ -2,20 +2,25 @@ package cafefashionsociety.structureliteraturemeadow.config;
 
 import java.time.LocalDate;
 import java.util.LinkedList;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import cafefashionsociety.structureliteraturemeadow.model.Profile;
 import cafefashionsociety.structureliteraturemeadow.model.Dossier;
 import cafefashionsociety.structureliteraturemeadow.model.Note;
 import cafefashionsociety.structureliteraturemeadow.model.User;
-import cafefashionsociety.structureliteraturemeadow.repository.IUserRepository;
+import cafefashionsociety.structureliteraturemeadow.model.UserList;
+import cafefashionsociety.structureliteraturemeadow.repository.UserRepository;
 import cafefashionsociety.structureliteraturemeadow.service.CreateService;
+import cafefashionsociety.structureliteraturemeadow.service.UserListService;
+import cafefashionsociety.structureliteraturemeadow.service.UserService;
 
 @Configuration
 public class StartupConfig implements CommandLineRunner {
@@ -23,73 +28,113 @@ public class StartupConfig implements CommandLineRunner {
         public Logger logger = LoggerFactory.getLogger(StartupConfig.class);
 
         @Autowired
-        IUserRepository iUserRepository;
+        UserRepository iUserRepository;
 
         @Autowired
         CreateService createService;
 
         @Autowired
+        UserService userService;
+
+        @Autowired
+        UserListService userListService;
+
+        @Autowired
         PasswordEncoder passwordEncoder;
+
+        @Autowired
+        RedisTemplate redisTemplate;
 
         @Override
         public void run(String... args) throws Exception {
+
+                redisTemplate.delete("*");
+
                 UtilityBeans utilityBeans = new UtilityBeans();
-                User testUser = new User(utilityBeans.createUUIDString(), "jeff",
+                User testUser = new User("jeff",
                                 passwordEncoder.encode("pass1"),
                                 "user1FirstName", "user1LastName", "testuser1@email.com");
+
+                UserList testUserLists = new UserList().createUserList(testUser.getUsername());
+
+                userService.save(testUser);
+                userListService.save(testUserLists);
 
                 utilityBeans = new UtilityBeans();
                 Profile testProfile = new Profile(utilityBeans.createUUIDString(),
                                 "My Personal Profile", "MyTestOrg", "MyTestRole", "MyTestProfileDescription");
+                createService.addAndSave(testProfile, testUserLists);
+
+                logger.info(testUserLists.getProfileIds().toString());
+
                 utilityBeans = new UtilityBeans();
                 Profile testWorkProfile = new Profile(utilityBeans.createUUIDString(),
-                                "Bill Bezos", "Gimble Inc", "General Manager", "2017-2020 job");
+                                "Bill Bezos, Gimble", "Gimble Inc", "General Manager", "2017-2020 job");
+                createService.addAndSave(testWorkProfile, testUserLists);
+
+                logger.info(testUserLists.getProfileIds().toString());
 
                 utilityBeans = new UtilityBeans();
                 Note testNote = new Note(utilityBeans.createUUIDString(),
-                                testUser.getId(), testProfile.getId(),
-                                LocalDate.now(), "My first sample note",
+                                testUser.getUsername(), testProfile.getId(),
+                                LocalDate.of(2022, 04, 01).toString(), "My first sample note",
                                 "I created a new sample note!", "I made my first step in learning!",
                                 "Excited");
+                createService.addAndSave(testNote, testProfile, testUserLists);
+
+                logger.info(testUserLists.getProfileIds().toString());
+                logger.info(testUserLists.getNoteIds().toString());
 
                 utilityBeans = new UtilityBeans();
                 Note testNote1 = new Note(utilityBeans.createUUIDString(),
-                                testUser.getId(), testProfile.getId(),
-                                LocalDate.now(), "Late for work",
+                                testUser.getUsername(), testProfile.getId(),
+                                LocalDate.of(2022, 04, 01).toString(), "Late for work",
                                 "Jenny was late for work today!",
                                 "When Jenny is late, everything is delayed because the team has to wait for her. So annoying",
                                 "Jenny late");
 
+                createService.addAndSave(testNote1, testWorkProfile, testUserLists);
+
+                logger.info(testUserLists.getProfileIds().toString());
+                logger.info(testUserLists.getNoteIds().toString());
+
                 utilityBeans = new UtilityBeans();
                 Note testNote2 = new Note(utilityBeans.createUUIDString(),
-                                testUser.getId(), testProfile.getId(),
-                                LocalDate.now(), "Late Again",
+                                testUser.getUsername(), testProfile.getId(),
+                                LocalDate.of(2022, 04, 04).toString(), "Late Again",
                                 "Jenny is late again, after I told her repeatedly to arrive on time",
                                 "Does she think she is special? We expect more from her. Why cant she just listen to us?",
-                                "Jenny late");
+                                "Jenny late, Angry");
+
+                createService.addAndSave(testNote2, testWorkProfile, testUserLists);
+
+                logger.info(testUserLists.getProfileIds().toString());
+                logger.info(testUserLists.getNoteIds().toString());
 
                 utilityBeans = new UtilityBeans();
                 Note testNote3 = new Note(utilityBeans.createUUIDString(),
-                                testUser.getId(), testProfile.getId(),
-                                LocalDate.now(), "Late",
+                                testUser.getUsername(), testProfile.getId(),
+                                LocalDate.of(2022, 04, 5).toString(), "Late",
                                 "Jenny late again, nothing new", "I am no longer mad, just disappointed",
-                                "Jenny late");
-                LinkedList<String> noteIds = new LinkedList<>();
-                noteIds.add(testNote1.getId());
-                noteIds.add(testNote2.getId());
-                noteIds.add(testNote3.getId());
-                
+                                "Great Disappointment");
+
+                createService.addAndSave(testNote3, testWorkProfile, testUserLists);
+
+                logger.info(testUserLists.getProfileIds().toString());
+                logger.info(testUserLists.getNoteIds().toString());
+
+                List<String> noteIds = new LinkedList<>();
+                noteIds.add(0, testNote1.getId());
+                noteIds.add(0, testNote2.getId());
+                noteIds.add(0, testNote3.getId());
+
                 utilityBeans = new UtilityBeans();
-                Dossier testdossier = new Dossier(utilityBeans.createUUIDString(), "Jenny is late",
+                Dossier testdossier = new Dossier("d" + utilityBeans.createUUIDString(), "Jenny is late",
                                 noteIds);
-                
-                createService.addAndSave(testProfile, testUser);
-                createService.addAndSave(testWorkProfile, testUser);
-                createService.addAndSave(testNote, testProfile, testUser);
-                createService.addAndSave(testNote1, testWorkProfile, testUser);
-                createService.addAndSave(testNote2, testWorkProfile, testUser);
-                createService.addAndSave(testNote3, testWorkProfile, testUser);
-                createService.addAndSave(testdossier, testUser);
+
+                createService.addAndSave(testdossier, testUserLists);
+
+                logger.info(testUserLists.getDossierIds().toString());
 
                 logger.info("Test cases inserted into DB");
 

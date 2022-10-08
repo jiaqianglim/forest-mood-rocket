@@ -1,6 +1,6 @@
 package cafefashionsociety.structureliteraturemeadow.service;
 
-import java.util.LinkedList;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,13 +10,13 @@ import org.springframework.stereotype.Service;
 import cafefashionsociety.structureliteraturemeadow.model.Dossier;
 import cafefashionsociety.structureliteraturemeadow.model.Note;
 import cafefashionsociety.structureliteraturemeadow.model.Profile;
-import cafefashionsociety.structureliteraturemeadow.model.User;
+import cafefashionsociety.structureliteraturemeadow.model.UserList;
 
 @Service
 public class CreateService {
 
     @Autowired
-    UserService userService;
+    UserListService userListService;
     @Autowired
     ProfileService profileService;
     @Autowired
@@ -26,54 +26,58 @@ public class CreateService {
 
     public Logger logger = LoggerFactory.getLogger(CreateService.class);
 
-    public void addAndSave(Note note, Profile profile, User user) {
+    public void addAndSave(Note note, Profile profile, UserList userList) {
         noteService.save(note);
         Profile updatedProfile = addNoteToProfile(note, profile);
-        User updatedUser = addNoteToUser(note, user);
-        addAndSave(updatedProfile, updatedUser);
+        UserList updatedUserList = addNoteToUserList(note, userList);
+        addAndSave(updatedProfile, updatedUserList);
     }
 
-    public void addAndSave(Profile profile, User user) {
+    public void addAndSave(Profile profile, UserList userList) {
         profileService.save(profile);
-        User updatedUser = addProfileToUser(profile, user);
-        userService.save(updatedUser);
+        UserList updatedUserList = addProfileToUserList(profile, userList);
+        userListService.save(updatedUserList);
     }
 
-    public void addAndSave(Dossier dossier, User user){
+    public void addAndSave(Dossier dossier, UserList userList) {
         dossierService.save(dossier);
-        User updatedUser = addDossierToUser(dossier, user);
-        userService.save(updatedUser);
+        UserList updatedUserList = addDossierToUserList(dossier, userList);
+        userListService.save(updatedUserList);
     }
 
-    private User addProfileToUser(Profile profile, User user) {
-        LinkedList<String> profileIds = user.getProfileIds();
+    private UserList addProfileToUserList(Profile profile, UserList userList) {
+        List<String> profileIds = userList.getProfileIds();
         String newProfileId = profile.getId();
-        profileIds.addFirst(newProfileId);
-        user.setProfileIds(profileIds);
-        return user;
+        if (!profileIds.contains(newProfileId))
+            profileIds.add(0, newProfileId);
+        userList.setProfileIds(profileIds);
+        return userList;
     }
 
-    private User addNoteToUser(Note note, User user) {
-        LinkedList<String> noteIds = user.getNoteIds();
+    private UserList addNoteToUserList(Note note, UserList userList) {
+        List<String> noteIds = userList.getNoteIds();
         String newNoteId = note.getId();
-        noteIds.addFirst(newNoteId);
-        user.setNoteIds(noteIds);
-        return user;
+        if (!noteIds.contains(newNoteId))
+            noteIds.add(0, newNoteId);
+        userList.setNoteIds(noteIds);
+        return userList;
     }
 
     private Profile addNoteToProfile(Note note, Profile profile) {
+        List<String> createdNotes = (List<String>) profile.getNoteIds();
         String noteId = note.getId();
-        LinkedList<String> createdNotes = (LinkedList<String>) profile.getNoteIds();
-        createdNotes.addFirst(noteId);
+        if (!createdNotes.contains(note.getId()))
+            createdNotes.add(0, noteId);
         profile.setNoteIds(createdNotes);
         return profile;
     }
 
-    private User addDossierToUser(Dossier dossier, User user){
+    private UserList addDossierToUserList(Dossier dossier, UserList userList) {
+        List<String> createdDossiers = userList.getDossierIds();
         String dossierId = dossier.getId();
-        LinkedList<String> createdDossiers = user.getDossierIds();
-        createdDossiers.addFirst(dossierId);
-        user.setDossierIds(createdDossiers);
-        return user;
+        if (!createdDossiers.contains(dossier.getId()))
+            createdDossiers.add(0, dossierId);
+        userList.setDossierIds(createdDossiers);
+        return userList;
     }
 }

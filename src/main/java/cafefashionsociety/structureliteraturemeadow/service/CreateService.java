@@ -28,7 +28,6 @@ public class CreateService {
 
     public void addAndSave(Note note, Profile profile, User user) {
         noteService.save(note);
-        logger.info("note saved");
         Profile updatedProfile = addNoteToProfile(note, profile);
         User updatedUser = addNoteToUser(note, user);
         addAndSave(updatedProfile, updatedUser);
@@ -36,18 +35,14 @@ public class CreateService {
 
     public void addAndSave(Profile profile, User user) {
         profileService.save(profile);
-        logger.info("profile saved");
         User updatedUser = addProfileToUser(profile, user);
         userService.save(updatedUser);
-        logger.info("user saved");
     }
 
     public void addAndSave(Dossier dossier, User user){
         dossierService.save(dossier);
-        logger.info("dossier saved");
         User updatedUser = addDossierToUser(dossier, user);
         userService.save(updatedUser);
-        logger.info("user saved");
     }
 
     private User addProfileToUser(Profile profile, User user) {

@@ -30,9 +30,6 @@ public class RegisterController {
     Logger logger = LoggerFactory.getLogger(RegisterController.class);
 
     @Autowired
-    UtilityBeans projectConfig;
-
-    @Autowired
     UserService userService;
 
     @Autowired
@@ -55,14 +52,20 @@ public class RegisterController {
     @PostMapping
     public String processNewUserRegistration(RegistrationForm registrationForm) {
 
+        UtilityBeans utilityBeans = new UtilityBeans();
+
         User newUser = registrationForm.toUser(passwordEncoder);
-        Profile newPersonalProfile = new Profile(projectConfig.createUUIDString(), newUser.getUsername(),
+        Profile newPersonalProfile = new Profile(utilityBeans.createUUIDString(), newUser.getUsername(),
                 "My Personal Profile", "Active Learner", "This is my personal profile for my personal notes!");
-        Note newSampleNote = new Note(projectConfig.createUUIDString(), newUser.getId(),
+
+        utilityBeans = new UtilityBeans();
+        Note newSampleNote = new Note(utilityBeans.createUUIDString(), newUser.getId(),
                 newPersonalProfile.getId(), LocalDate.now(), "My first sample note",
                 "I created a new sample note!", "I made my first step in learning!", "Excited");
 
-        logger.info("new user {user} saved", newUser.getUsername());
+        createService.addAndSave(newSampleNote, newPersonalProfile, newUser);
+
+        logger.info("new user " + newUser.getUsername() + " saved");
         return "redirect:/login";
     }
 

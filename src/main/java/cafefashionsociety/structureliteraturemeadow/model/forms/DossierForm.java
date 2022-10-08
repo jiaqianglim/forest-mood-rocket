@@ -1,36 +1,46 @@
 package cafefashionsociety.structureliteraturemeadow.model.forms;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import cafefashionsociety.structureliteraturemeadow.config.UtilityBeans;
+import cafefashionsociety.structureliteraturemeadow.model.Dossier;
+
 @Component
 public class DossierForm {
-    String name;
-    List<String> noteIds;
+    String dossierName;
+    LinkedList<String> noteIds;
+
+    public Dossier toDossier(){
+        UtilityBeans utilityBeans = new UtilityBeans();
+        return new Dossier(utilityBeans.createUUIDString(), dossierName, noteIds);
+    }
 
     public DossierForm() {
     }
 
-    public DossierForm(String name, List<String> noteIds) {
-        this.name = name;
+    public DossierForm(String dossierName, LinkedList<String> noteIds) {
+        this.dossierName = dossierName;
         this.noteIds = noteIds;
     }
 
-    public String getName() {
-        return name;
+    public String getDossierName() {
+        return dossierName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDossierName(String dossierName) {
+        this.dossierName = dossierName;
     }
 
-    public List<String> getNoteIds() {
+    public LinkedList<String> getNoteIds() {
         return noteIds;
     }
 
-    public void setNoteIds(List<String> noteIds) {
+    public void setNoteIds(LinkedList<String> noteIds) {
         this.noteIds = noteIds;
     }
 
+    
 }

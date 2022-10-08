@@ -17,6 +17,11 @@ public class IndexController {
         return "index";
     }
 
+    @GetMapping(path = "/docs")
+    public String docPage() {
+        return "main/docs";
+    }
+
     @GetMapping(path = "/about")
     public String aboutPage() {
         return "main/about";

@@ -9,10 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import cafefashionsociety.structureliteraturemeadow.config.UtilityBeans;
 import cafefashionsociety.structureliteraturemeadow.model.Dossier;
 import cafefashionsociety.structureliteraturemeadow.model.Note;
 import cafefashionsociety.structureliteraturemeadow.model.User;
@@ -22,8 +20,6 @@ import cafefashionsociety.structureliteraturemeadow.service.DossierService;
 import cafefashionsociety.structureliteraturemeadow.service.NoteService;
 import cafefashionsociety.structureliteraturemeadow.service.UserService;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/d")
@@ -40,16 +36,12 @@ public class DossierController {
     @Autowired
     CreateService createService;
 
-    @Autowired
-    UtilityBeans utilityBeans;
-
     @PostMapping(path = "/new", consumes = "application/json", produces = "text/html")
     public String postNewDossier(Model model, Authentication authentication, @ModelAttribute DossierForm form) {
         User user = userService.findByUsername(authentication.getName());
-        String name = form.getName();
-        List<String> noteIdList = form.getNoteIds();
-        Dossier dossier = new Dossier(utilityBeans.createUUIDString(), name, noteIdList);
+        Dossier dossier = form.toDossier();
         createService.addAndSave(dossier, user);
+        LinkedList<String> noteIdList = dossier.getNoteIds();
         List<Note> notes = noteService.findAllById(noteIdList);
         model.addAttribute("dossierName", dossier.getName());
         model.addAttribute("notes", notes);
@@ -58,15 +50,13 @@ public class DossierController {
         return "client/dossier";
     }
 
-    @GetMapping(path = "/d/{pathid}")
-    public String getDossier(Model model, Authentication authentication, @PathVariable String pathid) {
+    @GetMapping(path = "/d/all")
+    public String getAllDossiers(Model model, Authentication authentication) {
         User user = userService.findByUsername(authentication.getName());
-        Dossier dossier = dossierService.getDossierById(pathid);
-        List<Note> notes = noteService.findAllById(dossier.getNoteIds());
-        model.addAttribute("dossierName", dossier.getName());
-        model.addAttribute("notes", notes);
+        LinkedList<Dossier> dossiers = dossierService.findAllById(user.getDossierIds());
+        model.addAttribute("dossiers", dossiers);
         model.addAttribute("user", user);
-        model.addAttribute("title", "Dossier Json Preview");
+        model.addAttribute("title", "All Dossiers");
         return "client/dossier";
     }
 

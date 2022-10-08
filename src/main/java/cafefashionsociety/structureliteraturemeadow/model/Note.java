@@ -1,12 +1,13 @@
 package cafefashionsociety.structureliteraturemeadow.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 
 @RedisHash
-public class Note {
+public class Note implements Serializable {
 
     @Id
     private String id;
@@ -25,7 +26,7 @@ public class Note {
     // New Note
     public Note(String id, String userId, String profileId, LocalDate incidentDate, String title, String what,
             String soWhat, String tags) {
-        this.id = "n"+id;
+        this.id = "n" + id;
         this.userId = userId;
         this.profileId = profileId;
         this.noteCreationDate = LocalDate.now();

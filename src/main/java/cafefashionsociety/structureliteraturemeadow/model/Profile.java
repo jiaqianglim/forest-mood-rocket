@@ -1,7 +1,6 @@
 package cafefashionsociety.structureliteraturemeadow.model;
 
 import java.util.LinkedList;
-import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
@@ -15,7 +14,7 @@ public class Profile {
     private String organisationName;
     private String organisationRole;
     private String profileDescription;
-    private List<String> noteIds;
+    private LinkedList<String> noteIds;
 
     public Profile() {
     }
@@ -33,7 +32,7 @@ public class Profile {
 
     // Full
     public Profile(String id, String displayName, String organisationName,
-            String organisationRole, String profileDescription, List<String> noteIds) {
+            String organisationRole, String profileDescription, LinkedList<String> noteIds) {
         this.id = id;
         this.displayName = displayName;
         this.organisationName = organisationName;
@@ -74,12 +73,21 @@ public class Profile {
         this.organisationRole = organisationRole;
     }
 
-    public List<String> getNoteIds() {
+    public String getProfileDescription() {
+        return profileDescription;
+    }
+
+    public void setProfileDescription(String profileDescription) {
+        this.profileDescription = profileDescription;
+    }
+
+    public LinkedList<String> getNoteIds() {
         return noteIds;
     }
 
-    public void setNoteIds(List<String> noteIds) {
+    public void setNoteIds(LinkedList<String> noteIds) {
         this.noteIds = noteIds;
     }
+
 
 }

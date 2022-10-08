@@ -5,10 +5,12 @@ import java.util.Optional;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import cafefashionsociety.structureliteraturemeadow.model.Quote;
 import cafefashionsociety.structureliteraturemeadow.repository.IQuoteRespoitory;
 
+@Service
 public class QuoteService {
     @Autowired
     IQuoteRespoitory quoteRespoitory;
@@ -34,7 +36,6 @@ public class QuoteService {
                     "Learn to enjoy every minute of your life. Be happy now. Don\'t wait for something outside of yourself to make you happy in the future.",
                     "Earl Nightingal");
         }
-
     }
 
     public void saveAll(LinkedList<Quote> quotes) {

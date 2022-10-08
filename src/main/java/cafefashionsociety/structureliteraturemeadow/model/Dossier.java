@@ -1,19 +1,17 @@
 package cafefashionsociety.structureliteraturemeadow.model;
 
+import java.io.Serializable;
 import java.util.LinkedList;
-import java.util.List;
 
-public class Dossier {
+import org.springframework.data.annotation.Id;
+
+public class Dossier implements Serializable{
+    @Id
     String id;
     String name;
-    List<String> noteIds;
+    LinkedList<String> noteIds;
 
-    public Dossier(String id) {
-        id = "d" + id;
-        noteIds = new LinkedList<>();
-    }
-
-    public Dossier(String id, String name, List<String> noteIds) {
+    public Dossier(String id, String name, LinkedList<String> noteIds) {
         this.id = id;
         this.name = name;
         this.noteIds = noteIds;
@@ -31,11 +29,11 @@ public class Dossier {
         this.name = name;
     }
 
-    public List<String> getNoteIds() {
+    public LinkedList<String> getNoteIds() {
         return noteIds;
     }
 
-    public void setNoteIds(List<String> noteIds) {
+    public void setNoteIds(LinkedList<String> noteIds) {
         this.noteIds = noteIds;
     }
 

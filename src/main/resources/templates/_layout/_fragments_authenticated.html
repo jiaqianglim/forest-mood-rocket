@@ -1,0 +1,39 @@
+<header class="p-1 text-bg-dark">
+  <div class="container">
+    <div
+      class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-between"
+    >
+      <ul
+        class="nav col-12 col-lg-auto me-lg-auto mb-0 justify-content-center mb-md-0"
+      >
+        <li>
+          <a th:href="@{/n/new}" class="nav-link px-2 text-white">New Note</a>
+        </li>
+        <li>
+          <a th:href="@{/n/all}" class="nav-link px-2 text-white">Notes</a>
+        </li>
+        <li>
+          <a th:href="@{/p/all}" class="nav-link px-2 text-white">Profiles</a>
+        </li>
+        <li>
+          <a th:href="@{/d/all}" class="nav-link px-2 text-white"
+            >Share Dossier</a
+          >
+        </li>
+      </ul>
+
+      <div class="text-end">
+        <div class="nav-link px-2 text-success">
+          Hey its good to see you
+          <a th:href="@{/u/view}"><span sec:authentication="name"></span>!</a>
+          <a
+            th:href="@{/logout}"
+            type="button"
+            class="btn btn-outline-light me-2 btn-sm"
+            >Logout</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

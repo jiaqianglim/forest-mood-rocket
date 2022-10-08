@@ -30,8 +30,8 @@ public class UserService {
 
     public void save(User user) {
         iUserRepository.save(user);
-        logger.info("User " + user.getUsername() + " saved");
+        User savedUser = iUserRepository.findByUsername(user.getUsername()).get();
+        logger.info("User " + savedUser.getUsername() + " saved");
     }
-
 
 }

@@ -29,7 +29,7 @@ public class DossierRestController {
 
     @GetMapping(path = "/{dossierid}")
     public ResponseEntity<String> getDossier(@PathVariable(name = "dossierId") String dossierId) {
-        Dossier dossier = dossierService.getDossierById(dossierId);
+        Dossier dossier = dossierService.findDossierById(dossierId);
         LinkedList<Note> notes = (LinkedList<Note>) noteService.findAllById(dossier.getNoteIds());
         JsonObjectBuilder response = Json.createObjectBuilder().add("dossierName", dossier.getName());
         JsonArrayBuilder notesArray = Json.createArrayBuilder();

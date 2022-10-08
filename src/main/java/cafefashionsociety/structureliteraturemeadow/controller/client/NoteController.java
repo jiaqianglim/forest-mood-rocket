@@ -47,7 +47,7 @@ public class NoteController {
         model.addAttribute("allNotes", allNotes);
         model.addAttribute("user", user);
         model.addAttribute("title", "View all notes");
-        return "client/allnotes";
+        return "client/noteall";
     }
 
     @GetMapping(path = "/f")
@@ -58,7 +58,7 @@ public class NoteController {
         model.addAttribute("allNotes", allNotes);
         model.addAttribute("user", user);
         model.addAttribute("title", "View profile notes");
-        return "client/allnotes";
+        return "client/noteall";
     }
 
     @GetMapping(path = "/{pathid}")
@@ -84,7 +84,7 @@ public class NoteController {
         model.addAttribute("user", user);
         model.addAttribute("noteForm", noteForm);
         model.addAttribute("title", "Create a new note");
-        return "client/createnote";
+        return "client/notecreate";
     }
 
     @GetMapping("/clean")
@@ -96,7 +96,7 @@ public class NoteController {
         model.addAttribute("user", user);
         model.addAttribute("noteForm", noteForm);
         model.addAttribute("title", "Create a new note");
-        return "client/createnote";
+        return "client/notecreate";
     }
 
     @PostMapping(path = "/new", consumes = "application/x-www-form-urlencoded", produces = "text/html")
@@ -107,6 +107,6 @@ public class NoteController {
         createService.addAndSave(newNote, profile, user);
         model.addAttribute("user", user);
         model.addAttribute("title", "All notes");
-        return "client/allnotes";
+        return "client/noteall";
     }
 }

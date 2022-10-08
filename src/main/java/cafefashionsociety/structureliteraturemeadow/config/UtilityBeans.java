@@ -2,16 +2,16 @@ package cafefashionsociety.structureliteraturemeadow.config;
 
 import java.util.UUID;
 
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-@Configuration
 public class UtilityBeans {
+    public Logger logger = LoggerFactory.getLogger(UtilityBeans.class);
 
-    @Bean
     public String createUUIDString() {
-        return UUID.randomUUID().toString();
+        String uuid = UUID.randomUUID().toString();
+        logger.info("New uuid: " + uuid);
+        return uuid;
     }
-
 
 }

@@ -6,6 +6,7 @@ import java.util.LinkedList;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
+import org.springframework.data.redis.core.index.Indexed;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,6 +16,7 @@ public class User implements UserDetails {
 
     @Id
     private String id;
+    @Indexed
     private String username;
     private String password;
     private String firstName;
@@ -74,75 +76,84 @@ public class User implements UserDetails {
         return id;
     }
 
-    @Override
-    public String getUsername() {
-        return username;
-    }
-
-    @Override
-    public String getPassword() {
-        return password;
-    }
-
-    public String getUserEmail() {
-        return userEmail;
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authorities;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return isAccountNonExpired;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return isAccountNonLocked;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return isCredentialsNonExpired;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return isEnabled;
-    }
-
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
     }
 
     public void setUsername(String username) {
         this.username = username;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
     }
 
     public void setUserEmail(String userEmail) {
         this.userEmail = userEmail;
     }
 
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return authorities;
+    }
+
     public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
         this.authorities = authorities;
+    }
+
+    public boolean isAccountNonExpired() {
+        return isAccountNonExpired;
     }
 
     public void setAccountNonExpired(boolean isAccountNonExpired) {
         this.isAccountNonExpired = isAccountNonExpired;
     }
 
+    public boolean isAccountNonLocked() {
+        return isAccountNonLocked;
+    }
+
     public void setAccountNonLocked(boolean isAccountNonLocked) {
         this.isAccountNonLocked = isAccountNonLocked;
     }
 
+    public boolean isCredentialsNonExpired() {
+        return isCredentialsNonExpired;
+    }
+
     public void setCredentialsNonExpired(boolean isCredentialsNonExpired) {
         this.isCredentialsNonExpired = isCredentialsNonExpired;
+    }
+
+    public boolean isEnabled() {
+        return isEnabled;
     }
 
     public void setEnabled(boolean isEnabled) {
@@ -163,22 +174,6 @@ public class User implements UserDetails {
 
     public void setNoteIds(LinkedList<String> noteIds) {
         this.noteIds = noteIds;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public LinkedList<String> getDossierIds() {

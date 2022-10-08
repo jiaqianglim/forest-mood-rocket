@@ -5,11 +5,17 @@
   xmlns:th="http://www.thymeleaf.org"
   xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
 >
-  <head th:replace="_layout/_fragments.html::head"></head>
+  <head th:replace="_layout/_fragments_head.html::head"></head>
   <body>
-    <div sec:authorize="isAnonymous()" th:replace="_layout/_fragments.html::headerA"></div>
-    <div sec:authorize="isAuthenticated()" th:replace="_layout/_fragments.html::headerB"></div>
+    <div
+      sec:authorize="isAnonymous()"
+      th:replace="_layout/_fragments_landing.html::header"
+    ></div>
+    <div
+      sec:authorize="isAuthenticated()"
+      th:replace="_layout/_fragments_authenticated.html::header"
+    ></div>
     <div th:replace="${view} :: content"></div>
-    <div th:replace="_layout/_fragments.html::footer"></div>
+    <div th:replace="_layout/_fragments_footer.html::footer"></div>
   </body>
 </html>

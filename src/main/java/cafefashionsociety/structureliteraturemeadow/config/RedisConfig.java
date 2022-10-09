@@ -29,7 +29,7 @@ public class RedisConfig {
     @Value("${spring.redis.port}")
     private Optional<Integer> redisPort;
 
-    @Value("${redispassword}")
+    @Value("${spring.redis.password}")
     private String redisPassword = System.getenv("redispassword");
 
     @Bean

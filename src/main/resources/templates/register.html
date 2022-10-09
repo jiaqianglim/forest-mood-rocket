@@ -10,11 +10,13 @@
     <main th:fragment="content">
       <div class="container">
         <div class="row mx-auto p-3 py-md-5">
-          <div class="col-8"><img src="/Register.jpg" class="img-fluid" /></div>
-          <div class="col-4">
-            <br />
-            <h1 class="bd-title mt-0">Hello there new friend!</h1>
+          <div class="col-8">
+            <img src="/Register.jpg" class="img-fluid" />
+          </div>
+          <div class="col-4 border border-dark rounded">
             <form th:action="@{/register}" id="registerForm" method="post">
+              <br />
+              <h1 class="bd-title mt-0">Well Hello there!</h1>
               <label for="username" class="form-label">Username: </label>
               <input
                 type="text"

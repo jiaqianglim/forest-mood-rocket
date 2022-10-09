@@ -16,4 +16,38 @@ public class ProfileForm {
                 profileDescription);
     }
 
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
+    public String getOrganisationName() {
+        return organisationName;
+    }
+
+    public void setOrganisationName(String organisationName) {
+        this.organisationName = organisationName;
+    }
+
+    public String getOrganisationRole() {
+        return organisationRole;
+    }
+
+    public void setOrganisationRole(String organisationRole) {
+        this.organisationRole = organisationRole;
+    }
+
+    public String getProfileDescription() {
+        return profileDescription;
+    }
+
+    public void setProfileDescription(String profileDescription) {
+        this.profileDescription = profileDescription;
+    }
+
+    
+
 }

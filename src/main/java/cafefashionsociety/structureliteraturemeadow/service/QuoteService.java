@@ -37,7 +37,7 @@ public class QuoteService {
         Random r = new Random();
         try {
             Optional<Quote> opt = quoteRespository.findById("q" + String.valueOf(r.nextInt(50)));
-            if (opt.isPresent()) {
+            if (!opt.isPresent()) {
                 return new Quote("q1",
                         "Learn to enjoy every minute of your life. Be happy now. Don\'t wait for something outside of yourself to make you happy in the future.",
                         "Earl Nightingal");
@@ -47,8 +47,8 @@ public class QuoteService {
 
         } catch (Exception e) {
             return new Quote("q1",
-                    "Decide what your truth is. Then live it.",
-                    "Kamal Ravikant");
+                    "Quote Error",
+                    "Placeholder");
         }
     }
 

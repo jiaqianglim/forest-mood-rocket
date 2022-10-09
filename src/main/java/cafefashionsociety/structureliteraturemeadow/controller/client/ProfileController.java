@@ -79,7 +79,7 @@ public class ProfileController {
         model.addAttribute("user", user);
         model.addAttribute("profileForm", profileForm);
         model.addAttribute("title", "Create a new note");
-        return "client/createprofile";
+        return "client/profilecreate";
     }
 
     @PostMapping(path = "/new", consumes = "application/x-www-form-urlencoded", produces = "text/html")
@@ -91,6 +91,6 @@ public class ProfileController {
         createService.addAndSave(newProfile, userList);
         model.addAttribute("user", user);
         model.addAttribute("title", "All profiles");
-        return "client/allprofiles";
+        return "client/profilesall";
     }
 }

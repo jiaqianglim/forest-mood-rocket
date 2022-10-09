@@ -28,8 +28,8 @@ public class RedisConfigDev {
     @Value("${spring.redis.port}")
     private Optional<Integer> redisPort;
 
-    @Value("${REDIS_PASSWORD}")
-    private String redisPassword = System.getenv("REDIS_PASSWORD");
+    @Value("${spring.redis.password}")
+    private String redisPassword;
 
     @Scope("singleton")
     public RedisTemplate<String, Object> redisTemplate() {

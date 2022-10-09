@@ -126,8 +126,8 @@ public class StartupConfig implements CommandLineRunner {
 
                 logger.info("Test cases inserted into DB");
 
-                // quoteRestRequest.NewQuoteRequest();
-                quoteRestRequest.LocalNewRequest();
+                quoteRestRequest.NewQuoteRequest();
+                // quoteRestRequest.LocalNewRequest();
 
         }
 

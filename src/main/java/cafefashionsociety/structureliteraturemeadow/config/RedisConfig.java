@@ -29,8 +29,8 @@ public class RedisConfig {
     @Value("${spring.redis.port}")
     private Optional<Integer> redisPort;
 
-    @Value("${spring.redis.password}")
-    private String redisPassword = System.getenv("redispassword");
+    @Value("${REDIS_PASSWORD}")
+    private String redisPassword = System.getenv("REDIS_PASSWORD");
 
     @Bean
     @Scope("singleton")
@@ -47,7 +47,7 @@ public class RedisConfig {
         logger.info("redis host port > {redisHost} {redisPort}", redisHost,
                 redisPort);
 
-        final RedisTemplate<String, Object> template = new RedisTemplate<String, Object>();
+        RedisTemplate<String, Object> template = new RedisTemplate<String, Object>();
         RedisSerializer<Object> serializer = new JdkSerializationRedisSerializer(getClass().getClassLoader());
         template.setConnectionFactory(jedisFac);
         template.setKeySerializer(new StringRedisSerializer());

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <main th:fragment="content">
+      <div class="col-lg-8 mx-auto p-3 py-md-5">
+        <h1>Create a new dossier</h1>
+        <form
+          th:action="@{/d/new}"
+          method="post"
+          class="col-lg-8 mx-auto p-3 py-md-5"
+          th:object="${dossierForm}"
+        >
+          <label for="dossierName" class="form-label">Dossier Name:</label>
+          <input type="text" th:field="*{dossierName}" id="dossierName" />
+          <table>
+            <tr class="table-primary">
+              <th class="col-2">Date</th>
+              <th class="col-5">Title</th>
+              <th class="col-3">Tags</th>
+              <th class="col-2">Add to dossier</th>
+            </tr>
+            <tr th:each="note : ${notes}">
+              <td th:text="${note.incidentDate}"></td>
+              <td th:text="${note.title}"></td>
+              <td th:text="${note.tags}"></td>
+              <td>
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  th:value="${note.id}"
+                  th:field="*{noteIds}"
+                  id="${note.id}"
+                />
+              </td>
+            </tr>
+          </table>
+          <button class="btn btn-primary" type="submit">Create</button>
+        </form>
+      </div>
+    </main>
+  </body>
+</html>

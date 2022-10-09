@@ -16,22 +16,29 @@
           <a th:href="@{/p/all}" class="nav-link px-2 text-white">Profiles</a>
         </li>
         <li>
-          <a th:href="@{/d/all}" class="nav-link px-2 text-white"
-            >Share Dossier</a
-          >
+          <a th:href="@{/d/all}" class="nav-link px-2 text-white">Dossiers</a>
         </li>
       </ul>
 
       <div class="text-end">
-        <div class="nav-link px-2 text-success">
-          Hey its good to see you
-          <a th:href="@{/u/view}"><span sec:authentication="name"></span>!</a>
-          <a
-            th:href="@{/logout}"
-            type="button"
-            class="btn btn-outline-light me-2 btn-sm"
-            >Logout</a
-          >
+        <div class="nav-link px-2 text-light">
+          <ul class="nav col-12 col-lg-auto me-lg-auto mb-0 justify-content-center mb-md-0">
+            <li class="px-2">
+            Hey its good to see you
+            <a th:href="@{/u/view}" type="button" class="btn btn-success me-2 btn-sm"
+              ><span sec:authentication="name"></span></a
+            >!
+            </li>
+            <li class="px-2">
+              <a
+              th:href="@{/logout}"
+              type="button"
+              class="btn btn-outline-light me-2 btn-sm"
+              >Logout</a
+            >
+            </li>
+          </ul>
+          </div>
         </div>
       </div>
     </div>

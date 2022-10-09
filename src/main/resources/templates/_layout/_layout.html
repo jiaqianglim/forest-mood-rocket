@@ -4,9 +4,10 @@
   xmlns="http://www.w3.org/1999/xhtml"
   xmlns:th="http://www.thymeleaf.org"
   xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+  class="h-100"
 >
   <head th:replace="_layout/_fragments_head.html::head"></head>
-  <body>
+  <body class="d-flex flex-column h-100">
     <div
       sec:authorize="isAnonymous()"
       th:replace="_layout/_fragments_landing.html::header"

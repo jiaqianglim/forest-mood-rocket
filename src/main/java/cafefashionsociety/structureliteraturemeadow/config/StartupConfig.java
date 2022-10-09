@@ -13,6 +13,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import cafefashionsociety.structureliteraturemeadow.model.Profile;
+import cafefashionsociety.structureliteraturemeadow.controller.apicontroller.QuoteRestRequest;
 import cafefashionsociety.structureliteraturemeadow.model.Dossier;
 import cafefashionsociety.structureliteraturemeadow.model.Note;
 import cafefashionsociety.structureliteraturemeadow.model.User;
@@ -45,6 +46,9 @@ public class StartupConfig implements CommandLineRunner {
         @Autowired
         RedisTemplate redisTemplate;
 
+        @Autowired
+        QuoteRestRequest quoteRestRequest;
+
         @Override
         public void run(String... args) throws Exception {
 
@@ -65,14 +69,10 @@ public class StartupConfig implements CommandLineRunner {
                                 "My Personal Profile", "MyTestOrg", "MyTestRole", "MyTestProfileDescription");
                 createService.addAndSave(testProfile, testUserLists);
 
-                logger.info(testUserLists.getProfileIds().toString());
-
                 utilityBeans = new UtilityBeans();
                 Profile testWorkProfile = new Profile(utilityBeans.createUUIDString(),
                                 "Bill Bezos, Gimble", "Gimble Inc", "General Manager", "2017-2020 job");
                 createService.addAndSave(testWorkProfile, testUserLists);
-
-                logger.info(testUserLists.getProfileIds().toString());
 
                 utilityBeans = new UtilityBeans();
                 Note testNote = new Note(utilityBeans.createUUIDString(),
@@ -81,9 +81,6 @@ public class StartupConfig implements CommandLineRunner {
                                 "I created a new sample note!", "I made my first step in learning!",
                                 "Excited");
                 createService.addAndSave(testNote, testProfile, testUserLists);
-
-                logger.info(testUserLists.getProfileIds().toString());
-                logger.info(testUserLists.getNoteIds().toString());
 
                 utilityBeans = new UtilityBeans();
                 Note testNote1 = new Note(utilityBeans.createUUIDString(),
@@ -95,9 +92,6 @@ public class StartupConfig implements CommandLineRunner {
 
                 createService.addAndSave(testNote1, testWorkProfile, testUserLists);
 
-                logger.info(testUserLists.getProfileIds().toString());
-                logger.info(testUserLists.getNoteIds().toString());
-
                 utilityBeans = new UtilityBeans();
                 Note testNote2 = new Note(utilityBeans.createUUIDString(),
                                 testUser.getUsername(), testProfile.getId(),
@@ -108,9 +102,6 @@ public class StartupConfig implements CommandLineRunner {
 
                 createService.addAndSave(testNote2, testWorkProfile, testUserLists);
 
-                logger.info(testUserLists.getProfileIds().toString());
-                logger.info(testUserLists.getNoteIds().toString());
-
                 utilityBeans = new UtilityBeans();
                 Note testNote3 = new Note(utilityBeans.createUUIDString(),
                                 testUser.getUsername(), testProfile.getId(),
@@ -119,9 +110,6 @@ public class StartupConfig implements CommandLineRunner {
                                 "Great Disappointment");
 
                 createService.addAndSave(testNote3, testWorkProfile, testUserLists);
-
-                logger.info(testUserLists.getProfileIds().toString());
-                logger.info(testUserLists.getNoteIds().toString());
 
                 List<String> noteIds = new LinkedList<>();
                 noteIds.add(0, testNote1.getId());
@@ -134,9 +122,12 @@ public class StartupConfig implements CommandLineRunner {
 
                 createService.addAndSave(testdossier, testUserLists);
 
-                logger.info(testUserLists.getDossierIds().toString());
+                logger.info(testdossier.getId());
 
                 logger.info("Test cases inserted into DB");
+
+                // quoteRestRequest.NewQuoteRequest();
+                quoteRestRequest.LocalNewRequest();
 
         }
 

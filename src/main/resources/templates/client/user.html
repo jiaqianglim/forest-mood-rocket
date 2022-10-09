@@ -9,8 +9,8 @@
   </head>
   <body>
     <main th:fragment="content">
-      <h1 class="bd-title mt-0">Your account details</h1>
       <div class="container">
+        <h1 class="bd-title mt-0">Your account details</h1>
         <div class="row">
           <div class="col-4">Username:</div>
           <div class="col-8"><span th:text="${user.username}"></span></div>
@@ -28,26 +28,36 @@
           <div class="col-8"><span th:text="${user.userEmail}"></span></div>
         </div>
         <div class="row">
-          <div class="col-4">No. of Profiles:</div>
+          <div class="col-4">No. of Notes:</div>
           <div class="col-8">
-            <span th:text="${#lists.size(user.profileIds)}"></span>
+            <span th:text="${#lists.size(userList.noteIds)}"></span>
           </div>
         </div>
         <div class="row">
-          <div class="col-4">No. of Notes:</div>
+          <div class="col-4">No. of Profiles:</div>
           <div class="col-8">
-            <span th:text="${#lists.size(user.noteIds)"></span>
+            <span th:text="${#lists.size(userList.profileIds)}"></span>
           </div>
         </div>
         <div class="row">
           <div class="col-4">No. of Dossiers:</div>
           <div class="col-8">
-            <span th:text="${#lists.size(user.dossierIds)"></span>
+            <span th:text="${#lists.size(userList.dossierIds)}"></span>
           </div>
         </div>
       </div>
-      <div th:text="${quote.text}"></div>
-      <div th:text="${quote.quoteauthor}"></div>
+      <div
+        class="alert alert-secondary alert-dismissible fade show"
+        role="alert"
+      >
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="alert"
+          aria-label="Close"
+        ></button>
+        <div th:text="${quote.quotetext}+' ~ '+ ${quote.quoteauthor}"></div>
+      </div>
     </main>
   </body>
 </html>

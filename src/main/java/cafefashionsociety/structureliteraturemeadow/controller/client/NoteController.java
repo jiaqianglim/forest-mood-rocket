@@ -21,7 +21,6 @@ import cafefashionsociety.structureliteraturemeadow.model.Profile;
 import cafefashionsociety.structureliteraturemeadow.model.Note;
 import cafefashionsociety.structureliteraturemeadow.model.User;
 import cafefashionsociety.structureliteraturemeadow.model.UserList;
-import cafefashionsociety.structureliteraturemeadow.model.forms.DossierForm;
 import cafefashionsociety.structureliteraturemeadow.model.forms.NoteForm;
 import cafefashionsociety.structureliteraturemeadow.service.ProfileService;
 import cafefashionsociety.structureliteraturemeadow.service.UserListService;
@@ -53,11 +52,8 @@ public class NoteController {
 
     @GetMapping("/all") // Done
     public String allNotesPage(Model model, Authentication authentication) {
-        logger.info(authentication.getName());
         User user = userService.findByUsername(authentication.getName());
-        logger.info(user.getUsername());
         UserList userList = userListService.findById("l" + user.getUsername());
-        logger.info(userList.getId());
         List<Note> notes = noteService.findAllById(userList.getNoteIds());
         model.addAttribute("notes", notes);
         model.addAttribute("user", user);
@@ -77,7 +73,7 @@ public class NoteController {
         return "client/notesall";
     }
 
-    @GetMapping(path = "/{pathid}")
+    @GetMapping(path = "/{pathid}") // Done
     public String noteInfoPage(@PathVariable(required = true) String pathid,
             Model model, Authentication authentication) {
         User user = userService.findByUsername(authentication.getName());
@@ -104,16 +100,19 @@ public class NoteController {
         return "client/notecreate";
     }
 
-    @GetMapping("/clean")
-    public String createCleanNotePage(Model model, Authentication authentication, @RequestParam String pathid) {
+    @GetMapping("/clean/{pathid}")
+    public String createCleanNotePage(Model model, Authentication authentication,
+            @PathVariable(required = true) String pathid) {
         User user = userService.findByUsername(authentication.getName());
         NoteForm noteForm = new NoteForm();
-        Note note = noteService.findById(pathid);
-        model.addAttribute("oldNote", note);
+        Note oldNote = noteService.findById(pathid);
+        Profile oldProfile = profileService.findById(oldNote.getProfileId());
+        model.addAttribute("oldNote", oldNote);
+        model.addAttribute("oldProfile", oldProfile);
         model.addAttribute("user", user);
         model.addAttribute("noteForm", noteForm);
-        model.addAttribute("title", "Create a new note");
-        return "client/notecreate";
+        model.addAttribute("title", "Clean an old note");
+        return "client/notesani";
     }
 
     // Done

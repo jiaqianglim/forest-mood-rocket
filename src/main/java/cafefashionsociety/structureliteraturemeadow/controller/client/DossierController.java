@@ -2,14 +2,16 @@ package cafefashionsociety.structureliteraturemeadow.controller.client;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import cafefashionsociety.structureliteraturemeadow.config.Layout;
 import cafefashionsociety.structureliteraturemeadow.model.Dossier;
 import cafefashionsociety.structureliteraturemeadow.model.Note;
 import cafefashionsociety.structureliteraturemeadow.model.User;
@@ -22,9 +24,13 @@ import cafefashionsociety.structureliteraturemeadow.service.UserListService;
 import cafefashionsociety.structureliteraturemeadow.service.UserService;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+@Layout
 @Controller
 @RequestMapping("/d")
 public class DossierController {
+
+    Logger logger = LoggerFactory.getLogger(DossierController.class);
+
     @Autowired
     UserService userService;
 
@@ -40,22 +46,36 @@ public class DossierController {
     @Autowired
     CreateService createService;
 
-    @PostMapping(path = "/new", consumes = "application/json", produces = "text/html")
-    public String postNewDossier(Model model, Authentication authentication, @ModelAttribute DossierForm form) {
+    @GetMapping("/new")
+    public String createNewDossier(Model model, Authentication authentication) {
         User user = userService.findByUsername(authentication.getName());
-        Dossier dossier = form.toDossier();
-        UserList userlist = userListService.findById("l" + user.getUsername());
-        createService.addAndSave(dossier, userlist);
-        List<String> noteIdList = dossier.getNoteIds();
-        List<Note> notes = noteService.findAllById(noteIdList);
-        model.addAttribute("dossierName", dossier.getName());
+        UserList userList = userListService.findById("l" + user.getUsername());
+        List<Note> notes = noteService.findAllById(userList.getNoteIds());
+        DossierForm dossierForm = new DossierForm();
+        model.addAttribute("dossierForm", dossierForm);
         model.addAttribute("notes", notes);
         model.addAttribute("user", user);
-        model.addAttribute("title", "Dossier Json Preview");
-        return "client/dossier";
+        model.addAttribute("title", "Create a new dossier");
+        return "client/dossiernew";
     }
 
-    @GetMapping(path = "/d/all")
+    @PostMapping("/new")
+    public String postNewDossier(Model model, Authentication authentication, DossierForm form) {
+        User user = userService.findByUsername(authentication.getName());
+        Dossier dossier = form.toDossier();
+        UserList userList = userListService.findById("l" + user.getUsername());
+        createService.addAndSave(dossier, userList);
+        logger.info("dossier saved");
+        user = userService.findByUsername(authentication.getName());
+        userList = userListService.findById("l" + user.getUsername());
+        List<Dossier> dossiers = dossierService.findAllById(userList.getDossierIds());
+        model.addAttribute("dossiers", dossiers);
+        model.addAttribute("user", user);
+        model.addAttribute("title", "All Dossiers");
+        return "client/dossierall";
+    }
+
+    @GetMapping(path = "/all")
     public String getAllDossiers(Model model, Authentication authentication) {
         User user = userService.findByUsername(authentication.getName());
         UserList userList = userListService.findById("l" + user.getUsername());
@@ -63,7 +83,7 @@ public class DossierController {
         model.addAttribute("dossiers", dossiers);
         model.addAttribute("user", user);
         model.addAttribute("title", "All Dossiers");
-        return "client/dossier";
+        return "client/dossierall";
     }
 
 }

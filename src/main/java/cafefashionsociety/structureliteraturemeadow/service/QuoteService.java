@@ -8,38 +8,52 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cafefashionsociety.structureliteraturemeadow.model.Quote;
-import cafefashionsociety.structureliteraturemeadow.repository.QuoteRespoitory;
+import cafefashionsociety.structureliteraturemeadow.repository.QuoteRespository;
 
 @Service
 public class QuoteService {
     @Autowired
-    QuoteRespoitory quoteRespoitory;
+    QuoteRespository quoteRespository;
 
     public Quote getQuoteById(String id) {
-        Optional opt = quoteRespoitory.findById(id);
-        if (!opt.isEmpty()) {
-            return (Quote) opt.get();
-        } else {
+        try {
+            Optional<Quote> opt = quoteRespository.findById("q" + id);
+            if (opt.isPresent()) {
+                return new Quote("q1",
+                        "Learn to enjoy every minute of your life. Be happy now. Don\'t wait for something outside of yourself to make you happy in the future.",
+                        "Earl Nightingal");
+            } else {
+                return opt.get();
+            }
+
+        } catch (Exception e) {
             return new Quote("q1",
-                    "Learn to enjoy every minute of your life. Be happy now. Don\'t wait for something outside of yourself to make you happy in the future.",
-                    "Earl Nightingal");
+                    "People will forget what you said, people will forget what you did, but people will never forget how you made them feel.",
+                    "Maya Angelou");
         }
     }
 
     public Quote getRandomQuote() {
         Random r = new Random();
-        Optional opt = quoteRespoitory.findById("q" + String.valueOf(r.nextInt(50)));
-        if (!opt.isEmpty()) {
-            return (Quote) opt.get();
-        } else {
+        try {
+            Optional<Quote> opt = quoteRespository.findById("q" + String.valueOf(r.nextInt(50)));
+            if (opt.isPresent()) {
+                return new Quote("q1",
+                        "Learn to enjoy every minute of your life. Be happy now. Don\'t wait for something outside of yourself to make you happy in the future.",
+                        "Earl Nightingal");
+            } else {
+                return opt.get();
+            }
+
+        } catch (Exception e) {
             return new Quote("q1",
-                    "Learn to enjoy every minute of your life. Be happy now. Don\'t wait for something outside of yourself to make you happy in the future.",
-                    "Earl Nightingal");
+                    "Decide what your truth is. Then live it.",
+                    "Kamal Ravikant");
         }
     }
 
     public void saveAll(LinkedList<Quote> quotes) {
-        quoteRespoitory.saveAll(quotes);
+        quoteRespository.saveAll(quotes);
     }
 
 }

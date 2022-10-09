@@ -10,7 +10,7 @@
     <main th:fragment="content">
       <div class="col-lg-8 mx-auto p-3 py-md-5">
         <table class="table">
-          <tr class="table-primary">
+          <tr class="table-dark">
             <td>Title:</td>
             <td th:text="${note.title}"></th>
           </tr>
@@ -31,7 +31,7 @@
             <td th:text="${note.tags}"></td>
           </tr>
         </table>
-        <a type="button" class="btn btn-primary" th:href="@{'/n/dup/'+${note.id}}">Duplicate & Sanitize</a>
+        <a type="button" class="btn btn-primary" th:href="@{'/n/clean/'+${note.id}}">Sanitize</a>
       </div>
     </main>
   </body>

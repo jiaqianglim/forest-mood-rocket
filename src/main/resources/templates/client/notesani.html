@@ -1,117 +1,105 @@
 <!DOCTYPE html>
-<html lang="en">
+<html
+  lang="en"
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org"
+>
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
   </head>
   <body>
     <main th:fragment="content">
-      <form
-        th:action="@{/n/new}"
-        method="post"
-        class="col-lg-12 mx-auto p-3 py-md-5"
-        th:object="${noteForm}"
-      >
-        <h1>
-          Hey <span th:text="${user.username}"></span>, clean old notes up for
-          sharing!
-        </h1>
-        <h3>Cleaned note is saved as a new note</h3>
-        <input
-          type="text"
-          th:value="${user.id}"
-          th:field="*{userAccId}"
-          hidden
-        />
-        <div class="mb-0">
-          <div class="row mb-0">
-            <div class="col-3">
-              <label>Profile</label>
-              <label th:text="${oldNote.profileId}"></label>
-            </div>
-            <div class="col-3">
-              <label for="profile" class="form-label"
-                >Choose a profile to save the cleaned note in:</label
-              >
-              <select class="form-select" th:field="*{profileId}" required>
-                <option
-                  th:each="profile : ${user.profileIdsAndName}"
-                  th:value="${profile.key}"
-                  th:text="${profile.value}"
-                ></option>
-              </select>
+      <form th:action="@{/n/new}" method="post" class="col-lg-8 mx-auto p-3 py-md-5" th:object="${noteForm}">
+        <h1>Hey <span th:text="${user.username}" ></span>, clean up an old note!</h1>
+        <input type="text" th:value="${user.username}" th:field="*{username}" hidden>
+          <div class="row mb-3">
+            <div class="col-6 text-danger">
+              <div>Profile: </div>
+              <div th:text="${oldProfile.displayName}"></div>
             </div>
             <div class="col-6">
-              <label for="incidentDate" class="form-label"
-                >Date of Incident: </label
-              ><br />
+              <label for="profile" class="form-label">Choose a profile to save the note in:</label><br>
+              <select class="form-select" th:field="*{profileId}" required>
+                <option th:each="profile : ${profiles}"
+                        th:value="${profile.id}"
+                        th:text="${profile.displayName}"></option>
+                <option th:value="${oldProfile.id}" selected><span th:text="${oldProfile.displayName}"></span></option>
+                </select>
+            </div>
+          </div>  
+          <div class="row mb-3">
+            <div class="col-6 text-danger">
+              <label for="incidentDate" class="form-label">Date On Note: </label><br>  
+              <span th:text="${oldNote.incidentDate}"><br>
+            </div>    
+            <div class="col-6">
+              <label for="incidentDate" class="form-label">Date of Incident: </label><br>  
+              <input type="date" class="form-control" th:field="*{incidentDate}" th:value="${oldNote.incidentDate}" required><br>
+            </div>    
+          </div>          
+          <div class="row mb-3">
+            <div class="col-6 text-danger">
+              <label for="notetitle" class="form-label">Old Title:</label><br>  
+              <span th:text="${oldNote.title}">
+            </div>
+            <div class="col-6">
+              <label for="notetitle" class="form-label">New Title:</label>
               <input
-                type="date"
+                type="text"
                 class="form-control"
-                th:field="*{incidentDate}"
+                id="notetitle"
+                th:value="${oldNote.title}"
+                th:field="*{title}"
                 required
-              /><br />
+              />
+            </div>
+          </div>  
+          <div class="row mb-3">
+            <div class="col-6 text-danger">
+              <label for="what" class="form-label">Old Description:</label><br>
+              <span th:text="${oldNote.what}"></span>
+            </div>
+            <div class="col-6">
+              <label for="what" class="form-label">New Description:</label>
+              <textarea
+                class="form-control"
+                id="what"
+                rows="3"
+                th:value="${oldNote.what}"
+                th:field="*{what}"
+                required
+              ></textarea>
             </div>
           </div>
-        </div>
-        <div class="mb-3">
-          <label for="notetitle" class="form-label">Title</label>
-          <div class="col-6">
-            <div th:text="${oldNote.title}"></div>
+          <div class="row mb-3 ">
+            <div class="col-6 text-danger">
+              <label for="soWhat" class="form-label">Old Feelings</label><br>
+              <span th:text="${oldNote.soWhat}"></span>
+            </div>
+            <div class="col-6">
+              <label for="soWhat" class="form-label">How do I feel about this?</label>
+              <textarea
+                class="form-control"
+                id="soWhat"
+                rows="3"
+                th:field="*{soWhat}"
+                th:value="${oldNote.soWhat}"
+              ></textarea>
+            </div>
           </div>
-          <div class="col-6">
-            <input
-              type="text"
-              class="form-control"
-              id="notetitle"
-              placeholder="Use a short title"
-              th:field="*{title}"
-              required
-            />
+          <div class="row mb-3">
+            <div class="col-6 text-danger">
+              <label for="tags" class="form-label">Tags</label></br>
+              <span th:text="${oldNote.tags}"></span>
+            </div>
+            <div class="col-6">
+              <label for="tags" class="form-label">Tags</label></br>
+              <input type="text" id="tags" class="form-control" th:field="*{tags}" th:value="${oldNote.tags}">
+            </div>
           </div>
-          <label for="what" class="form-label"
-            >Describe what happened during this incident:</label
-          >
-          <div class="col-6"></div>
-          <div class="col-6">
-            <textarea
-              class="form-control"
-              id="what"
-              rows="3"
-              placeholder="This happened..."
-              required
-            ></textarea>
-          </div>
-          <label for="what" class="form-label">How do I feel about this?</label>
-          <div class="col-6">
-            <div th:text="${oldNote.soWhat}"></div>
-          </div>
-          <div class="col-6">
-            <textarea
-              class="form-control"
-              id="what"
-              rows="3"
-              placeholder="I am..."
-            ></textarea>
-          </div>
-          <label for="tags" class="form-label">Tags</label>
-          <div class="col-6">
-            <div th:text="${oldNote.tags}"></div>
-          </div>
-          <div class="col-6">
-            <input
-              type="text"
-              id="tags"
-              class="form-control"
-              placeholder="Add any tags here"
-            />
-          </div>
-        </div>
-        <button type="submit" class="btn btn-primary">
-          Submit Cleaned Note
-        </button>
+        <button type="submit" class="btn btn-dark position-absolute start-50">Submit new note</button>
       </form>
     </main>
   </body>

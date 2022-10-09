@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import cafefashionsociety.structureliteraturemeadow.model.Quote;
 
 @Repository
-public class QuoteRespoitory {
+public class QuoteRespository {
 
     @Autowired
     RedisTemplate redisTemplate;
@@ -23,9 +23,8 @@ public class QuoteRespoitory {
         }
     }
 
-    @Cacheable
     public Optional<Quote> findById(String id) {
-        return Optional.ofNullable((Quote) redisTemplate.opsForValue().get(id));
+        return Optional.of((Quote) redisTemplate.opsForValue().get(id));
     }
 
 }

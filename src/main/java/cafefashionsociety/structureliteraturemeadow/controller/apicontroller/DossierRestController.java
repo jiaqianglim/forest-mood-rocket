@@ -1,4 +1,4 @@
-package cafefashionsociety.structureliteraturemeadow.apicontroller;
+package cafefashionsociety.structureliteraturemeadow.controller.apicontroller;
 
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,14 +20,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @RestController
-@RequestMapping(value = "/api", produces = "application/json")
+@RequestMapping(path = "/api/d")
 public class DossierRestController {
     @Autowired
     DossierService dossierService;
     @Autowired
     NoteService noteService;
 
-    @GetMapping(path = "/{dossierid}")
+    @GetMapping(path = "/{dossierId}", produces = "application/json")
     public ResponseEntity<String> getDossier(@PathVariable(name = "dossierId") String dossierId) {
         Dossier dossier = dossierService.findById(dossierId);
         List<Note> notes = (List<Note>) noteService.findAllById(dossier.getNoteIds());
@@ -36,7 +36,8 @@ public class DossierRestController {
         for (Note note : notes) {
             JsonObjectBuilder noteJson = Json.createObjectBuilder()
                     .add("incidentDate", note.getIncidentDate())
-                    .add("title", note.getTitle()).add("what", note.getWhat()).add("soWhat", note.getSoWhat());
+                    .add("title", note.getTitle()).add("what", note.getWhat()).add("soWhat", note.getSoWhat())
+                    .add("tags", note.getTags());
             notesArray.add(noteJson);
         }
         response.add("notes", notesArray);

@@ -14,8 +14,9 @@
         <table>
           <tr class="table-primary">
             <th class="col-2">Date</th>
-            <th class="col-7">Title</th>
+            <th class="col-5">Title</th>
             <th class="col-3">Tags</th>
+            <th class="col-2"></th>
           </tr>
           <tr th:each="note : ${notes}">
             <td th:text="${note.incidentDate}"></td>
@@ -25,6 +26,14 @@
               ></a>
             </td>
             <td th:text="${note.tags}"></td>
+            <td>
+              <a
+                type="button"
+                class="btn btn-info"
+                th:href="@{'/n/clean/'+${note.id}}"
+                >Sanitize</a
+              >
+            </td>
           </tr>
         </table>
       </div>

@@ -44,7 +44,6 @@ public class QuoteRestRequest {
             for (int i = 0; i < quoteArray.size(); i++) {
                 JsonObject o = quoteArray.getJsonObject(i);
                 Quote newquote = new Quote("q" + String.valueOf(i), o.getString("q"), o.getString("a"));
-                logger.info(newquote.getQuotetext());
                 quotes.add(newquote);
             }
             logger.info("quotes added");

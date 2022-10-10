@@ -1,5 +1,8 @@
 <main th:fragment="content">
   <div class="row mx-auto p-3 py-md-5 col-8">
     <img src="/MiniProject.jpg" class="img-fluid" />
+    <div>
+      <span th:text="${quote.quotetext}"></span> ~ <span th:text="${quote.quoteauthor}"></span>
+    </div>
   </div>
 </main>
